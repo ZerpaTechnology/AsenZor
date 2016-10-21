@@ -19,19 +19,48 @@ try:
 	#--------------------------------------------------
 	if control!="default":
 		if version == "produccion":
-			print '<meta http-equiv="Refresh" content="0;url='+config.base_root+config.apps_url+app+"controles/"+control+'/'+vista+'/">'
-	
-	else:
-		print version
-		if version=="produccion":
-			if vista!="index":
-				print "diferente"
+			print "diferente"
+			
+			f=open(cnt.config.base_root+cnt.config.apps_url+app+"/"+cnt.config.vistas_url+cnt.config.templates_url+vista+".py","r")
+			html=f.read()
+			f.close()
+			print html
+			
+			
 		elif version=="error":
 				print "error"
 		else:
-			if vista!="index":
-				print cnt.config.base_root+cnt.config.projects_url+"/"+version+cnt.config.vistas_url+cnt.config.templates_url+vista+".py"
+			if vista!="index":	
+				print "aaa"
+
+				f=open(cnt.config.base_root+cnt.config.apps_url+app+"/"+cnt.config.vistas_url+cnt.config.templates_url+vista+".py","r")
+				html=f.read()
+				f.close()
+				print html
 			else:
+				f=open(cnt.config.base_root+cnt.config.apps_url+app+"/"+cnt.config.vistas_url+"index.html","r")
+				html=f.read()
+				f.close()
+				print html
+	else:
+		if version=="produccion":
+			if vista!="index":
+				print "diferente"
+				f=open(cnt.config.base_root+cnt.config.apps_url+app+"/"+"default/"+cnt.config.vistas_url+cnt.config.templates_url+vista+".py","r")
+				html=f.read()
+				f.close()
+				print html
+		elif version=="error":
+				print "error"
+
+		else:
+			if vista!="index":			
+				f=open(cnt.config.base_root+cnt.config.projects_url+app+"/"+version+"/"+"default/"+cnt.config.vistas_url+cnt.config.templates_url+vista+".py","r")
+				html=f.read()
+				f.close()
+				print html
+			else:
+
 				f=open(cnt.config.base_root+cnt.config.projects_url+app+"/"+version+"/"+"default/"+cnt.config.vistas_url+"index.html","r")
 				html=f.read()
 				f.close()
