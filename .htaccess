@@ -13,5 +13,5 @@ Rewriterule ^(.*)/(.*)/(.*)/(.*)/$ controles/default/default.py?app=$1&version=$
 
 DirectoryIndex controles/default/default.py?app="default"&version="0"&controlador="default"&vista="index"
 
-ErrorDocument 404 /webpyzer/controles/default/error404.py
-#ErrorDocument 404 /webpyzer/error.html
+ErrorDocument 404 /AsenZor/controles/default/error404.py
+#ErrorDocument 404 /AsenZor/error.html

@@ -21,6 +21,7 @@ try:
 	#--------------------------------------------------
 	print newRoot
 	config.custom_url=newRoot
+	
 	if config.mod_debug==False:
 		#es una aplicacion ejemp: http://localhost:8000/webpyzer/welcome/default/
 		if newRoot[2] in config.apps:
@@ -87,6 +88,7 @@ try:
 			else:
 				print "<h1>La aplicación: '"+newRoot[2]+"'</h1><p>No se encuentra en el nuestras apps en desarrollo</p>"
 			pass
+	
 			
 except Exception, ex:
 	print "<h1>Hay un error: </h1>"
