@@ -8,7 +8,7 @@ libs=["ztec"]#librerias cargadas en el framework
 mod_debug=True;
 apps_url="app/"
 projects_url="projects/"
-
+vistas_url="vistas/"
 logs=base_url+"log.txt"
 lengs=["es","en"]
 leng_default=["es"]
@@ -19,7 +19,7 @@ base_url_absolute="/opt/lampp/htdocts/"+fmk_url
 default_app="default"
 default_controler="default"
 controler_url="control/"+default_controler
-
+templates_url="templates/"
 vistas=["default"]#lista de todos la vistas html sin codigo python embebido
 templates=[]#lista de todos los templates (vistas con codigo python embebido y widgets)
 widgets=[]#lista con todos los widgets(templates minimalistas)

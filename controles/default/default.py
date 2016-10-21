@@ -6,25 +6,37 @@ try:
 	#HEAD
 	import controlador as cnt
 	orden=cnt.request.value
-	app=orden[2]
-	version=orden[3]
-	#control=orden[4]
-	#vista=orden[5]
+	app=orden[0].value
+	version=orden[1].value
+	control=orden[2].value
+	vista=orden[3].value
 
-
+	
 	#--------------------------------------------------
-	"""
 	if control!="default":
 		if version == "produccion":
-			print '<meta http-equiv="Refresh" content="0;url='+config.host+config.apps_url+app+"controles/"+control+'/'+vista+'/">'
-	"""
+			print '<meta http-equiv="Refresh" content="0;url='+config.base_root+config.apps_url+app+"controles/"+control+'/'+vista+'/">'
+	else:
+		if vista!="index":
+			if version=="produccion"
+				try:
+					f=open(config.base_root+config.apps_url+app+"/"+config.vistas_url+config.templates_url+vista+".py","r")
+					html=f.read()
+					f.close()
+					exec(html)
+					
+				except Exception, ex:
+					print "Error al cargar la vista"
+		else:
+			print '<meta http-equiv="Refresh" content="0;url='+config.base_url+config.apps_url+app+'vistas/index.html/">'
+	
 	#vista html
-	(mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = cnt.os.stat(ruta_html)
+	#(mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = cnt.os.stat(ruta_html)
 	#vista python
-	(mode2, ino2, dev2, nlink2, uid2, gid2, size2, atime2, mtime2, ctime2) = cnt.os.stat(ruta_python)
+	#(mode2, ino2, dev2, nlink2, uid2, gid2, size2, atime2, mtime2, ctime2) = cnt.os.stat(ruta_python)
 
-	fm_html=time.ctime(mtime).split(" ")
-	fm_python=time.ctime(mtime2).split(" ")
+	#fm_html=time.ctime(mtime).split(" ")
+	#fm_python=time.ctime(mtime2).split(" ")
 	
 
 
