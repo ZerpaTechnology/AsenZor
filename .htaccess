@@ -1,0 +1,17 @@
+Options +ExecCGI
+AddHandler cgi-script .py
+
+# Activar RewriteEngine
+RewriteEngine on
+ 
+# Reescribir la URL solicitada por el usuario
+#   Entrada:  clientes/NOMBRE/
+#   Salida: clientes.php?id=NOMBRE
+
+Rewriterule ^(.*)/(.*)/(.*)/(.*)/$ controles/default/default.py?app=$1&version=$2&controlador=$3&vista=$4
+#options -Indexes
+
+DirectoryIndex controles/default/default.py?app="default"&version="0"&controlador="default"&vista="index"
+
+ErrorDocument 404 /webpyzer/controles/default/error404.py
+#ErrorDocument 404 /webpyzer/error.html
