@@ -8,10 +8,11 @@ f.close()
 
 conjuntos,exclusiones=i.getConjuntos(t,["<div>","</div>"],["{{","}}"])
 
-print conjuntos
-print exclusiones
-c=i.unir(conjuntos[0],conjuntos[1])
-#print c
-c=i.interInv(c,exclusiones[0])
-#print c
-print i.mostrarConjuntos(t,c)
+print "conjuntos: ",conjuntos
+print i.mostrarConjuntos(t,conjuntos)
+print "---------------------------"
+print "exclusiones: ",exclusiones
+
+
+print i.mostrarConjuntos(t,exclusiones)
+

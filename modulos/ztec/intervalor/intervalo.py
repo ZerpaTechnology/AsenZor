@@ -101,5 +101,8 @@ def interInv(c1,c2):
 	return [c3,c4]
 
 
-def interInvAll(c)
+def interInvAll(c1,*cs):
+	for elem in cs:
+		c1=interInv(c1,elem)
+	return c1
 
