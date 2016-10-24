@@ -1,13 +1,14 @@
 #!/usr/bin/python
 #-*- codign:utf-8 -*-
-def generar(rutahtml,rutapython):
+import sys
+sys.path.append("../")
+import os
+def convertir(t):
 	import intervalo as i
 	import sys
-	sys.path.append("../")
+	
 	import zu
-	f=open(rutahtml,"r")
-	t=f.read()
-	f.close()
+	
 
 	cpython=True
 	ultimo=0
@@ -95,7 +96,7 @@ def generar(rutahtml,rutapython):
 							iden+="  "
 						if codpython[:lpass]=="pass\n":
 							iden=iden[:-2]
-							print "lmlmlmlmlmlmlmlmlmlml"
+						
 						if codpython[liden:lreturn]=="return ":
 							iden=iden[:-2]					
 
@@ -105,6 +106,22 @@ def generar(rutahtml,rutapython):
 	txt=""
 	for elem in l:
 		txt+=elem
-	f=open(rutapython,"w")
-	f.write(txt)
-	f.close()
+	return txt
+
+def generar(rutahtml,rutapython,cabecera=""):
+	#vista html
+	(mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(ruta_html)
+	#vista python
+	(mode2, ino2, dev2, nlink2, uid2, gid2, size2, atime2, mtime2, ctime2) = os.stat(ruta_python)
+	if mtime!=mtime2:
+		f=open(rutahtml,"r")
+		t=f.read()
+		f.close()
+		convertir
+		f=open(rutahtml,"w")
+		write(t)
+		f.close()
+		txt=convertir(t)
+		f=open(rutapython,"w")
+		f.write(cabecera+txt)
+		f.close()

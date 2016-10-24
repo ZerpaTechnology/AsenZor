@@ -17,8 +17,8 @@ fmk_url="AsenZor/"
 base_url=host+fmk_url
 base_root="/opt/lampp/htdocs/"+fmk_url
 default_app="default"
-default_controler="default"
-controler_url="control/"+default_controler
+default_controller="default"
+controller_url="controles/"+default_controller
 templates_url="templates/"
 vistas=["default"]#lista de todos la vistas html sin codigo python embebido
 templates=[]#lista de todos los templates (vistas con codigo python embebido y widgets)
@@ -27,4 +27,4 @@ vistas_disp=["default"]#lista con las vistas disponibles para mostrar
 templates_disp=[]#lista con los templates disponibles para mostrar
 widgets_disp=[]#lista con los widgets disponibles para mostrar
 custom_url=None
-
+proyecto="default"#proyecto actual

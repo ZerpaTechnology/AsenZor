@@ -1,0 +1,1 @@
+from ztec import*
