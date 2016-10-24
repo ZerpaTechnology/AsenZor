@@ -7,7 +7,7 @@ def convertir(t):
 	import intervalo as i
 	import sys
 	
-	import zu
+	import ztec.zu as zu
 	
 
 	cpython=True
@@ -41,7 +41,7 @@ def convertir(t):
 			for python in PYTHON:
 				print html[1], " | ", python[0]
 				if html[1]==python[0]:
-					print "siiiiii"
+					
 					codpython=t[python[0]:python[1]][2:-2]+"\n"
 					tab=zu.getTab(codpython)
 					lfor=len("for ")
@@ -55,7 +55,6 @@ def convertir(t):
 					lreturn=len("pass ")
 					l.append(iden+codpython)
 
-					print "veeeee ",[codpython[:lpass]]
 					if tab=="":
 
 						if codpython[0:lfor]=="for ":
@@ -110,18 +109,31 @@ def convertir(t):
 
 def generar(rutahtml,rutapython,cabecera=""):
 	#vista html
-	(mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(ruta_html)
+	(mode, ino, dev, nlink, uid, gid, size, atime, mtime, ctime) = os.stat(rutahtml)
 	#vista python
-	(mode2, ino2, dev2, nlink2, uid2, gid2, size2, atime2, mtime2, ctime2) = os.stat(ruta_python)
-	if mtime!=mtime2:
-		f=open(rutahtml,"r")
-		t=f.read()
-		f.close()
-		convertir
-		f=open(rutahtml,"w")
-		write(t)
-		f.close()
-		txt=convertir(t)
-		f=open(rutapython,"w")
-		f.write(cabecera+txt)
-		f.close()
+	if os.path.exists(rutapython):
+		(mode2, ino2, dev2, nlink2, uid2, gid2, size2, atime2, mtime2, ctime2) = os.stat(rutapython)
+		if mtime!=mtime2:
+			f=open(rutahtml,"r")
+			t=f.read()
+			f.close()
+			convertir
+			f=open(rutahtml,"w")
+			f.write(t)
+			f.close()
+			txt=convertir(t)
+			f=open(rutapython,"w")
+			f.write(cabecera+txt)
+			f.close()
+	else:
+			f=open(rutahtml,"r")
+			t=f.read()
+			f.close()
+			convertir
+			f=open(rutahtml,"w")
+			f.write(t)
+			f.close()
+			txt=convertir(t)
+			f=open(rutapython,"w")
+			f.write(cabecera+txt)
+			f.close()		
