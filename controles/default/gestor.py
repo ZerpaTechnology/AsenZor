@@ -31,6 +31,7 @@ try:
 		
 		exec(text)
 		exec("data="+vista+"()")
+
 		cabecera=""
 		for elem in data:
 			cabecera+=elem+"="+str(data[elem])+"\n" if type(data[elem])!=str else elem+"="+"'"+data[elem]+"'\n"
@@ -66,7 +67,7 @@ try:
 					f=open(ruta_html,"r")
 					html=f.read()
 					f.close()
-					exec(html)
+					print html
 		else:
 
 			if version=="produccion":
@@ -98,7 +99,10 @@ try:
 					f=open(ruta_html,"r")
 					html=f.read()
 					f.close()
-					exec(html)
+
+					print html
+
+
 
 except Exception, ex:
 	print "<h1>Hay un error: </h1>"
