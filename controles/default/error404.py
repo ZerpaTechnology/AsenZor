@@ -19,7 +19,7 @@ try:
 	# =desarrollo (config.mod_debug == True & este modo solo se usa para el admin)
 	# =N (config.mod_debug == True & se administran versiones "N" es un numero)
 	#--------------------------------------------------
-	print newRoot
+	
 	config.custom_url=newRoot
 	
 	if config.mod_debug==False:
@@ -37,6 +37,7 @@ try:
 						print '<meta http-equiv="Refresh" content="0;url='+config.host+newRoot[1]+"/"+newRoot[2]+'/0/default/index/">'
 				elif len(newRoot)==3:
 					print '<meta http-equiv="Refresh" content="0;url='+config.host+newRoot[1]+"/"+newRoot[2]+'/0/default/index/">'
+				elif len(newRoot)==6:
 				
 				
 			else:

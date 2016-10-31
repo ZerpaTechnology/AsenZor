@@ -6,6 +6,7 @@ try:
 		import controlador as cnt
 		
 		orden=cnt.request.value
+		
 		try:
 			app=cnt.darTipo(orden[0].value)
 			version=cnt.darTipo(orden[1].value)
@@ -16,6 +17,8 @@ try:
 			version=orden[1].value
 			control=orden[2].value
 			vista=orden[3].value
+
+		
 		if version=="produccion":
 			appcontroller=cnt.config.base_root+cnt.config.apps_url+app+"/"+cnt.config.controler_url+cnt.config.templates_url+".py"
 		elif version=="error":
