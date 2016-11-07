@@ -1,13 +1,11 @@
+@font-face{
+	font-family:"analecta";
+	src: url(../fonts/analecta.otf);
+}
 .AsenZor-admin header{
 
-background: rgba(76,76,76,1);
-background: -moz-linear-gradient(top, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 21%, rgba(71,71,71,1) 27%, rgba(44,44,44,1) 42%, rgba(0,0,0,1) 52%, rgba(0,0,0,1) 61%, rgba(17,17,17,1) 67%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
-background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(76,76,76,1)), color-stop(12%, rgba(89,89,89,1)), color-stop(21%, rgba(102,102,102,1)), color-stop(27%, rgba(71,71,71,1)), color-stop(42%, rgba(44,44,44,1)), color-stop(52%, rgba(0,0,0,1)), color-stop(61%, rgba(0,0,0,1)), color-stop(67%, rgba(17,17,17,1)), color-stop(76%, rgba(43,43,43,1)), color-stop(91%, rgba(28,28,28,1)), color-stop(100%, rgba(19,19,19,1)));
-background: -webkit-linear-gradient(top, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 21%, rgba(71,71,71,1) 27%, rgba(44,44,44,1) 42%, rgba(0,0,0,1) 52%, rgba(0,0,0,1) 61%, rgba(17,17,17,1) 67%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
-background: -o-linear-gradient(top, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 21%, rgba(71,71,71,1) 27%, rgba(44,44,44,1) 42%, rgba(0,0,0,1) 52%, rgba(0,0,0,1) 61%, rgba(17,17,17,1) 67%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
-background: -ms-linear-gradient(top, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 21%, rgba(71,71,71,1) 27%, rgba(44,44,44,1) 42%, rgba(0,0,0,1) 52%, rgba(0,0,0,1) 61%, rgba(17,17,17,1) 67%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
-background: linear-gradient(to bottom, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 21%, rgba(71,71,71,1) 27%, rgba(44,44,44,1) 42%, rgba(0,0,0,1) 52%, rgba(0,0,0,1) 61%, rgba(17,17,17,1) 67%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313', GradientType=0 );
+background: rgba(17,17,17,1);
+
 height: 60px;
 width: 100%;
 }
@@ -15,6 +13,9 @@ width: 100%;
 .AsenZor-admin header h1{
 	font-style: bold;
 	font-weight: 900;
+	display: inline;
+}
+.AsenZor-admin header ul{
 	display: inline;
 }
 .AsenZor-admin header ul li{
@@ -36,15 +37,94 @@ width: 100%;
 	font-style: bold;
 	font-weight: 900;
 	font-size:14px;
-
 }
-.AsenZor-admin .cpanel{
-	background-color: #e6e6ff;
-	height: 500px;
+#AsenZor-menuPrincial{
+margin-top:15px;
+float: right;
+}
+
+.cpanel{
+	background-color:#e6e6ff;
+	height: 1500px;
 	margin: 5px;
-	border-radius: 2px;
+	border: solid;
+	border-width: 1px;
+	border-color:#3465a4 ;
+	border-radius: 10px;
+	list-style: none;
+}
+.btn1{
+	background-color: #0066cc;
+	border:solid;
+	border-width: 1px;
+	
+	border-color:#3465a4;
+	color: white;
+	font-weight: bold;
+	padding:10px;
+}
+.btn2{
+	background-color: #000000;
+	border:solid;
+	
+	border-color:#3465a4;
+	color: white;
+	border-width: 1px;
+	font-weight: bold;
+	padding:10px;
+}
+.btn3{
+	
+	background: rgba(255,255,255,1);
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,208,239,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(216,208,239,1)));
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,208,239,1) 100%);
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,208,239,1) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(216,208,239,1) 100%);
+	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(216,208,239,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d8d0ef', GradientType=0 );
+
+	border:solid;
+	border-color:#3465a4;
+	color:black;
+	border-width: 1px;
+	font-weight: bold;
+	padding:10px;
 
 }
 .AsenZor-admin .h{
 	border:solid;
+	border-width: 1px;
+	border-color: #6699cc;
+	width: 95%;
+}
+
+.analecta{
+	font-family: "analecta";
+}
+.interLine li{
+	margin-bottom: 5px;
+	margin-top:5px;
+}
+ul{
+	padding-left: 0px;
+}
+
+.lineal > li{
+	display: inline;
+}
+.lineal2 > li{
+	display: inline-block;
+}
+.block li{
+	display: block;
+}
+.box-commit{
+	width: 250px;
+	border:solid;
+	border-width: 1px;
+	border-color: #6699cc;
+}
+.margin-left{
+	margin-left: 5px;
 }
