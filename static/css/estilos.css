@@ -109,22 +109,68 @@ float: right;
 ul{
 	padding-left: 0px;
 }
-
-.lineal > li{
+/*siempre va en un div*/
+.lineal>ul>li{
 	display: inline;
 }
-.lineal2 > li{
+.lineal  ul li > div{
+	display: inline;
+}
+.lineal-block >ul > li{
 	display: inline-block;
 }
-.block li{
+.block ul li{
 	display: block;
 }
-.box-commit{
-	width: 250px;
-	border:solid;
-	border-width: 1px;
-	border-color: #6699cc;
+.commit-content{
+	width: 350px;
+	display: table-cell;
+
+}
+.commit-content > ul li{
+	list-style: none;
 }
 .margin-left{
-	margin-left: 5px;
+	margin-left: 20px;
+}
+.widget-commit{
+	width: 100%;
+	height: 500px;
+	background-color: rgb(250,250,255);
+	text-align: center;
+	
+}
+.commit{
+	background-color: rgb(50,50,50);
+	width: 100%;
+	height: 100px;
+	display: table-row;
+
+	
+
+}
+.commit-image{
+	display: table-cell;
+}
+.commit-image img{
+	width: 80px;
+	height: auto;
+}
+
+.commit-name{
+	background-color: #9999ff;
+	color: white;
+	font-weight: bold;
+	width: 100px;
+}
+.commit-date{
+	background-color: rgb(255,110,0);
+	width: 170px;
+	color: white;
+	font-weight: bold;
+	border-radius: 0 12px 0 0;
+}
+.commit-message{
+	background-color: white;
+	resize: both;
 }
