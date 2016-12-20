@@ -42,8 +42,10 @@ try:
 		exec("valor="+valor)
 		return valor
 
-	def servir(ruta_python,ruta_html):
-				generar(ruta_html,ruta_python,cabecera)
+	def servir(ruta_html,ruta_python):
+				
+				generar(ruta_html,ruta_python,"")
+
 				f=open(ruta_python,"r")
 				html=f.read()
 				f.close()
@@ -89,7 +91,7 @@ try:
 				parametros["base_root"]=root_app_current
 				parametros["base_url"]=url_app_current
 
-			modulos={"ztec":ztec}
+			modulos["ztec"]=ztec
 
 			cnt_file=open(appcontroller,"r")
 			cnt=cnt_file.read()
@@ -128,6 +130,7 @@ try:
 		for elem in data:
 			cabecera+=elem+"="+str(data[elem])+"\n" if type(data[elem])!=str else elem+"="+"'"+data[elem]+"'\n"
 		"""	
+
 		#--------------------------------------------------
 		if config.mod_debug==False:
 			pass

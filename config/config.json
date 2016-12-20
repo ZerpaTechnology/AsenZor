@@ -6,7 +6,7 @@
 "controler_vista":"vista.py",
 "controles_dir":"controles",
 "controller_url":"controles/default.py",
-"custom_url":["", "AsenZor", "hola=3&pedro=3"],
+"custom_url":["", "AsenZor", "vista=index"],
 "default_app":"default",
 "default_controller":"default.py",
 "error":"False",
