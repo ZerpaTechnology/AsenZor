@@ -8,10 +8,27 @@ try:
 	import sys
 	import httplib, urllib
 	sys.path.append("../config")
-
-
 	import config
 	sys.path.append(config.main_libs_url_relative)
+	lista="{"
+	for elem in dir(config):
+		if elem != "__builtins__" and elem != "__doc__" and  elem != "__file__" and elem != "__name__" and elem != "__package__":
+			exec("temp=config."+elem)
+			temp=str(temp)
+			if temp[0]=="[" or temp[0]=="{":
+				lista+= '"'+elem+'":'+temp.replace("'",'"')+',\n'
+			elif temp.replace(" ","")=="False,":
+				temp="false,"
+			elif temp.replace(" ","")=="True":
+				temp="true,"
+			else:
+				lista+= '"'+elem+'":"'+temp+'",\n'
+
+	lista=lista[:-2]+"}"
+	f=open(config.base_root+"config/config.json","w")
+	f.write(lista)
+	f.close()
+		
 	for elem in config.libs:
 		exec("import "+elem)
 

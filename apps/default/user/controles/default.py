@@ -7,5 +7,6 @@ def cnt(p,m):
 	sys.path.append(p["base_root"]+"../admin/"+roots.libs_folder)
 	for elem in settings.config.libs_python:
 		exec("import "+elem)
+	functions.ajax(p["base_root"]+"../admin/"+roots.models_folder+roots.ajax_file,{})
 	functions.phpload(p["base_url"]+"../admin/"+roots.libs_folder,"test.php",True)
 	
