@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 print "Content-type: text/html\n\n"
 print '<meta charset="utf-8">'
-print "<html>controlador: Error 404!</html>"
+#print "<html>controlador: Error 404!</html>"
 try:
 	import os
 	import sys
@@ -21,22 +21,21 @@ try:
 	#--------------------------------------------------
 	
 	config.custom_url=newRoot
-	print newRoot
-	print config.host+newRoot[1]+"/"+config.apps_url+newRoot[2]+"/"+"controles/"+newRoot[3]+"/"
-	if config.mod_debug==False:
+	#print newRoot
+
+	parametros_url=newRoot[-1].split("&")
+	parametros_rest={}
+	for elem in parametros_url:
+		a=elem.split("=")
+		parametros_rest={a[0]:a[1]}
+	notfound=False
+	if notfound==False:
 		#es una aplicacion ejemp: http://localhost:8000/AsenZor/app/vista/
-		if newRoot[2] in config.apps:
-			print("Location:"+config.host+newRoot[1]+"/"+config.apps_url+newRoot[2]+"/"+"controles/"+newRoot[3]+"/"+newRoot[4])
-			print '<meta http-equiv="Refresh" content="0;url='+config.host+newRoot[1]+"/"+config.apps_url+newRoot[2]+"/"+"controles/"+newRoot[3]+"/"+newRoot[4]+'/">'
-		else:
-			pass
+		import gestor
+		gestor.administrar(parametros_rest)
+
 	else:
-		if newRoot[2] in config.proyectos_disp:
-			print("Location:"+config.host+newRoot[1]+"/"+config.apps_url+newRoot[2]+"/"+"controles/"+newRoot[3]+"/"+config.controler_vista)
-			config.host+newRoot[1]+"/"+config.projects_url+newRoot[2]+"/"+"controles/"+newRoot[3]+"/"+config.controler_vista
-			#print '<meta http-equiv="Refresh" content="0;url='+config.host+newRoot[1]+"/"+config.projects_url+newRoot[2]+"/"+"controles/"+newRoot[3]+"/"+config.controler_vista+'">'
-		else:
-			print "Pagina no encontrada"
+		print "Pagina no encontrada"
 
 			
 except Exception, ex:
