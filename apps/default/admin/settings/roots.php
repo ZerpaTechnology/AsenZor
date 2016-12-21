@@ -21,19 +21,19 @@ class config
 		foreach ($_config as $key => $value) {
 			if (is_array($value)==true){
 				if ($value !=[]){
-					eval("$this::".$key."="."['".implode(",",$value)."']".";\n");
+					eval('$'."this->".$key."="."['".implode(",",$value)."']".";\n");
 					
 				}
 				else{
-					eval("$this::".$key."="."[]".";\n");
+					eval('$'."this->".$key."="."[]".";\n");
 				}
 			}
 			else{
 				if (is_string($value)==true){
-					eval("$this::".$key."='".$value."';\n");
+					eval('$'."this->".$key."='".$value."';\n");
 				}
 				else{
-					eval("$this".$key."=".$value.";\n");
+					eval('$'."this->".$key."=".$value.";\n");
 				}
 			}
 		}

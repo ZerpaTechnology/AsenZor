@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 print "Content-type: text/html\n\n"
-print "estas en: lanzador<br>"
+#print "estas en: lanzador<br>"
 try:
 	#------------------------------------------------
 	#HEAD

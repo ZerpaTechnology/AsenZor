@@ -26,6 +26,7 @@ try:
 
 	lista=lista[:-2]+"}"
 	f=open(config.base_root+"config/config.json","w")
+	lista=lista.encode("base64")
 	f.write(lista)
 	f.close()
 		
@@ -73,12 +74,15 @@ try:
 
 
 		modulos["servir"]=servir
+
 		if config.mod_debug==False:
 			if rest=={}:
 				appcontroller=config.base_root+config.apps_url+app+"/user/"+config.controller_url
 				root_app_current=config.base_root+config.apps_url+app+"/user/"
 				url_app_current=config.base_root+config.apps_url+app+"/user/"
+
 			else:
+
 				appcontroller=config.base_root+config.apps_url+config.default_app+"/user/"+config.controller_url
 				root_app_current=config.base_root+config.apps_url+config.default_app+"/user/"
 				url_app_current=config.base_url+config.apps_url+config.default_app+"/user/"
@@ -92,7 +96,6 @@ try:
 				parametros["base_url"]=url_app_current
 
 			modulos["ztec"]=ztec
-
 			cnt_file=open(appcontroller,"r")
 			cnt=cnt_file.read()
 			cnt_file.close()
@@ -115,7 +118,7 @@ try:
 			appcontroller=config.base_root+config.projects_url+app+"/"+config.controller_url+".py"
 			
 			
-			print "<br>"
+		
 		
 
 		"""

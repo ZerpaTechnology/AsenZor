@@ -27,7 +27,7 @@ try:
 	parametros_rest={}
 	for elem in parametros_url:
 		a=elem.split("=")
-		parametros_rest={a[0]:a[1]}
+		parametros_rest[a[0]]=a[1]
 	notfound=False
 	if notfound==False:
 		#es una aplicacion ejemp: http://localhost:8000/AsenZor/app/vista/
