@@ -5,10 +5,11 @@ db=DB()
 #TABLA USUARIOS
 db("usuarios").campo("nombres",db.str)
 db("usuarios").campo("appelidos",db.str)
-db("usuarios").campo("correo",db.email)
+db("usuarios").campo("correo",db.email,True)
 db("usuarios").campo("password",db.str)
-db("usuarios").campo("foto",db.file)
+db("usuarios").campo("foto",db.url)
 db("usuarios").campo("imgs",db.list)
+db("usuarios").campo("token",db.object,True)
 #===================================================================
 #TABLA MENSAJES - CHAT
 db("msj_chat").campo("emisor",db.object)
@@ -42,5 +43,18 @@ db("posts").campo("img",db.url)
 db("posts").campo("lectores",db.list)
 db("posts").campo("interacciones",db.list)
 db("posts").campo("comentarios",db.list)
+#==================================================================
+#TABLA TOKENS
+db("tokens").campo("usuario",db.object)
+db("tokens").campo("valor",db.str,True)
+db("tokens").campo("emisión",db.datetime)
+db("tokens").campo("expiración",db.datetime)
+#==================================================================
+#TABLA DOCUMENTACION
+db("documentación").campo("app",db.object)
+db("documentación").campo("libro",db.str)
+db("documentación").campo("tema",db.str)
+db("documentación").campo("texto",db.str)
+
 #==================================================================
 db.grabar(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py")

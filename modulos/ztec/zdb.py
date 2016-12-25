@@ -11,7 +11,7 @@ class obj:
 	def __init__(self,valor):
 		self.valor=valor
 		
-def DB(dbfile=None):
+def DB(dbfile=None,debug=False):
         def db(tabla):
 			    self=db
 					
@@ -32,6 +32,7 @@ def DB(dbfile=None):
 			    #version:v0.01
 			    """dbtype permite identificar un tipo de dato que pertenece a los tipos de datos que trabaja la base de datos"""
 			    def dbtype(dato):
+
 					if type(dato)==str:
 						if "@" in dato and ".com" in dato[dato.index("@"):]:
 							return "<type 'email'>"
@@ -43,7 +44,7 @@ def DB(dbfile=None):
 								t=dato.split("/")
 								if len(t[0])==2 and len(t[1])==2:
 									return "<type 'date'>"
-						elif ":" in dato and "m" in dato[dato.index(":"):]:
+						elif ":" in dato and "m" in dato[dato.index(":"):] and "://" not in dato:
 							return "<type 'time'>"
 						elif "https://" in dato or "http://" in dato:
 							return "<type 'url'>"
@@ -67,13 +68,13 @@ def DB(dbfile=None):
 					return self
 			    def columna(camp):
 					return self.tablas[self.seleccion][self.idseleccion][self.obtenerCampo(camp)]
-			    def campo(nombre,tipo):
-					self.campos[self.seleccion].append([nombre,tipo])
+			    def campo(nombre,tipo,unico=False):
+					self.campos[self.seleccion].append([nombre,tipo,unico])
 					try:
 							if tabla!=None:
-								self.registro.append("db('"+tabla+"').campo('"+nombre+"',db."+rtype(tipo)+")")
+								self.registro.append("db('"+tabla+"').campo('"+nombre+"',db."+rtype(tipo)+","+str(unico)+")")
 					except:
-							self.registro.append("db.campo('"+nombre+"','db."+rtype(tipo)+")")
+							self.registro.append("db.campo('"+nombre+"','db."+rtype(tipo)+","+str(unico)+")")
 					return self					
                 
                 #Estado:finalizado
@@ -88,26 +89,42 @@ def DB(dbfile=None):
 					c=0
 					valido=True
 					lcampos=[]
-
+					
 					for elem in campos:
-						if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
-							valido=False
+
+						if self.campos[self.seleccion][c][2]==True:
+							
+							if elem in self.obtenerColumna(self.campos[self.seleccion][c][0]):
+								valido=False
+							else:
+								if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+									valido=False
+								else:
+									lcampos.append(obj(elem))
+						
 						else:
 
-							lcampos.append(obj(elem))
-
-                                
+							if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+									valido=False
+							else:
+									lcampos.append(obj(elem))
+		                                
 						c+=1
-
+				
 					if valido==True:
 						self.tablas[self.seleccion][self.clavePrimaria[self.seleccion]]=lcampos
 						self.clavePrimaria[self.seleccion]+=1
-                         
-					try:
-						if tabla!=None:
-							self.registro.append("db('"+tabla+"').insertar"+str(campos))
-					except:
-							self.registro.append("db.insertar"+str(campos))
+	                    
+						try:
+							if tabla!=None:
+								self.registro.append("db('"+tabla+"').insertar"+str(campos))
+						except:
+								self.registro.append("db.insertar"+str(campos))
+						if self.debug==True:
+							print "La inserción de datos fue realizada con exito"
+					else:
+						if self.debug==True:
+							print "La inserción de datos no puedo ser realizada"
 					return self
                         
                 #Estado:finalizado
@@ -152,8 +169,9 @@ def DB(dbfile=None):
 				#Versión: V0.01
 			    def obtenerColumna(campo,t=self.seleccion):
 					l=[]
-					for id in self.mostrarTablas()[t]:
-						l.append(self.mostrarTablas()[t][id][self.obtenerCampo(campo,t)])
+					
+					for i in self.mostrarTablas()[t]:
+						l.append(self.mostrarTablas()[t][i][self.obtenerCampo(campo,t)])
 					return l
 						
 				#Estado: Finalizado
@@ -194,6 +212,7 @@ def DB(dbfile=None):
 								dtablas[elem][i]=[]
 								for camp in self.tablas[elem][i]:
 									dtablas[elem][i].append(camp.valor)
+
 						else:
 							if "." not in elem:
 								dtablas[elem]={}
@@ -201,6 +220,7 @@ def DB(dbfile=None):
 									dtablas[elem][i]=[]
 									for camp in self.tablas[elem][i]:
 										dtablas[elem][i].append(camp.valor)
+					
 					if mostrar==False:	
 						return dtablas
 					else:
@@ -256,6 +276,7 @@ def DB(dbfile=None):
 			    self.obtenerCampo=obtenerCampo
 			    self.relacionar=relacionar
 			    self.id=id
+			    self.debug=debug
 			    self.columna=columna
 			    self.obtenerCampos=obtenerCampos
 			    self.obtenerFila=obtenerFila

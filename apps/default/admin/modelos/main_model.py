@@ -2,7 +2,7 @@
 #Cabecera del modelo
 import sys
 import os
-sys.path.append("../config")
+#sys.path.append("../config")
 
 import settings.roots as roots
 import settings.config 
@@ -24,3 +24,5 @@ def registrarUsuario(nombres,apellidos,correo,password,foto,imgs,db=db):
 	db("usuarios").insertar(nombres,apellidos,correo,password,foto,imgs)
 	db.grabar(root_db)
 	
+def obtenerColumna(campo,seleccion,db=db):
+	return db(seleccion).obtenerColumna(campo,seleccion)

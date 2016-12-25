@@ -12,7 +12,7 @@ def cnt(p,m):
 	import modelos.main_model as main_model
 	#============================================================
 	#Cuerpo del controlador
-	main_model.registrarUsuario("jesus","zerpa","jesus26abraham1996@gmaill.com","123456",p["base_url"]+"static/imgs/icono_perfil.jpg",[])
+	print main_model.obtenerColumna("correo","usuarios")
 
 	
 	for elem in settings.config.libs_python:
