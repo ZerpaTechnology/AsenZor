@@ -45,6 +45,10 @@ def DB(dbfile=None):
 									return "<type 'date'>"
 						elif ":" in dato and "m" in dato[dato.index(":"):]:
 							return "<type 'time'>"
+						elif "https://" in dato or "http://" in dato:
+							return "<type 'url'>"
+						elif "file://" in dato:
+							return "<type 'file'>"
 						else:
 							return str
 					else:
@@ -84,13 +88,17 @@ def DB(dbfile=None):
 					c=0
 					valido=True
 					lcampos=[]
+
 					for elem in campos:
 						if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
 							valido=False
 						else:
+
 							lcampos.append(obj(elem))
+
                                 
 						c+=1
+
 					if valido==True:
 						self.tablas[self.seleccion][self.clavePrimaria[self.seleccion]]=lcampos
 						self.clavePrimaria[self.seleccion]+=1
@@ -135,6 +143,7 @@ def DB(dbfile=None):
 			    def grabar(dbfile=self.dbfile):
 					f=open(dbfile,"w")
 					c=""
+
 					for elem in self.registro:
 						c+=elem+"\n"
 					f.write(c)
@@ -198,7 +207,8 @@ def DB(dbfile=None):
 						return dtablas[seleccion]
 				
 				#Estado: Finalizado
-				#Version: v0.01				
+				#Version: v0.01			
+				#tabla1 (i,campo1) <- args["tabla"] (args["id"],args["campo"]) 	
 			    def relacionar(i,campo1,**args):
 					
 					if "id" in args:
@@ -232,10 +242,12 @@ def DB(dbfile=None):
 			    self.tuple=tuple
 			    self.object=object
 			    self.all="<type 'all'>"
-			    self.email="<type 'email''>"
+			    self.email="<type 'email'>"
 			    self.time="<type 'time'>"
 			    self.date="<type 'date'>"
 			    self.datetime="<type 'datetime'>"
+			    self.url="<type 'url'>"
+			    self.file="<type 'file'>"
 			    self.dbtype=dbtype
 			    self.modificarFila=modificarFila
 			    self.modificarCampo=modificarCampo
@@ -256,7 +268,7 @@ def DB(dbfile=None):
         db.seleccion=None
         db.dbfile=dbfile			
         if dbfile==None:
-			db.registro=["from ZerpaCorp.zdb import DB","db=DB()"]
+			db.registro=["from ztec.zdb import DB","db=DB()"]
         else:
 			db=dbcargar(dbfile)
          

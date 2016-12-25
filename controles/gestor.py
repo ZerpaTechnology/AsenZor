@@ -84,7 +84,7 @@ try:
 			if rest=={}:
 				appcontroller=config.base_root+config.apps_url+app+"/user/"+config.controller_url
 				root_app_current=config.base_root+config.apps_url+app+"/user/"
-				url_app_current=config.base_root+config.apps_url+app+"/user/"
+				url_app_current=config.base_url+config.apps_url+app+"/user/"
 
 			else:
 
