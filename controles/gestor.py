@@ -74,6 +74,11 @@ try:
 
 
 		modulos["servir"]=servir
+		if "mod_debug" in rest:
+			if rest["mod_debug"]=="False":
+				config.mod_debug=False
+			elif rest["mod_debug"]=="True":
+				config.mod_debug=True
 
 		if config.mod_debug==False:
 			if rest=={}:
@@ -102,19 +107,10 @@ try:
 			exec(cnt)
 
 			cnt(parametros,modulos)
-
-
-
-			
-
-			
-
-		elif config==True:
-			pass
+	
 		else:
 
 			#appcontroller=config.base_root+config.projects_url+app+"/"+config.controller_url+".py"
-			pass
 			appcontroller=config.base_root+config.projects_url+app+"/"+config.controller_url+".py"
 			
 			

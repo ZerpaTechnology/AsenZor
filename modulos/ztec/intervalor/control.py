@@ -9,11 +9,9 @@ def convertir(t):
 	
 	import ztec.zu as zu
 	
-
 	cpython=True
 	ultimo=0
 	PYTHON,ex=i.getConjuntos(t,["{{","}}"])
-
 
 
 	HTML=i.borrarAll([0,len(t)],PYTHON)
@@ -32,7 +30,8 @@ def convertir(t):
 	#print "HTML ", HTML
 	#print "python ",PYTHON
 	iden=""
-	if "{{" in t and "}}":
+	if "{{" in t and "}}" in t:
+
 		if type(HTML[0])==list:
 
 			for html in HTML:
@@ -40,7 +39,7 @@ def convertir(t):
 				if codhtml!="print ''\n":
 					l.append(iden+codhtml)
 				for python in PYTHON:
-					print html[1], " | ", python[0]
+					
 					if html[1]==python[0]:
 						
 						codpython=t[python[0]:python[1]][2:-2]+"\n"
@@ -108,6 +107,7 @@ def convertir(t):
 			txt+=elem
 		return txt
 	else:
+
 		return 'print """'+t+'"""'
 
 def generar(rutahtml,rutapython,cabecera=""):
@@ -119,9 +119,12 @@ def generar(rutahtml,rutapython,cabecera=""):
 		if mtime!=mtime2:
 			f=open(rutahtml,"r")
 			t=f.read()
+
 			f.close()
-			
+
 			f=open(rutahtml,"w")
+
+			
 			f.write(t)
 			f.close()
 			txt=convertir(t)
@@ -136,6 +139,7 @@ def generar(rutahtml,rutapython,cabecera=""):
 			f=open(rutahtml,"w")
 			f.write(t)
 			f.close()
+		
 			txt=convertir(t)
 			f=open(rutapython,"w")
 			f.write(cabecera+txt)

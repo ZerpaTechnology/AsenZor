@@ -37,6 +37,9 @@ class config
 				}
 			}
 		}
+		$_file=fopen("../../../../config/config.json","w");
+		fwrite($_file,"");
+		fclose($_flise);
 
 	}
 
