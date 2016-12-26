@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 try:
 	#------------------------------------------------
 	#HEAD
@@ -42,15 +43,47 @@ try:
 	def darTipo(valor):
 		exec("valor="+valor)
 		return valor
-
-	def servir(ruta_html,ruta_python):
+	def servir(vista,ruta_html,ruta_python):
+		sys.path.append(ruta_html+"../")
+		import settings.roots as roots
+		import ztec.zu as zu
+		generar(ruta_html+vista+".html",ruta_python+vista+".py","")
+		f=open(ruta_python+vista+".py","r")
+		html=f.read()
+		f.close()
+		lineas=html.split("\n")
+		c=0
+		while c<len(lineas):
+			if "incluir(" in lineas[c]:
+				ini=lineas[c].find("incluir(")+len("incluir(")
+				widget=lineas[c][ini:lineas[c].find(")",ini)]
 				
-				generar(ruta_html,ruta_python,"")
+				if "," in widget:
+					widgets=[]
+					w=widget.split(",")
+					for elem in w:
+						widgets.append(elem[1:-1])
+				else:
+					widgets=[widget[1:-1]]
+				widget=""
 
-				f=open(ruta_python,"r")
-				html=f.read()
-				f.close()
-				exec(html)
+				for w in widgets:
+					generar(ruta_html+roots.widgets_folder+w+".html",ruta_html+roots.widgets_folder+w+".py","")
+					f=open(ruta_html+roots.widgets_folder+w+".py","r")
+					widget+=f.read()+"\n"
+					f.close()
+				
+
+				lineas[c]= zu.tabular(widget,zu.getTab(lineas[c]))
+
+			c+=1
+		codigo=""
+		for linea in lineas:
+			codigo+=linea+"\n"		
+		f=open(ruta_python+vista+".py","w")
+		f.write(codigo)
+		f.close()
+		exec(codigo)
 
 	def administrar(rest={}):
 
@@ -99,8 +132,18 @@ try:
 			
 				parametros["base_root"]=root_app_current
 				parametros["base_url"]=url_app_current
+			"""
+			def incluir(widget,admin=False,current):
+				sys.path.append(root_app_current+"../admin/")
+				import settings.roots as roots
+				if admin==True:
+					servir(root_app_current+"../admin/"+roots.widgets_url+widget+".html",root_app_current+"../admin/"+roots.widgets_url+widget+".html")
+				else:
+					servir(root_app_current+roots.widgets_url+widget+".html",root_app_current+roots.widgets_url+widget+".html")
 
+			"""
 			modulos["ztec"]=ztec
+			#Establece coneccion con el controlador de la aplicación
 			cnt_file=open(appcontroller,"r")
 			cnt=cnt_file.read()
 			cnt_file.close()

@@ -12,27 +12,23 @@ def cnt(p,m):
 	import modelos.main_model as main_model
 	#============================================================
 	#Cuerpo del controlador
-	print main_model.obtenerColumna("correo","usuarios")
-
-	
 	for elem in settings.config.libs_python:
 		exec("import "+elem)
+	#==========================================================
+	#Sección de parametrisaje
 	if "vista" in p:
-		m["servir"](p["base_root"]+roots.vistas_folder+p["vista"]+".html",p["base_root"]+roots.templates_url+p["vista"]+".py")
-	
+		#carga la vista
+		m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url)
 	if "action" in p:
-
 		if p["action"]=="phpload":
-			
 			if "script" in p:
-
 				if os.path.exists(p["base_root"]+"../admin/"+roots.libs_folder+p["script"]):
-					
 					functions.ajax(p["base_root"]+"../admin/"+roots.models_folder+roots.ajax_file,{})
 					functions.phpload(p["base_url"]+"../admin/"+roots.libs_folder,p["script"],True)
 				else:
 					print "El script no existe"
-
 			else:
 				print "Debes pasar el parametro 'script' con el nombre del script de php a cargar"
+
+	#=============================================================
 	

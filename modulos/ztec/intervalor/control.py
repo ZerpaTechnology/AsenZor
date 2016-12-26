@@ -131,6 +131,7 @@ def generar(rutahtml,rutapython,cabecera=""):
 			f=open(rutapython,"w")
 			f.write(cabecera+txt)
 			f.close()
+			return True
 	else:
 			f=open(rutahtml,"r")
 			t=f.read()
@@ -143,4 +144,6 @@ def generar(rutahtml,rutapython,cabecera=""):
 			txt=convertir(t)
 			f=open(rutapython,"w")
 			f.write(cabecera+txt)
-			f.close()		
+			f.close()	
+			return True
+	return False	
