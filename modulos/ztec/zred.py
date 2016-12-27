@@ -56,4 +56,30 @@ def clienteSock(host,port,msj="",welcome="Ingrese un mensaje o salir para termin
 		        enviar=False
 		    
 		sock.close() #recuerden cerrar el socket
-		
+	
+
+def sendEmail(rem,dest,mensaje,asunto="", remAlias="",destAlias="",debug=False):
+    # -*- coding: utf-8 -*- 
+    import smtplib 
+     
+    remitente = remAlias+" <"+rem+">" 
+    destinatario = destAlias+" <"+dest+">" 
+    email = """From: %s 
+    To: %s 
+    MIME-Version: 1.0 
+    Content-type: text/html 
+    Subject: %s 
+     
+    %s
+    """ % (remitente, destinatario, asunto, mensaje) 
+    try: 
+        smtp = smtplib.SMTP('localhost') 
+        smtp.sendmail(remitente, destinatario, email) 
+        if debug==True:
+            print "Correo enviado" 
+    except Exception,e :
+        if debug==True:
+            print e 
+            print """Error: el mensaje no pudo enviarse. 
+            Compruebe que sendmail se encuentra instalado en su sistema"""
+

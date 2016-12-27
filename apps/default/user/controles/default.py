@@ -49,8 +49,20 @@ def cnt(p,m):
 				if l==[]:
 					img=p["base_url"]+"../../static/imgs/icono_perfil.jpg"
 					main_model.registrarUsuario(p["nombres"],p["apellidos"],p["correo"],p["password"],img,img)
-					print "Se ha enviado un mensaje de confirmación al correo ",p["correo"]
+					if "log" in p and p["log"]=="show":
+						print "Se ha enviado un mensaje de confirmación al correo ",p["correo"],"<br>"
+						for elem in main_model.db.log:
+							print elem.replace("\n","<br>").replace("\x1b[1;31m","<span class='blue'>").replace("\x1b[0m","</span>")
+						
 
+						if settings.config.consola==True:
+							try:
+								for elem in main_model.db.log:
+									clienteSock(settings.config.host,settings.config.consola_port,elem,"")
+							except Exception as e:
+								print e
+					
+					
 				else:
 					print "No llenastes los campos: ",l
 
@@ -59,10 +71,7 @@ def cnt(p,m):
 		#carga la vista
 		m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url)
 	
-	if settings.config.consola==True:
-		for elem in main_model.db.log:
-			print elem.replace("\n","<br>").replace("\x1b[1;31m","<span class='blue'>").replace("\x1b[0m","</span>")
-			clienteSock(settings.config.host,settings.config.consola_port,elem,"")
+
 	#--------------------------------------------------------------
 	#Sección de testeo
 	#main_model.registrarUsuario("jesus","zerpa","jesus26abraham1996@gmail.com",1234,p["base_root"]+"AsenZor/static/imgs/icono_perfil.jpg",[])

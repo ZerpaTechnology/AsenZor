@@ -226,7 +226,7 @@ def DB(dbfile=None,debug=False):
 						
 				#Estado: Finalizado
 				#Version: V0.01
-			    #retorna el numero de filas, el parametro campo tiene que ser cualquier nombre de campo dentro de la tabla 
+			    #retorna la posicion de la primera fila que conicida en valor de campo 
 			    def obtenerCampo(campo,t=self.seleccion):
 					c=0
 					for elem in self.campos[t]:
@@ -247,9 +247,13 @@ def DB(dbfile=None,debug=False):
 					if self.t!=None:
 						self.consola("obtenerFila\n"+str(elem)+"\n",self)
 					return l
-					
+
+			    def obtener(i,campo,t=self.seleccion):
+					return self.tablas[t][i][obtenerCampo(campo,t)].valor
+
 				#Estado: Finalizado
 				#Version: v0.01
+				#retorna los nombres de los campos de la tabla
 			    def obtenerCampos(t=self.seleccion):
 					c=0
 					l=[]
@@ -265,6 +269,7 @@ def DB(dbfile=None,debug=False):
 				
 				#Estado: Finalizado
 				#Version: v0.01		
+				#Muestra las tablas de la base de datos, si se le pasa seleccion esta retorna la tabla especificada
 			    def mostrarTablas(mostrar=False,padres=False,seleccion=self.seleccion):
 					dtablas={}
 					for elem in self.tablas:
@@ -383,6 +388,7 @@ def DB(dbfile=None,debug=False):
 			    self.obtenerCampos=obtenerCampos
 			    self.obtenerFila=obtenerFila
 			    self.obtenerColumna=obtenerColumna
+			    self.obtener=obtener
 			    self.t=None
 			    return self
 			    
