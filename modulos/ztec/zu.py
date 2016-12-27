@@ -3,6 +3,8 @@
 #autor:Jesús Zerpa 
 #18-1-2015
 import math
+import random
+
 try:
 	import pygame
 	activo=True
@@ -14,6 +16,224 @@ def invertString(cad):
 	for elem in cad:
 		c=elem+c
 	return c
+def DateTime(H=0,M=0,S=0,d=0,w=0,mS=0,fechaHora=None,plus="+"):
+	from datetime import datetime, date, time, timedelta
+	import calendar
+	if fechaHora!=None:
+		ahora=fechaHora
+	else:
+		ahora=datetime.now()
+	if plus=="+":
+		ahora+=timedelta(hours=H,minutes=M,seconds=S,days=d,weeks=w,microseconds=mS)
+	elif plus=="-":
+		ahora-=timedelta(hours=H,minutes=M,seconds=S,days=d,weeks=w,microseconds=mS)
+	else:
+		print "Solo esta permitido sumar o restar."
+	return ahora
+
+
+
+"""
+def sumarDateTime(datetime,H=None,M=None,S=None,d=None,m=None,y=None,viciesto=False):
+	if " - " in datetime:
+		_time,date=datetime.split(" - ")
+		if "/" in date:
+			_d,_m,_y=date.split("/")
+			_d=int(_d)
+			_m=int(_m)
+			_y=int(_y)
+
+		if ":" in _time:
+			_H,_M,_S=_time.split(":")
+			print "aaaaaaaaaaa"
+			if S!=None:
+				if S+int(_S)>59:
+					minutosFloat=str(float(S+int(_S))/60)
+					minutosStr,_S=minutosFloat.split(".")
+					_S=str(float("0."+_S)*60).split(".")[0]
+					if M!=None:
+
+						if M+int(_M)+int(minutosStr)>59:
+							_M=str(int(minutosStr)+int(M)+int(_M))
+							horasFloat=str(float(_H)/60)
+							horasStr,_M=minutosFloat.split(".")
+							_M=str(int(float("0."+_M)*60)).split(".")[0]
+
+							if H!=None:
+								if int(horasStr)+int(_H)>23:
+									_H=str(float(horasStr)+float(_H)/24)
+									dias,_H=_H.split(".")
+									_H=str(int(float("0."+_H)*24)).split(".")[0]
+									_d+=int(dias)
+									if _m=="1" or _m=="3" or _m=="5" or _m=="7" or _m=="8" or _m=="10" or _m=="12":
+										if _d>31:
+											meses,_d=str(float(_d)/31).split(".")
+											_d=str(float(_d)*31).split(".")[0]
+											if int(meses)+_m>12:
+												a,_d=str((float(meses)+_m)/12).split(".")
+												_y=str(a+_y)
+
+									elif _m=="2":#viciesto
+										if viciesto==False:
+											if _d>28:
+												meses,_d=str(float(_d)/28).split(".")
+												_d=str(float(_d)*28).split(".")[0]
+												if int(meses)+_m>12:
+													a,_d=str((float(meses)+_m)/12).split(".")
+													_y=str(a+_y)
+										else:
+											if _d>29:
+												meses,_d=str(int(_d)/29)
+												_d=str(float(_d)*29).split(".")[0]
+												if int(meses)+_m>12:
+													a,_d=str((float(meses)+_m)/12).split(".")
+													_y=str(a+_y)
+
+									else:
+										if _d>30:
+											meses,_d=str(int(_d)/30)
+											_d=str(float(_d)*29).split(".")[0]
+											if int(meses)+_m>12:
+												a,_d=str((float(meses)+_m)/12).split(".")
+												_y=str(a+_y)
+
+							else:
+								pass
+
+						else:
+							#_M=str(int(minutosStr)+int(M)+int(_M))
+							pass
+
+					else:
+						#_M=str(int(minutosStr)+int(_M))
+						_M=int(minutosStr)+int(_M)
+				else:
+					_S=int(_S)+int(S)
+			else:
+				if M!=None:
+						if M+int(_M)+int(minutosStr)>59:
+							_M=str(int(minutosStr)+int(M)+int(_M))
+							horasFloat=str(float(_H)/60)
+							horasStr,_M=minutosFloat.split(".")
+							_M=str(int(_M)*60)
+
+							if H!=None:
+								if int(horasStr)+int(_H)>23:
+									_H=str(float(horasStr)+float(_H)/24)
+									dias,_H=_H.split(".")
+									_H=str(int(_H)*24)
+									_d+=int(dias)
+									if _m=="1" or _m=="3" or _m=="5" or _m=="7" or _m=="8" or _m=="10" or _m=="12":
+										if _d>31:
+											meses,_d=str(int(_d)/31)
+											_d=_str(float(_d)*31)
+											if int(meses)+_m>12:
+												a,_d=str(float(meses)+_m/12).split(".")
+												_y=str(a+_y)
+
+									elif _m=="2":#viciesto
+										if viciesto==False:
+											if _d>28:
+												meses,_d=str(int(_d)/28)
+												_d=_str(float(_d)*28)
+												if int(meses)+_m>12:
+													a,_d=str(float(meses)+_m/12).split(".")
+													_y=str(a+_y)
+										else:
+											if _d>29:
+												meses,_d=str(int(_d)/29)
+												_d=_str(float(_d)*29)
+												if int(meses)+_m>12:
+													a,_d=str(float(meses)+_m/12).split(".")
+													_y=str(a+_y)
+
+									else:
+										if _d>30:
+											meses,_d=str(int(_d)/30)
+											_d=_str(float(_d)*30)
+											if int(meses)+_m>12:
+												a,_d=str(float(meses)+_m/12).split(".")
+												_y=str(a+_y)
+				else:
+					if H!=None:
+								if int(horasStr)+int(_H)>23:
+									_H=str(float(horasStr)+float(_H)/24)
+									dias,_H=_H.split(".")
+									_H=str(int(_H)*24)
+									_d+=int(dias)
+									if _m=="1" or _m=="3" or _m=="5" or _m=="7" or _m=="8" or _m=="10" or _m=="12":
+										if _d>31:
+											meses,_d=str(int(_d)/31)
+											_d=_str(float(_d)*31)
+											if int(meses)+_m>12:
+												a,_d=str(float(meses)+_m/12).split(".")
+												_y=str(a+_y)
+
+									elif _m=="2":#viciesto
+										if viciesto==False:
+											if _d>28:
+												meses,_d=str(int(_d)/28)
+												_d=_str(float(_d)*28)
+												if int(meses)+_m>12:
+													a,_d=str(float(meses)+_m/12).split(".")
+													_y=str(a+_y)
+										else:
+											if _d>29:
+												meses,_d=str(int(_d)/29)
+												_d=_str(float(_d)*29)
+												if int(meses)+_m>12:
+													a,_d=str(float(meses)+_m/12).split(".")
+													_y=str(a+_y)
+
+									else:
+										if _d>30:
+											meses,_d=str(int(_d)/30)
+											_d=str(float(_d)*30)
+											if int(meses)+_m>12:
+												a,_d=str(float(meses)+_m/12).split(".")
+												_y=str(a+_y)
+
+
+
+
+
+		return str(_H)+":"+str(_M)+":"+str(_S)+" - "+str(_d)+"/"+str(_m)+"/"+str(_y)
+	else:
+		if "/" in datetime:
+			pass
+		elif ":" in datetime:
+			pass
+"""
+
+def randomString(lon=8,alp=True,noalp=True,num=True):
+	v_num="0123456789"
+	v_alp="abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäïöüÄËÏÖÜâêîôûÂÊÎÔÛ"
+	v_noalp=",.-ḉ!·$%&/()=?¿|@#~½¬{[]}€ł¶ŧ←↓→øþæßðđŋħ~«»¢“”nµ><"
+	if alp==True and noalp==True and num==True:
+		v=v_num+v_alp+v_noalp
+	elif alp==True and noalp==False and num==True:
+		v=v_num+v_alp
+	elif alp==False and noalp==True and num==True:
+		v=v_num+v_noalp
+	elif alp==True and noalp==True and num==False:
+		v=v_alp+v_noalp
+	elif alp==False and noalp==False and num==True:
+		v=v_num
+	elif alp==True and noalp==False and num==False:
+		v=v_alp
+	elif alp==False and noalp==True and num==False:
+		v=v_noalp
+	else:
+		return None
+
+	c=0
+	token=""
+	while c<lon:
+		token+=v[random.randrange(0,len(v))]
+		c+=1
+	return token
+
+
 
 def cmpString(cad1,cad2,orden="1a.",mayor=True):
 	c="aáàäbcdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyzçḉ" if (mayor==True) else invertString("aáàäbcdeéèëfghiíìïjklmnñoóòöpqrstuúùüvwxyzçḉ")

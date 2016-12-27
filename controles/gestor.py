@@ -8,6 +8,7 @@ try:
 	import time
 	import sys
 	import httplib, urllib
+	import shutil
 	sys.path.append("../config")
 	import config
 	sys.path.append(config.main_libs_url_relative)
@@ -132,16 +133,7 @@ try:
 			
 				parametros["base_root"]=root_app_current
 				parametros["base_url"]=url_app_current
-			"""
-			def incluir(widget,admin=False,current):
-				sys.path.append(root_app_current+"../admin/")
-				import settings.roots as roots
-				if admin==True:
-					servir(root_app_current+"../admin/"+roots.widgets_url+widget+".html",root_app_current+"../admin/"+roots.widgets_url+widget+".html")
-				else:
-					servir(root_app_current+roots.widgets_url+widget+".html",root_app_current+roots.widgets_url+widget+".html")
-
-			"""
+			
 			modulos["ztec"]=ztec
 			#Establece coneccion con el controlador de la aplicación
 			cnt_file=open(appcontroller,"r")
@@ -154,53 +146,71 @@ try:
 		else:
 
 			#appcontroller=config.base_root+config.projects_url+app+"/"+config.controller_url+".py"
-			appcontroller=config.base_root+config.projects_url+app+"/"+config.controller_url+".py"
+			#appcontroller=config.base_root+config.projects_url+app+"/"+config.controller_url+".py"
 			
-			
-		
-		
+			if "app" not in rest:
+				print "Debes pasar la el parametro app con el valor del proyecto para acceder.<br>"
+				if "renombrar" in rest:
+					if ":" in rest["renombrar"]:
+						old,new=rest["renombrar"].split(":")
+						os.rename(config.base_root+config.projects_url+old,config.base_root+config.projects_url+new)
+					else:
+						print "No introdujo los pares viejoNombre:nuevoNombre"
+				if "new" in rest:
+						shutil.copytree(config.base_root+config.projects_url+config.default_app,config.base_root+config.projects_url+config.default_app+"/../"+rest["new"], symlinks=False, ignore=None)
+						print "Ha creado el proyecto: "+rest["new"]
+				#rest["new"]
+				if "listo" in rest:
+					shutil.move(config.base_root+config.projects_url+rest["listo"],config.base_root+config.apps_url)
+					print "El proyecto ",rest["listo"]," a pasado a la etapa de producción."
+				if "desarrollo" in rest:
+					shutil.move(config.base_root+config.apps_url+rest["desarrollo"],config.base_root+config.projects_url)
+					print "La aplicación ",rest["desarrollo"]," fue retirada del las aplicaciones en produccion y paso a desarrollo."
+				if "ramificar" in rest:
+					shutil.copytree(config.base_root+config.apps_url+rest["ramificar"],config.base_root+config.projects_url)
+					print "La aplicación ",rest["ramificar"]," paso sea a ramificado."
 
-		"""
-		f=open(appcontroller,"r")
-		text=f.read()
-		f.close()
-		
-		exec(text)
-		exec("data="+vista+"()")
-	
-		cabecera=""
-		for elem in data:
-			cabecera+=elem+"="+str(data[elem])+"\n" if type(data[elem])!=str else elem+"="+"'"+data[elem]+"'\n"
-		"""	
-
-		#--------------------------------------------------
-		if config.mod_debug==False:
-			pass
-			
-			
-			
-
-			"""
-			if vista!="index":	
-				
-				ruta_python=config.base_root+config.projects_url+app+"/"+config.vistas_url+config.templates_url+vista+".py"
-				ruta_html=config.base_root+config.projects_url+app+"/"+config.vistas_url+vista+".html"
-				generar(ruta_html,ruta_python,cabecera)
-				f=open(ruta_python,"r")
-				html=f.read()
-				f.close()
-				exec(html)
 			else:
-				ruta_html=config.base_root+config.projects_url+app+"/"+config.vistas_url+"index.html"
-				f=open(ruta_html,"r")
-				html=f.read()
-				f.close()
-				print html
-			"""
+				app=rest["app"]
+				appcontroller=config.base_root+config.projects_url+app+"/user/"+config.controller_url
+				root_app_current=config.base_root+config.projects_url+config.default_app+"/user/"
+				url_app_current=config.base_url+config.projects_url+config.default_app+"/user/"	
+				parametros=rest
+			
+				parametros["base_root"]=root_app_current
+				parametros["base_url"]=url_app_current
+				modulos["ztec"]=ztec
+				
+				if "renombrar" in rest:
+					if ":" in rest["renombrar"]:
+						old,new=rest["renombrar"].split(":")
+						os.rename(config.base_root+config.projects_url+old,config.base_root+config.projects_url+new)
+					else:
+						print "No introdujo los pares viejoNombre:nuevoNombre"
+				if "new" in rest:
+						shutil.copytree(config.base_root+config.projects_url+config.default_app,config.base_root+config.projects_url+config.default_app+"/../"+rest["new"], symlinks=False, ignore=None)
+						print "Ha creado el proyecto: "+rest["new"]
+				#rest["new"]
+				if "listo" in rest:
+					shutil.move(config.base_root+config.projects_url+rest["listo"],config.base_root+config.apps_url)
+					print "El proyecto ",rest["listo"]," a pasado a la etapa de producción."
+				if "desarrollo" in rest:
+					shutil.move(config.base_root+config.apps_url+rest["desarrollo"],config.base_root+config.projects_url)
+					print "La aplicación ",rest["desarrollo"]," fue retirada del las aplicaciones en produccion y paso a desarrollo."
+				if "ramificar" in rest:
+					shutil.copytree(config.base_root+config.apps_url+rest["ramificar"],config.base_root+config.projects_url)
+					print "La aplicación ",rest["ramificar"]," paso sea a ramificado."
+				print appcontroller
+				#Establece coneccion con el controlador de la aplicación
+				cnt_file=open(appcontroller,"r")
+				cnt=cnt_file.read()
+				cnt_file.close()
+				exec(cnt)
+				cnt(parametros,modulos)		
 
-
+		
 
 except Exception, ex:
 	print "<h1>Hay un error: </h1>"
-	print "<p>"+str(Exception)+"</p>"
+	print "<p>"+str(Exception)[1:-1]+"</p>"
 	print "<p>"+str(ex)+"</p>"

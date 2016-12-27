@@ -1,6 +1,6 @@
 #Esto es el equibalente a los achivos .sql que se cargan en la base de datos
 #  En los modelos no se crea la estructura de la base de datos solo se crean metodos de insercion de datos
-db=DB()
+db=DB(debug=True)
 #===================================================================
 #TABLA USUARIOS
 db("usuarios").campo("nombres",db.str)
@@ -9,7 +9,7 @@ db("usuarios").campo("correo",db.email,True)
 db("usuarios").campo("password",db.str)
 db("usuarios").campo("foto",db.url)
 db("usuarios").campo("imgs",db.list)
-db("usuarios").campo("token",db.object,True)
+db("usuarios").campo("token",db.str,True)
 #===================================================================
 #TABLA MENSAJES - CHAT
 db("msj_chat").campo("emisor",db.object)
@@ -45,16 +45,18 @@ db("posts").campo("interacciones",db.list)
 db("posts").campo("comentarios",db.list)
 #==================================================================
 #TABLA TOKENS
-db("tokens").campo("usuario",db.object)
+db("tokens").campo("usuario",db.email,True)
 db("tokens").campo("valor",db.str,True)
 db("tokens").campo("emisión",db.datetime)
 db("tokens").campo("expiración",db.datetime)
 #==================================================================
 #TABLA DOCUMENTACION
-db("documentación").campo("app",db.object)
+db("documentación").campo("app",db.str)
 db("documentación").campo("libro",db.str)
 db("documentación").campo("tema",db.str)
 db("documentación").campo("texto",db.str)
-
 #==================================================================
+#TABLA ADMIN
+db("admin").campo("nombre",db.str)
+
 db.grabar(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py")

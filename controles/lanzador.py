@@ -10,5 +10,5 @@ try:
 
 except Exception, ex:
 	print "<h1>Hay un error: </h1>"
-	print "<p>"+str(Exception)+"</p>"
+	print "<p>"+str(Exception)[1:-1]+"</p>"
 	print "<p>"+str(ex)+"</p>"

@@ -8,8 +8,9 @@ email="<type 'email'>"
 la función DB permite crear base de datos de manera sencilla 
 """
 class obj:
-	def __init__(self,valor):
+	def __init__(self,valor,tipo=None):
 		self.valor=valor
+		self.tipo=tipo
 		
 def DB(dbfile=None,debug=False):
         def db(tabla):
@@ -32,28 +33,36 @@ def DB(dbfile=None,debug=False):
 			    #version:v0.01
 			    """dbtype permite identificar un tipo de dato que pertenece a los tipos de datos que trabaja la base de datos"""
 			    def dbtype(dato):
-
 					if type(dato)==str:
 						if "@" in dato and ".com" in dato[dato.index("@"):]:
 							return "<type 'email'>"
-						elif "/" in dato and "/" in dato[dato.index("/"):] and "/" in dato[len(dato[dato.index("/"):]):]:
+						elif ":" in dato and "://" not in dato:
 							t=dato.split(" ")
-							if ":" in t[1] and "m" in t[1][t[1].index(":"):]:
-								return "<type 'datetime'>"
-							else:
-								t=dato.split("/")
-								if len(t[0])==2 and len(t[1])==2:
+							if ":" in t[1] and ":" not  in t[0] or ":" in t[0] and ":" not in t[1]:
+
+								if "-" in t[1] and "-" not  in t[0] or "-" in t[0] and "-" not in t[1]:
+									return "<type 'datetime'>"
+								elif "/" in t[1] and "/" not  in t[0] or "/" in t[0] and "/" not in t[1]:
+									return "<type 'datetime'>"
+								else:
 									return "<type 'date'>"
-						elif ":" in dato and "m" in dato[dato.index(":"):] and "://" not in dato:
-							return "<type 'time'>"
+							else:
+									return "<type 'time'>"
+
+
 						elif "https://" in dato or "http://" in dato:
 							return "<type 'url'>"
 						elif "file://" in dato:
 							return "<type 'file'>"
 						else:
 							return str
+					
 					else:
-						return type(dato)
+						try:
+							return dato.tipo
+						except:
+							return type(dato)
+
 				#Estado:finalizado
 				#Version:v0.01
 			    """ rtype permite corrige el string del tipo de dato"""
@@ -85,46 +94,65 @@ def DB(dbfile=None,debug=False):
 			    Ejemplo:
 			    		db.insertar('miNombre','miApellido',12345678)
 			    """
-			    def insertar(*campos):
+			    def insertar(*campos,**args):
 					c=0
 					valido=True
+					if "sob" not in args:
+						args["sob"]=False
 					lcampos=[]
-					
+					razones=[]
 					for elem in campos:
 
 						if self.campos[self.seleccion][c][2]==True:
-							
-							if elem in self.obtenerColumna(self.campos[self.seleccion][c][0]):
-								valido=False
+
+							if args["sob"]==True:
+									if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+										valido=False
+										razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+									else:
+											
+										lcampos.append(obj(elem,dbtype(elem)))
 							else:
-								if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+
+								if elem in self.obtenerColumna(self.campos[self.seleccion][c][0]):
 									valido=False
+									razones.append(str(elem)+" se repite y es un campo unico")
 								else:
-									lcampos.append(obj(elem))
-						
+									if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+										valido=False
+										razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+									else:
+										lcampos.append(obj(elem,dbtype(elem)))
+
 						else:
 
 							if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
 									valido=False
+									razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
 							else:
-									lcampos.append(obj(elem))
+									lcampos.append(obj(elem,dbtype(elem)))
 		                                
 						c+=1
-				
+					print "valido ",valido
+					print "<br>"
 					if valido==True:
 						self.tablas[self.seleccion][self.clavePrimaria[self.seleccion]]=lcampos
 						self.clavePrimaria[self.seleccion]+=1
-	                    
+
 						try:
 							if tabla!=None:
 								self.registro.append("db('"+tabla+"').insertar"+str(campos))
 						except:
 								self.registro.append("db.insertar"+str(campos))
+
 						if self.debug==True:
-							print "La inserción de datos fue realizada con exito"
+							print "La inserción de datos fue realizada con exito ",campos
 					else:
 						if self.debug==True:
-							print "La inserción de datos no puedo ser realizada"
+
+							print "La inserción de datos no puedo ser realizada."
+							print razones
+					print campos
 					return self
                         
                 #Estado:finalizado
@@ -146,7 +174,7 @@ def DB(dbfile=None,debug=False):
 						for elem2 in self.campos[self.seleccion]:
 							if elem2[1]==dbtype(elem):
 								if dbtype(elem[1])==self.campos[self.seleccion][c][1]:
-									self.tablas[self.seleccion][id][c]=obj(elem)
+									self.tablas[self.seleccion][id][c]=obj(elem,dbtype(elem))
 							c+=1
 					try:
 							if tabla!=None:
@@ -233,20 +261,51 @@ def DB(dbfile=None,debug=False):
 					
 					if "id" in args:
 						if "campo" in args:
-							self.tablas[self.seleccion][i][self.obtenerCampo(campo1)]=self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])]						
+							if self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo==self.object:
+								if debug==True:
+									print "Ya existe una relacion para este campo"
+							else:
+								self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo=self.object
+								print str(self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo)[1:-1]
+								self.tablas[self.seleccion][i][self.obtenerCampo(campo1)]=self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])]									
+								l=str(args)[1:-1].split(",")	
+								c=""
+								
+								for elem in l:
+											c+=elem.split(":")[0][1:-1].replace('"',"").replace("'","")+"="+elem.split(":")[1]+","
+															
+								try:
+										if tabla!=None:
+											self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")
+											if debug==True:
+												print "La relación fue efectuada con exito"
+								except:
+										self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
+										if debug==True:
+											print "La relación fue efectuada con exito"
+
+
 					else:
-						self.tablas[self.seleccion][i][self.obtenerCampo(campo1)]=self.tablas[args["tabla"]]
-					l=str(args)[1:-1].split(",")	
-					c=""
-					
-					for elem in l:
-								c+=elem.split(":")[0][1:-1].replace('"',"").replace("'","")+"="+elem.split(":")[1]+","
-												
-					try:
-							if tabla!=None:
-								self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")
-					except:
-							self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
+						if self.tablas[args["tabla"]].tipo==self.object:
+							if debug==True:
+									print "Ya existe una relacion para este campo"
+						else:
+							self.tablas[self.seleccion][i][self.obtenerCampo(campo1)]=self.tablas[args["tabla"]]		
+							l=str(args)[1:-1].split(",")	
+							c=""
+							
+							for elem in l:
+										c+=elem.split(":")[0][1:-1].replace('"',"").replace("'","")+"="+elem.split(":")[1]+","
+														
+							try:
+									if tabla!=None:
+										self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")
+										if debug==True:
+											print "La relación fue efectuada con exito"
+							except:
+									self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
+									if debug==True:
+										print "La relación fue efectuada con exito"
 					return self
                 
 					
@@ -291,7 +350,7 @@ def DB(dbfile=None,debug=False):
         if dbfile==None:
 			db.registro=["from ztec.zdb import DB","db=DB()"]
         else:
-			db=dbcargar(dbfile)
+			db=dbcargar(dbfile,debug)
          
         
         return db
@@ -299,11 +358,12 @@ def DB(dbfile=None,debug=False):
 
                 
         
-def dbcargar(dbfile=None):
+def dbcargar(dbfile=None,debug=False):
         if dbfile!=None:
 					f=open(dbfile,"r")
 					instrucciones=f.read()
 					f.close()
 					exec(instrucciones)
+					db.debug=debug
 					return db
 	
