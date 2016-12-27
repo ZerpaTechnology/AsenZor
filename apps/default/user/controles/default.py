@@ -11,6 +11,7 @@ def cnt(p,m):
 	sys.path.append(p["base_root"]+"../admin/"+roots.models_folder)
 	import modelos.main_model as main_model
 	import ztec.zu as zu
+	from ztec.zred import clienteSock
 	import time
 
 
@@ -21,28 +22,7 @@ def cnt(p,m):
 	#------------------------------------------------------------
 	#Sección de parametrisaje
 	
-	if settings.config.consola==True:
-		import socket
-		msj =""
-		host, port = "localhost" , 9999
-		#creo un socket y me conecto
-		sock= socket.socket()
-		sock.connect((host,port))
-		enviar=True
-		print "Ingrese un mensaje o salir para terminar"
-		while msj != "salir":
-		    msj = "hola mundo"
-		    #intento mandar msj
-		    try:
-		        sock.send(msj)
-		        msj="salir"
-		    # si no se puede entonces salgo
-		    except:
-		        print "no se mando el mensaje"
-		        msj="salir"
-		    
-		sock.close() #recuerden cerrar el socket
-		
+
 		
 	if "action" in p:
 		if p["action"]=="phpload":
@@ -79,7 +59,10 @@ def cnt(p,m):
 		#carga la vista
 		m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url)
 	
-	
+	if settings.config.consola==True:
+		for elem in main_model.db.log:
+			print elem.replace("\n","<br>").replace("\x1b[1;31m","<span class='blue'>").replace("\x1b[0m","</span>")
+			clienteSock(settings.config.host,settings.config.consola_port,elem,"")
 	#--------------------------------------------------------------
 	#Sección de testeo
 	#main_model.registrarUsuario("jesus","zerpa","jesus26abraham1996@gmail.com",1234,p["base_root"]+"AsenZor/static/imgs/icono_perfil.jpg",[])

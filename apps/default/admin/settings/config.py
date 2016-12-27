@@ -7,3 +7,5 @@ dbs=["main"]
 #variable para paso de parametros
 p={}
 consola=True
+host="localhost"
+consola_port=9999

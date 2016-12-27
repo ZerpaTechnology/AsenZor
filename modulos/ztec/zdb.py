@@ -13,8 +13,10 @@ class obj:
 		self.tipo=tipo
 		
 def DB(dbfile=None,debug=False):
-        def db(tabla):
+
+        def db(tabla=None):
 			    self=db
+			    self.t=tabla
 					
 				
 				#nuevo uso del registro, almacena todos los comandos utilizados
@@ -23,9 +25,13 @@ def DB(dbfile=None,debug=False):
 					self.campos[tabla]=[]
 					self.tablas[tabla]={}
 					self.clavePrimaria[tabla]=0
+					self.log=[]
 			    self.seleccion=tabla
+
 			    self.idseleccion=None
-			    self.log=[]
+			    #para direfebciar cuando se usa db("tabla")
+			    
+			    
 					
 
 				
@@ -76,6 +82,8 @@ def DB(dbfile=None,debug=False):
 					self.idseleccion=i
 					return self
 			    def columna(camp):
+			    	if self.t!=None:
+			    		self.consola(str(self.tablas[self.seleccion][self.idseleccion][self.obtenerCampo(camp)])+"\n",self)
 					return self.tablas[self.seleccion][self.idseleccion][self.obtenerCampo(camp)]
 			    def campo(nombre,tipo,unico=False):
 					self.campos[self.seleccion].append([nombre,tipo,unico])
@@ -133,8 +141,7 @@ def DB(dbfile=None,debug=False):
 									lcampos.append(obj(elem,dbtype(elem)))
 		                                
 						c+=1
-					print "valido ",valido
-					print "<br>"
+					
 					if valido==True:
 						self.tablas[self.seleccion][self.clavePrimaria[self.seleccion]]=lcampos
 						self.clavePrimaria[self.seleccion]+=1
@@ -142,19 +149,15 @@ def DB(dbfile=None,debug=False):
 						try:
 							if tabla!=None:
 								self.registro.append("db('"+tabla+"').insertar"+str(campos))
+								self.consola("La inserción de datos fue realizada con exito\n \x1b[1;31m "+str(campos)+" \x1b[0m\n",self)
 						except:
 								self.registro.append("db.insertar"+str(campos))
-
-						if self.debug==True:
-							print "La inserción de datos fue realizada con exito ",campos
-							self.log.append("La inserción de datos fue realizada con exito "+str(campos))
+								self.consola("La inserción de datos fue realizada con exito en la tabla \x1b[1;31m"+self.seleccion+"\x1b[0m \n Datos insertados:\n"+str(campos)+"\n",self)
+							
 					else:
-						if self.debug==True:
-
-							print "La inserción de datos no puedo ser realizada."
-							print razones
-							self.log.append("La inserción de datos no puedo ser realizada.\n"+str(razones))
-					print campos
+					
+							self.consola("La inserción de datos no puedo ser realizada en la tabla \x1b[1;31m"+self.seleccion+"\x1b[0m .\nRazones: \n "+str(razones)+"\n",self)
+					
 					return self
                         
                 #Estado:finalizado
@@ -166,6 +169,7 @@ def DB(dbfile=None,debug=False):
 			    db.modificar() 
 			    """
 			    def modificarCampo(id,columna,campoNuevo):
+					self.consola("modificarFila\n de: "+str(self.tablas[self.seleccion][id][obtenerCampo(columna)].valor)+" a: "+str(campoNuevo)+"\n",self)
 					self.tablas[self.seleccion][id][obtenerCampo(columna)].valor=campoNuevo
 				
 				#Estado: Pendiente
@@ -176,6 +180,8 @@ def DB(dbfile=None,debug=False):
 						for elem2 in self.campos[self.seleccion]:
 							if elem2[1]==dbtype(elem):
 								if dbtype(elem[1])==self.campos[self.seleccion][c][1]:
+
+									self.consola("modificarFila\n de: "+str(self.tablas[self.seleccion][id][c])+" a: "+str(obj(elem,dbtype(elem)))+"\n",self)
 									self.tablas[self.seleccion][id][c]=obj(elem,dbtype(elem))
 							c+=1
 					try:
@@ -195,13 +201,15 @@ def DB(dbfile=None,debug=False):
 						c+=elem+"\n"
 					f.write(c)
 					f.close()
+					self.consola("La base de datos fue grabada con exito\n",self)
 				#Estado: Finalizado
 				#Versión: V0.01
-			    def obtenerColumna(campo,t=self.seleccion):
+			    def obtenerColumna(campo,t=self.seleccion,self=self):
 					l=[]
-					
 					for i in self.mostrarTablas()[t]:
 						l.append(self.mostrarTablas()[t][i][self.obtenerCampo(campo,t)])
+					if self.t!=None:
+						self.consola("obtenerColumna "+self.t+"\n"+str(l)+"\n",self)
 					return l
 						
 				#Estado: Finalizado
@@ -210,6 +218,8 @@ def DB(dbfile=None,debug=False):
 					c=0
 					for elem in self.campos[t]:
 						if campo==elem[0]:
+							if self.t!=None:
+								self.consola("obtenerCampo\n"+str(c)+"\n",self)
 							return c
 						c+=1
 				#Estado: Finalizado
@@ -217,6 +227,8 @@ def DB(dbfile=None,debug=False):
 			    def obtenerFila(campo,t=self.seleccion):
 					for elem in self.mostrarTablas(t):
 						if campo in self.mostrarTablas(t)[elem]:
+							if self.t!=None:
+								self.consola("obtenerFila\n"+str(elem)+"\n",self)
 							return elem
 					
 				#Estado: Finalizado
@@ -226,7 +238,10 @@ def DB(dbfile=None,debug=False):
 					l=[]
 					for elem in self.campos[t]:
 							l.append(elem[0])
+					if self.t!=None:
+						self.consola("obtenerCampos\n"+str(l)+"\n",self)
 					return l
+
 								
 						
 						
@@ -256,20 +271,26 @@ def DB(dbfile=None,debug=False):
 					else:
 						return dtablas[seleccion]
 				
+
+			    def consola(mensaje,d):
+					d.log.append(mensaje)
+					if d.debug==True:
+						print mensaje
+
+
 				#Estado: Finalizado
 				#Version: v0.01			
 				#tabla1 (i,campo1) <- args["tabla"] (args["id"],args["campo"]) 	
+
 			    def relacionar(i,campo1,**args):
 					
 					if "id" in args:
 						if "campo" in args:
-							if self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo==self.object:
-								if debug==True:
-									print "Ya existe una relacion para este campo"
-									self.log.append("Ya existe una relacion para este campo")
+							if self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo==self.object:	
+									self.consola("Ya existe una relacion para este campo\n",self)
 							else:
 								self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo=self.object
-								print str(self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo)[1:-1]
+								
 								self.tablas[self.seleccion][i][self.obtenerCampo(campo1)]=self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])]									
 								l=str(args)[1:-1].split(",")	
 								c=""
@@ -280,21 +301,16 @@ def DB(dbfile=None,debug=False):
 								try:
 										if tabla!=None:
 											self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")
-											if debug==True:
-												print "La relación fue efectuada con exito"
-												self.log.append("La relación fue efectuada con exito")
+											self.consola("La relación fue efectuada con exito\n",self)
+												
 								except:
 										self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
-										if debug==True:
-											print "La relación fue efectuada con exito"
-											self.log.append("La relación fue efectuada con exito")
+										self.consola("La relación fue efectuada con exito\n",self)
 
 
 					else:
 						if self.tablas[args["tabla"]].tipo==self.object:
-							if debug==True:
-									print "Ya existe una relacion para este campo"
-									self.log.append("Ya existe una relacion para este campo")
+									self.consola("Ya existe una relacion para este campo\n",self)
 						else:
 							self.tablas[self.seleccion][i][self.obtenerCampo(campo1)]=self.tablas[args["tabla"]]		
 							l=str(args)[1:-1].split(",")	
@@ -305,15 +321,11 @@ def DB(dbfile=None,debug=False):
 														
 							try:
 									if tabla!=None:
-										self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")
-										if debug==True:
-											print "La relación fue efectuada con exito"
-											self.log("La relación fue efectuada con exito")
+										self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")	
+										self.consola("La relación fue efectuada con exito\n")
 							except:
 									self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
-									if debug==True:
-										print "La relación fue efectuada con exito"
-										self.log("La relación fue efectuada con exito")
+									self.consola("La relación fue efectuada con exito\n",self)
 					return self
                 
 					
@@ -343,24 +355,30 @@ def DB(dbfile=None,debug=False):
 			    self.obtenerCampo=obtenerCampo
 			    self.relacionar=relacionar
 			    self.id=id
+			    self.consola=consola
 			    self.debug=debug
 			    self.columna=columna
 			    self.obtenerCampos=obtenerCampos
 			    self.obtenerFila=obtenerFila
 			    self.obtenerColumna=obtenerColumna
+			    self.t=None
 			    return self
 			    
         db.tablas={}
         db.campos={}
         db.clavePrimaria={}
         db.seleccion=None
-        db.dbfile=dbfile			
+        db.dbfile=dbfile
+    		
         if dbfile==None:
 			db.registro=["from ztec.zdb import DB","db=DB()"]
         else:
-			db=dbcargar(dbfile,debug)
-         
-        
+			x=dbcargar(dbfile,debug)
+			if x==None:
+				db.consola("Ocurrio un error al cargar la base de datos\n",db)
+			else:
+				db=x
+
         return db
         
 
@@ -371,7 +389,14 @@ def dbcargar(dbfile=None,debug=False):
 					f=open(dbfile,"r")
 					instrucciones=f.read()
 					f.close()
-					exec(instrucciones)
-					db.debug=debug
-					return db
+					try:
+						exec(instrucciones)
+						db.debug=debug
+						db.consola("--------------------------------------------\nLa base de datos fue cargada con exito\n",db)
+						db.t=None
+
+						return db
+					except:
+						print "ocurrio un error al cargar la base de datos"
+
 	

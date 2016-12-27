@@ -14,7 +14,8 @@ root_db=p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py"
 import time
 tiempo=time.time()
 if os.path.exists(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py"):
-	db=DB(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py",True)
+	db=DB(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py")
+	
 
 else:
 	f=open(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_struct.py","r")
@@ -26,13 +27,14 @@ else:
 def registrarUsuario(nombres,apellidos,correo,password,foto,imgs,db=db):
 	
 	token=zu.randomString()
-	print db.tablas
-	if token not in db("tokens").obtenerColumna("valor","tokens"):
+	#print db.tablas
+
+	if token not in db.obtenerColumna("valor","tokens"):
 		
 		db("usuarios").insertar(nombres,apellidos,correo,password,foto,[],token)
 		db("tokens").insertar(correo,token,str(zu.DateTime()),str(zu.DateTime(w=4)))
 
-		i=len(db("usuarios").obtenerColumna("token","usuarios"))-1
+		i=len(db.obtenerColumna("token","usuarios"))-1
 
 		db("tokens").relacionar(i,"usuario",tabla="usuarios",campo="nombres",id=i)
 		
