@@ -36,11 +36,10 @@ def registrarUsuario(nombres,apellidos,correo,password,foto,imgs,db=db):
 
 		i=len(db.obtenerColumna("token","usuarios"))-1
 
-		db("tokens").relacionar(i,"usuario",tabla="usuarios",campo="nombres",id=i)
+		db("tokens").relacionar(i,"usuario",tabla="usuarios",campo="correo",id=i)
 		
 		db("usuarios").relacionar(i,"token",tabla="tokens",campo="valor",id=i)
-		
-		pass
+		print "tabla: ",db.mostrarTablas()["tokens"],"<br>"
 	db.grabar(root_db)
 	
 

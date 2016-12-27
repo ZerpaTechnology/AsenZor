@@ -114,12 +114,24 @@ def DB(dbfile=None,debug=False):
 						if self.campos[self.seleccion][c][2]==True:
 
 							if args["sob"]==True:
-									if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
-										valido=False
-										razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+									bloqueados=[]
+									for elem2 in self.obtenerColumna(self.obtenerCampos()[c]):
+										if self.dbtype(elem)==self.object:
+											bloqueados.append(elem2.valor)
+									if bloqueados==[]:
+										if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+											valido=False
+											razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+										else:
+												
+											lcampos.append(obj(elem,dbtype(elem)))
 									else:
+										if elem in bloqueados:
+											valido=False
+											razones.append(str(elem)+" se repite y es un campo unico")
+										else:
+											lcampos.append(obj(elem,dbtype(elem)))
 											
-										lcampos.append(obj(elem,dbtype(elem)))
 							else:
 
 								if elem in self.obtenerColumna(self.campos[self.seleccion][c][0]):
@@ -149,7 +161,7 @@ def DB(dbfile=None,debug=False):
 						try:
 							if tabla!=None:
 								self.registro.append("db('"+tabla+"').insertar"+str(campos))
-								self.consola("La inserción de datos fue realizada con exito\n \x1b[1;31m "+str(campos)+" \x1b[0m\n",self)
+								self.consola("La inserción de datos fue realizada con exito en la tabla \n \x1b[1;31m "+self.seleccion+"\n Datos insertados:\n"+str(campos)+" \x1b[0m\n",self)
 						except:
 								self.registro.append("db.insertar"+str(campos))
 								self.consola("La inserción de datos fue realizada con exito en la tabla \x1b[1;31m"+self.seleccion+"\x1b[0m \n Datos insertados:\n"+str(campos)+"\n",self)
@@ -214,6 +226,7 @@ def DB(dbfile=None,debug=False):
 						
 				#Estado: Finalizado
 				#Version: V0.01
+			    #retorna el numero de filas, el parametro campo tiene que ser cualquier nombre de campo dentro de la tabla 
 			    def obtenerCampo(campo,t=self.seleccion):
 					c=0
 					for elem in self.campos[t]:
@@ -224,12 +237,16 @@ def DB(dbfile=None,debug=False):
 						c+=1
 				#Estado: Finalizado
 				#Version: v0.01
+				#retorna los id's de las filas donde se encuentra el campo 
 			    def obtenerFila(campo,t=self.seleccion):
-					for elem in self.mostrarTablas(t):
-						if campo in self.mostrarTablas(t)[elem]:
-							if self.t!=None:
-								self.consola("obtenerFila\n"+str(elem)+"\n",self)
-							return elem
+					l=[]
+					for elem in self.mostrarTablas()[t]:
+
+						if campo in self.mostrarTablas()[t][elem]:
+							l.append(elem)
+					if self.t!=None:
+						self.consola("obtenerFila\n"+str(elem)+"\n",self)
+					return l
 					
 				#Estado: Finalizado
 				#Version: v0.01
@@ -287,7 +304,8 @@ def DB(dbfile=None,debug=False):
 					if "id" in args:
 						if "campo" in args:
 							if self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo==self.object:	
-									self.consola("Ya existe una relacion para este campo\n",self)
+									
+									self.consola("Ya existe una relación para este campo\n",self)
 							else:
 								self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo=self.object
 								
@@ -301,10 +319,14 @@ def DB(dbfile=None,debug=False):
 								try:
 										if tabla!=None:
 											self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")
+											#nuevo
+											#self.campos[self.seleccion][self.obtenerCampos(args["tabla"]).index(args["campo"])][1]=self.object
 											self.consola("La relación fue efectuada con exito\n",self)
 												
 								except:
 										self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
+										#nuevo
+										#self.campos[self.seleccion][self.obtenerCampos(args["tabla"]).index(args["campo"])][1]=self.object
 										self.consola("La relación fue efectuada con exito\n",self)
 
 
