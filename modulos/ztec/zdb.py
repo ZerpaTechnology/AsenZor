@@ -25,7 +25,7 @@ def DB(dbfile=None,debug=False):
 					self.clavePrimaria[tabla]=0
 			    self.seleccion=tabla
 			    self.idseleccion=None
-			    
+			    self.log=[]
 					
 
 				
@@ -147,11 +147,13 @@ def DB(dbfile=None,debug=False):
 
 						if self.debug==True:
 							print "La inserción de datos fue realizada con exito ",campos
+							self.log.append("La inserción de datos fue realizada con exito "+str(campos))
 					else:
 						if self.debug==True:
 
 							print "La inserción de datos no puedo ser realizada."
 							print razones
+							self.log.append("La inserción de datos no puedo ser realizada.\n"+str(razones))
 					print campos
 					return self
                         
@@ -264,6 +266,7 @@ def DB(dbfile=None,debug=False):
 							if self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo==self.object:
 								if debug==True:
 									print "Ya existe una relacion para este campo"
+									self.log.append("Ya existe una relacion para este campo")
 							else:
 								self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo=self.object
 								print str(self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo)[1:-1]
@@ -279,16 +282,19 @@ def DB(dbfile=None,debug=False):
 											self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")
 											if debug==True:
 												print "La relación fue efectuada con exito"
+												self.log.append("La relación fue efectuada con exito")
 								except:
 										self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
 										if debug==True:
 											print "La relación fue efectuada con exito"
+											self.log.append("La relación fue efectuada con exito")
 
 
 					else:
 						if self.tablas[args["tabla"]].tipo==self.object:
 							if debug==True:
 									print "Ya existe una relacion para este campo"
+									self.log.append("Ya existe una relacion para este campo")
 						else:
 							self.tablas[self.seleccion][i][self.obtenerCampo(campo1)]=self.tablas[args["tabla"]]		
 							l=str(args)[1:-1].split(",")	
@@ -302,10 +308,12 @@ def DB(dbfile=None,debug=False):
 										self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")
 										if debug==True:
 											print "La relación fue efectuada con exito"
+											self.log("La relación fue efectuada con exito")
 							except:
 									self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
 									if debug==True:
 										print "La relación fue efectuada con exito"
+										self.log("La relación fue efectuada con exito")
 					return self
                 
 					

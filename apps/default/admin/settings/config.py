@@ -6,3 +6,4 @@ libs_php=[]
 dbs=["main"]
 #variable para paso de parametros
 p={}
+consola=True

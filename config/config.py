@@ -40,3 +40,4 @@ error=False
 controler_vista="vista.py"
 main_libs_url=base_root+libs_folder
 main_libs_url_relative="../"+libs_folder
+consola=True

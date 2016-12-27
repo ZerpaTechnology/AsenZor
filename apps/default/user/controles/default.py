@@ -20,6 +20,30 @@ def cnt(p,m):
 	#Cuerpo del controlador
 	#------------------------------------------------------------
 	#Sección de parametrisaje
+	
+	if settings.config.consola==True:
+		import socket
+		msj =""
+		host, port = "localhost" , 9999
+		#creo un socket y me conecto
+		sock= socket.socket()
+		sock.connect((host,port))
+		enviar=True
+		print "Ingrese un mensaje o salir para terminar"
+		while msj != "salir":
+		    msj = "hola mundo"
+		    #intento mandar msj
+		    try:
+		        sock.send(msj)
+		        msj="salir"
+		    # si no se puede entonces salgo
+		    except:
+		        print "no se mando el mensaje"
+		        msj="salir"
+		    
+		sock.close() #recuerden cerrar el socket
+		
+		
 	if "action" in p:
 		if p["action"]=="phpload":
 			if "script" in p:
@@ -54,7 +78,8 @@ def cnt(p,m):
 	if "vista" in p:
 		#carga la vista
 		m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url)
-
+	
+	
 	#--------------------------------------------------------------
 	#Sección de testeo
 	#main_model.registrarUsuario("jesus","zerpa","jesus26abraham1996@gmail.com",1234,p["base_root"]+"AsenZor/static/imgs/icono_perfil.jpg",[])
