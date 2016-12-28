@@ -71,7 +71,14 @@ def cnt(p,m):
 	if "vista" in p:
 		#carga la vista
 		data=p
-		m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url,data=data)
+		try:
+			m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url,data=data)
+		except Exception as e:
+			print "Ha occurido un error en el motor de plantillas<br>"
+			print e
+
+			
+		
 	
 
 	#--------------------------------------------------------------

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ztec.zdb import DB
 db=DB()
 db('usuarios').campo('nombres',db.str,False,True,False)
@@ -49,6 +50,3 @@ db('libros').campo('fecha de publicación',db.datetime,False,True,True)
 db('libros').campo('web',db.url,False,True,True)
 db('libros').campo('costo',db.str,False,True,True)
 db('admin').campo('nombre',db.str,False,True,False)
-db('libros').insertar('default', ['Jes\xc3\xbas Zerpa'], [], [], None, None, None, None)
-db('libros').insertar('defayult', ['Jes\xc3\xbas Zerpa'], [], [], None, None, None, None)
-db('libros').insertar('defaysult', ['Jes\xc3\xbas Zerpa'], [], [], None, None, None, None)

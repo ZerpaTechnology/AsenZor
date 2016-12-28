@@ -9,7 +9,7 @@ RewriteEngine on
 #   Salida: clientes.php?id=NOMBRE
 
 Rewriterule ^(.*)/(.*)/$ controles/default/lanzador.py?app=$1&vistas=$2
-#options -Indexes
+options -Indexes
 
 DirectoryIndex controles/lanzador.py?app="default"&vista="index"
 

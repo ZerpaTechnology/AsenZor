@@ -15,7 +15,7 @@ root_db=p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py"
 import time
 tiempo=time.time()
 if os.path.exists(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py"):
-	db=DB(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py",debug=True)
+	db=DB(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py")
 	
 
 else:
@@ -39,7 +39,7 @@ def registrarUsuario(nombres,apellidos,correo,password,foto,imgs,db=db):
 	db.grabar(root_db)
 
 def crearLibro(nombre,autores,colaboradores=[],referencias=[],editorial=None,fechaP=None,url=None,costo=None):
-	
+
 	db("libros").insertar(nombre,autores,colaboradores,referencias,editorial,fechaP,url,costo)
 	db.grabar(root_db)
 

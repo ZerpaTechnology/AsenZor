@@ -48,7 +48,7 @@ try:
 		sys.path.append(ruta_html+"../")
 		import settings.roots as roots
 		import ztec.zu as zu
-		generar(ruta_html+vista+".html",ruta_python+vista+".py","")
+		generar(ruta_html+vista+".html",ruta_python+vista+".py","# -*- coding: utf-8 -*-\n")
 		f=open(ruta_python+vista+".py","r")
 		html=f.read()
 		f.close()

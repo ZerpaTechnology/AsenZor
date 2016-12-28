@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 print '<!DOCTYPE html><html>'
 print '<head>	<meta charset="utf-8">	<link rel="stylesheet" type="text/css" href="'
 print config.base_url
@@ -18,7 +19,7 @@ print """<header>
 
 
 print '			<section>		'
-print data["introducción"]
+
 print '	</section>	'
 print """<footer class="text-center bg-ubuntu_jet white pad-t1 pad-b1">
 	zerpatechnlogy@2016

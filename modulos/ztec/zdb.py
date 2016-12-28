@@ -132,7 +132,7 @@ def DB(dbfile=None,debug=False):
 						c=0
 
 						for elem in campos:
-							print elem," ",self.campos[self.seleccion][c][0]," ",c,"<br>"
+							
 							if self.campos[self.seleccion][c][3]==True:
 
 								if elem==None:
@@ -327,7 +327,7 @@ def DB(dbfile=None,debug=False):
 				#retorna los id's de las filas donde se encuentra el campo 
 			    def obtenerFilasId(campo,t=self.seleccion):
 					l=[]
-					print "campo ",campo,"<br>"
+					
 					for elem in self.mostrarTablas()[t]:
 
 						if campo in self.mostrarTablas()[t][elem]:
@@ -338,7 +338,7 @@ def DB(dbfile=None,debug=False):
 			    
 			    def obtenerFilas(campo,t=self.seleccion):
 					l=obtenerFilasId(campo,t)
-					print "ids ",l
+					
 					l2=[]
 					for i in l:
 						l2.append(self.tablas[t][i])
@@ -514,7 +514,7 @@ def DB(dbfile=None,debug=False):
         
     		
         if dbfile==None:
-			db.registro=["from ztec.zdb import DB","db=DB()"]
+			db.registro=["# -*- coding: utf-8 -*-","from ztec.zdb import DB","db=DB()"]
         else:
 			x=dbcargar(dbfile,debug)
 			if x==None:
