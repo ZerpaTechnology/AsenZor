@@ -44,7 +44,7 @@ try:
 	def darTipo(valor):
 		exec("valor="+valor)
 		return valor
-	def servir(vista,ruta_html,ruta_python):
+	def servir(vista,ruta_html,ruta_python,data={}):
 		sys.path.append(ruta_html+"../")
 		import settings.roots as roots
 		import ztec.zu as zu
@@ -206,6 +206,7 @@ try:
 				cnt=cnt_file.read()
 				cnt_file.close()
 				exec(cnt)
+
 				cnt(parametros,modulos)		
 
 		

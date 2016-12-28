@@ -5,11 +5,11 @@ db=DB(debug=True)
 #TABLA USUARIOS
 db("usuarios").campo("nombres",db.str)
 db("usuarios").campo("appelidos",db.str)
-db("usuarios").campo("correo",db.email,True)
+db("usuarios").campo("correo",db.email,unico=True)
 db("usuarios").campo("password",db.str)
 db("usuarios").campo("foto",db.url)
 db("usuarios").campo("imgs",db.list)
-db("usuarios").campo("token",db.str,True)
+db("usuarios").campo("token",db.str)
 #===================================================================
 #TABLA MENSAJES - CHAT
 db("msj_chat").campo("emisor",db.object)
@@ -51,10 +51,20 @@ db("tokens").campo("emisión",db.datetime)
 db("tokens").campo("expiración",db.datetime)
 #==================================================================
 #TABLA DOCUMENTACION
-db("documentación").campo("app",db.str)
-db("documentación").campo("libro",db.str)
-db("documentación").campo("tema",db.str)
-db("documentación").campo("texto",db.str)
+db("documentos").campo("app",db.str,unicaFila=True)
+db("documentos").campo("libro",db.str,unicaFila=True)
+db("documentos").campo("tema",db.str,unicaFila=True)
+db("documentos").campo("texto",db.str,unicaFila=True)
+#==================================================================
+#TABLA LIBROS
+db("libros").campo("nombre",db.str,unicaFila=True)
+db("libros").campo("autores",db.list,unicaFila=True)
+db("libros").campo("colaboradores",db.list,unicaFila=True)
+db("libros").campo("referencias",db.list,unicaFila=True)
+db("libros").campo("Editorial",db.str,unicaFila=True)
+db("libros").campo("fecha de publicación",db.datetime,unicaFila=True)
+db("libros").campo("web",db.url,unicaFila=True)
+db("libros").campo("costo",db.str,unicaFila=True)
 #==================================================================
 #TABLA ADMIN
 db("admin").campo("nombre",db.str)

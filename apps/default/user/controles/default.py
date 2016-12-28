@@ -37,15 +37,10 @@ def cnt(p,m):
 		else:
 			print "<div class='width-100p height-auto bg-ubuntu_jet white pad-t05 pad-b05 text-center'>"
 			if p["action"]=="sing_up":
-				l=[]
-				if "correo" not in p:
-					l.append("correo")
-				if "password" not in p:
-					l.append("password")
-				if "nombres" not in p:
-					l.append("nombres")
-				if "apellidos" not in p:
-					l.append("apellidos")
+				l=["correo","password","nombres","apellidos"]
+				for elem in l:
+					if elem not in p:
+						print "No llenastes el campo ",elem
 				if l==[]:
 					img=p["base_url"]+"../../static/imgs/icono_perfil.jpg"
 					main_model.registrarUsuario(p["nombres"],p["apellidos"],p["correo"],p["password"],img,img)
@@ -66,10 +61,17 @@ def cnt(p,m):
 				else:
 					print "No llenastes los campos: ",l
 
+			if p["action"]=="crearLibro":
+					main_model.crearLibro("defaysult",["Jesús Zerpa"])
+
+			if p["action"]=="guardarTema":
+					main_model.guardarTema()
+
 			print "</div>"
 	if "vista" in p:
 		#carga la vista
-		m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url)
+		data=p
+		m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url,data=data)
 	
 
 	#--------------------------------------------------------------

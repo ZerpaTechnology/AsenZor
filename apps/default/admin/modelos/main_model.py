@@ -15,7 +15,7 @@ root_db=p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py"
 import time
 tiempo=time.time()
 if os.path.exists(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py"):
-	db=DB(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py")
+	db=DB(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py",debug=True)
 	
 
 else:
@@ -37,5 +37,13 @@ def registrarUsuario(nombres,apellidos,correo,password,foto,imgs,db=db):
 	db("tokens").relacionar(i,"usuario",tabla="usuarios",campo="correo",id=i)
 	db("usuarios").relacionar(i,"token",tabla="tokens",campo="valor",id=i)
 	db.grabar(root_db)
-	zred.sendEmail("jesus26abraham1996@gmail.com","jesus26abraham1996@gmail.com","esto es una prueba",debug=True)
+
+def crearLibro(nombre,autores,colaboradores=[],referencias=[],editorial=None,fechaP=None,url=None,costo=None):
+	
+	db("libros").insertar(nombre,autores,colaboradores,referencias,editorial,fechaP,url,costo)
+	db.grabar(root_db)
+
+def guardarTema(app,libro,tema,text):
+	db("documentos").insertar(app,libro,tema,text)
+	db.grabar(root_db)
 	

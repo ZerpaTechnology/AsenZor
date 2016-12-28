@@ -18,7 +18,11 @@ def DB(dbfile=None,debug=False):
 			    self=db
 			    self.t=tabla
 					
-				
+			    def consola(mensaje,d):
+					d.log.append(mensaje)
+					if d.debug==True:
+						print mensaje
+			    self.consola=consola
 				#nuevo uso del registro, almacena todos los comandos utilizados
 				#para que estos luego puedan ser escritos en un archivo aparte
 			    if tabla not in self.tablas and tabla not in self.campos:
@@ -32,7 +36,7 @@ def DB(dbfile=None,debug=False):
 			    #para direfebciar cuando se usa db("tabla")
 			    
 			    
-					
+			    					
 
 				
 			    #Estado:finalizado 
@@ -85,13 +89,13 @@ def DB(dbfile=None,debug=False):
 			    	if self.t!=None:
 			    		self.consola(str(self.tablas[self.seleccion][self.idseleccion][self.obtenerCampo(camp)])+"\n",self)
 					return self.tablas[self.seleccion][self.idseleccion][self.obtenerCampo(camp)]
-			    def campo(nombre,tipo,unico=False):
-					self.campos[self.seleccion].append([nombre,tipo,unico])
+			    def campo(nombre,tipo,unico=False,vacio=True,unicaFila=False):
+					self.campos[self.seleccion].append([nombre,tipo,unico,vacio,unicaFila])
 					try:
 							if tabla!=None:
-								self.registro.append("db('"+tabla+"').campo('"+nombre+"',db."+rtype(tipo)+","+str(unico)+")")
+								self.registro.append("db('"+tabla+"').campo('"+nombre+"',db."+rtype(tipo)+","+str(unico)+","+str(vacio)+","+str(unicaFila)+")")
 					except:
-							self.registro.append("db.campo('"+nombre+"','db."+rtype(tipo)+","+str(unico)+")")
+							self.registro.append("db.campo('"+nombre+"','db."+rtype(tipo)+","+str(unico)+","+str(vacio)+","+str(unicaFila)+")")
 					return self					
                 
                 #Estado:finalizado
@@ -103,56 +107,137 @@ def DB(dbfile=None,debug=False):
 			    		db.insertar('miNombre','miApellido',12345678)
 			    """
 			    def insertar(*campos,**args):
-					c=0
+					
 					valido=True
 					if "sob" not in args:
 						args["sob"]=False
 					lcampos=[]
 					razones=[]
+					temp=[]
+					c=0
 					for elem in campos:
+						if self.campos[self.seleccion][c][4]==True:	
+							if self.tablas[self.seleccion]!={}:
+								if tuple(self.obtenerFilasValores(campos[0],self.seleccion)) == campos:
+										valido=False
+										break
+						c+=1
+							
+					
+									
 
-						if self.campos[self.seleccion][c][2]==True:
+					
 
-							if args["sob"]==True:
-									bloqueados=[]
-									for elem2 in self.obtenerColumna(self.obtenerCampos()[c]):
-										if self.dbtype(elem)==self.object:
-											bloqueados.append(elem2.valor)
-									if bloqueados==[]:
+					if valido==True:
+						c=0
+
+						for elem in campos:
+							print elem," ",self.campos[self.seleccion][c][0]," ",c,"<br>"
+							if self.campos[self.seleccion][c][3]==True:
+
+								if elem==None:
+									lcampos.append(obj(elem,dbtype(elem)))
+								else:
+
+									if self.campos[self.seleccion][c][2]==True:
+
+										if args["sob"]==True:
+
+												bloqueados=[]
+												for elem2 in self.obtenerColumna(self.obtenerCampos()[c]):
+
+													if self.dbtype(elem)==self.object:
+
+														bloqueados.append(elem2.valor)
+												if bloqueados==[]:
+													if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+														valido=False
+
+														razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+													else:
+															
+														lcampos.append(obj(elem,dbtype(elem)))
+												else:
+													if elem in bloqueados:
+
+														valido=False
+														razones.append(str(elem)+" se repite y es un campo unico")
+													else:
+														lcampos.append(obj(elem,dbtype(elem)))
+														
+										else:
+
+											if elem in self.obtenerColumna(self.campos[self.seleccion][c][0]):
+												
+												valido=False
+												razones.append(str(elem)+" se repite y es un campo unico")
+											else:
+												if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+													
+													valido=False
+													razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+												else:
+													lcampos.append(obj(elem,dbtype(elem)))
+
+									else:
+
 										if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
-											valido=False
-											razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+												
+												valido=False
+												#print elem," ",self.campos[self.seleccion][c][0]," ",c,"<br>"
+												razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
 										else:
 												
-											lcampos.append(obj(elem,dbtype(elem)))
+												lcampos.append(obj(elem,dbtype(elem)))
+
+
+
+								
+							else:
+
+								if self.campos[self.seleccion][c][2]==True:
+
+									if args["sob"]==True:
+											bloqueados=[]
+											for elem2 in self.obtenerColumna(self.obtenerCampos()[c]):
+												if self.dbtype(elem)==self.object:
+
+													bloqueados.append(elem2.valor)
+											if bloqueados==[]:
+												if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+													valido=False
+													razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+												else:
+														
+													lcampos.append(obj(elem,dbtype(elem)))
+											else:
+												if elem in bloqueados:
+													valido=False
+													razones.append(str(elem)+" se repite y es un campo unico")
+												else:
+													lcampos.append(obj(elem,dbtype(elem)))
+													
 									else:
-										if elem in bloqueados:
+
+										if elem in self.obtenerColumna(self.campos[self.seleccion][c][0]):
 											valido=False
 											razones.append(str(elem)+" se repite y es un campo unico")
 										else:
-											lcampos.append(obj(elem,dbtype(elem)))
-											
-							else:
+											if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
+												valido=False
+												razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+											else:
+												lcampos.append(obj(elem,dbtype(elem)))
 
-								if elem in self.obtenerColumna(self.campos[self.seleccion][c][0]):
-									valido=False
-									razones.append(str(elem)+" se repite y es un campo unico")
 								else:
+
 									if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
-										valido=False
-										razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
+											valido=False
+											razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
 									else:
-										lcampos.append(obj(elem,dbtype(elem)))
-
-						else:
-
-							if self.dbtype(elem)!=self.campos[self.seleccion][c][1] and "<type 'all'>"!= self.campos[self.seleccion][c][1]:
-									valido=False
-									razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
-							else:
-									lcampos.append(obj(elem,dbtype(elem)))
-		                                
-						c+=1
+											lcampos.append(obj(elem,dbtype(elem)))
+				                                
+							c+=1
 					
 					if valido==True:
 						self.tablas[self.seleccion][self.clavePrimaria[self.seleccion]]=lcampos
@@ -181,8 +266,10 @@ def DB(dbfile=None,debug=False):
 			    db.modificar() 
 			    """
 			    def modificarCampo(id,columna,campoNuevo):
+
 					self.consola("modificarFila\n de: "+str(self.tablas[self.seleccion][id][obtenerCampo(columna)].valor)+" a: "+str(campoNuevo)+"\n",self)
 					self.tablas[self.seleccion][id][obtenerCampo(columna)].valor=campoNuevo
+
 				
 				#Estado: Pendiente
 				#Version:v0.01
@@ -238,8 +325,9 @@ def DB(dbfile=None,debug=False):
 				#Estado: Finalizado
 				#Version: v0.01
 				#retorna los id's de las filas donde se encuentra el campo 
-			    def obtenerFila(campo,t=self.seleccion):
+			    def obtenerFilasId(campo,t=self.seleccion):
 					l=[]
+					print "campo ",campo,"<br>"
 					for elem in self.mostrarTablas()[t]:
 
 						if campo in self.mostrarTablas()[t][elem]:
@@ -247,9 +335,31 @@ def DB(dbfile=None,debug=False):
 					if self.t!=None:
 						self.consola("obtenerFila\n"+str(elem)+"\n",self)
 					return l
+			    
+			    def obtenerFilas(campo,t=self.seleccion):
+					l=obtenerFilasId(campo,t)
+					print "ids ",l
+					l2=[]
+					for i in l:
+						l2.append(self.tablas[t][i])
+					return l2
 
+			    
+			    def obtenerFilasValores(campo,t=self.seleccion):
+					l=obtenerFilas(campo,t)
+					l2=[]
+					
+					for fila in l:
+
+						for o in fila:
+							
+							l2.append(o.valor)
+					return l2
+				
 			    def obtener(i,campo,t=self.seleccion):
-					return self.tablas[t][i][obtenerCampo(campo,t)].valor
+			    	
+			    	return self.tablas[t][i][obtenerCampo(campo,t)].valor
+
 
 				#Estado: Finalizado
 				#Version: v0.01
@@ -280,13 +390,16 @@ def DB(dbfile=None,debug=False):
 								for camp in self.tablas[elem][i]:
 									dtablas[elem][i].append(camp.valor)
 
+
 						else:
+
 							if "." not in elem:
 								dtablas[elem]={}
 								for i in self.tablas[elem]:
 									dtablas[elem][i]=[]
 									for camp in self.tablas[elem][i]:
 										dtablas[elem][i].append(camp.valor)
+
 					
 					if mostrar==False:	
 						return dtablas
@@ -294,10 +407,7 @@ def DB(dbfile=None,debug=False):
 						return dtablas[seleccion]
 				
 
-			    def consola(mensaje,d):
-					d.log.append(mensaje)
-					if d.debug==True:
-						print mensaje
+
 
 
 				#Estado: Finalizado
@@ -386,10 +496,13 @@ def DB(dbfile=None,debug=False):
 			    self.debug=debug
 			    self.columna=columna
 			    self.obtenerCampos=obtenerCampos
-			    self.obtenerFila=obtenerFila
+			    self.obtenerFilas=obtenerFilas
+			    self.obtenerFilasId=obtenerFilasId
+			    self.obtenerFilasValores=obtenerFilasValores
 			    self.obtenerColumna=obtenerColumna
 			    self.obtener=obtener
 			    self.t=None
+
 			    return self
 			    
         db.tablas={}
@@ -397,6 +510,8 @@ def DB(dbfile=None,debug=False):
         db.clavePrimaria={}
         db.seleccion=None
         db.dbfile=dbfile
+
+        
     		
         if dbfile==None:
 			db.registro=["from ztec.zdb import DB","db=DB()"]
@@ -406,7 +521,6 @@ def DB(dbfile=None,debug=False):
 				db.consola("Ocurrio un error al cargar la base de datos\n",db)
 			else:
 				db=x
-
         return db
         
 
@@ -424,7 +538,10 @@ def dbcargar(dbfile=None,debug=False):
 						db.t=None
 
 						return db
-					except:
-						print "ocurrio un error al cargar la base de datos"
+					except Exception,e:
+						if debug==True:
+							print "ocurrio un error al cargar la base de datos"
+							print e
+						
 
 	

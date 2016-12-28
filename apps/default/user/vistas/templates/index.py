@@ -1,16 +1,29 @@
-print '<!DOCTYPE html><html><head>	<meta charset="utf-8">	<link rel="stylesheet" type="text/css" href="'
+print '<!DOCTYPE html><html>'
+print '<head>	<meta charset="utf-8">	<link rel="stylesheet" type="text/css" href="'
 print config.base_url
-print 'static/css/ff.css">	<title>Usuario</title></head><body><h1>Bienvenido al administrador de AsenZor</h1><p>	Por favor loguete para continuar</p><div class="width-100p height-5 bg-ubuntu_orange">'
-var=True
-if var==False:
-  print '	'
-  print '<header>	'
-  print "hola soy un widget4"
-  print '</header>'
-  
-  
+print 'static/css/ff.css">	<title>Usuario</title></head>'
 
-  print '		'
-  pass
-print '</div></body></html>'
+
+
+print '<body>	'
+print """<header>
+<h1>Bienvenido al administrador de AsenZor</h1>
+<p>
+	Por favor loguete para continuar
+</p>
+<div class="width-100p height-5 bg-ubuntu_orange">
+
+</div>
+</header>"""
+
+
+print '			<section>		'
+print data["introducción"]
+print '	</section>	'
+print """<footer class="text-center bg-ubuntu_jet white pad-t1 pad-b1">
+	zerpatechnlogy@2016
+</footer>"""
+
+
+print '	</body></html>'
 

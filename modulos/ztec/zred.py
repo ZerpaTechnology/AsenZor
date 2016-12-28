@@ -57,29 +57,35 @@ def clienteSock(host,port,msj="",welcome="Ingrese un mensaje o salir para termin
 		    
 		sock.close() #recuerden cerrar el socket
 	
-
-def sendEmail(rem,dest,mensaje,asunto="", remAlias="",destAlias="",debug=False):
-    # -*- coding: utf-8 -*- 
-    import smtplib 
+#Esta funcion solo es posible ejecutarla en una maquina y no desde el serividor con cgi(XAMPP)
+#La solicion seria ejecutarla atravez de un socketServer, ya que con python directo funciona
+def sendEmail(rem,dest,password,mensaje,asunto="", remAlias="",destAlias="",debug=False):
+    #!/usr/bin/python
+    # -*- coding: utf-8 -*-
      
-    remitente = remAlias+" <"+rem+">" 
-    destinatario = destAlias+" <"+dest+">" 
-    email = """From: %s 
-    To: %s 
-    MIME-Version: 1.0 
-    Content-type: text/html 
-    Subject: %s 
+    # Enviar correo Gmail con Python
+    # www.pythondiario.com
      
-    %s
-    """ % (remitente, destinatario, asunto, mensaje) 
-    try: 
-        smtp = smtplib.SMTP('localhost') 
-        smtp.sendmail(remitente, destinatario, email) 
-        if debug==True:
-            print "Correo enviado" 
-    except Exception,e :
-        if debug==True:
-            print e 
-            print """Error: el mensaje no pudo enviarse. 
-            Compruebe que sendmail se encuentra instalado en su sistema"""
+    import smtplib
+    fromaddr = rem
+    toaddrs  = rem
+    msg = mensaje
+     
+     
+    # Datos
+    username = rem
+    
+     
+    # Enviando el correo
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+    server.login(username,password)
+    server.sendmail(fromaddr, toaddrs, msg)
+    server.quit()
 
+def normalizar(v):
+    try:
+        exec("a="+v)
+        return a
+    except:
+        return v
