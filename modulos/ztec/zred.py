@@ -89,3 +89,397 @@ def normalizar(v):
         return a
     except:
         return v
+
+def zAPI(linea,vars):
+        for elem in vars:
+            exec(elem+"=vars['"+elem+"']")
+        if len(linea)<=200:     
+            c=0
+            mark=0
+            mark2=0#para los bucles y condicionales
+            codigo=""
+            nivel=0
+            condicion=[]
+            funciones=0
+            enlace=False
+            lineas=0
+            __r=None
+
+            while c<len(linea):
+                #si hay condiciones
+                if len(condicion)>1:
+                    if condicion[-1]=="==" or condicion[-1]=="!=" or condicion[-1]==">=" or condicion[-1]=="<=" or condicion[-1]=="<" or condicion[-1]==">" or condicion[-1]=="in" or condicion[-1]=="for " or condicion[-1]=="while ":
+
+                        if c>0 and c<=3:
+                            if  linea[c]!="=" and linea[c]!="!" and linea[c]!="<" and linea[c]!=">" and linea[c]!=" ":
+                                if  linea[c-2]=="=" and linea[c-1]=="=":
+                                    #if len()
+                                    pass
+                                elif linea[c-2]=="!" and linea[c-1]=="=":
+                                    pass
+                                elif linea[c-2]==">" and linea[c-1]=="=":
+                                    pass
+                                elif linea[c-2]=="<" and linea[c-1]=="=":
+                                    pass
+                                elif linea[c-2]=="<" and linea[c-1]!="=":
+                                    pass
+                                elif linea[c-2]==">" and linea[c-1]!="=":
+                                    pass
+                                #es una asignacion
+                                elif linea[c-4]!=">" and linea[c-3]!="!" and linea[c-2]!="<" and linea[c-1]=="=":
+                                    pass
+                                pass
+                            pass
+
+                        #------------------------------
+                        if c>=3 and c<=5:
+                            if  linea[c-1]!=" " and linea[c]!="=" and linea[c]!="!" and linea[c]!="<" and linea[c]!=">" and linea[c]!=" ":
+                                if  linea[c-2]=="=" and linea[c-1]=="=":
+                                    pass
+                                elif linea[c-2]=="!" and linea[c-1]=="=":
+                                    pass
+                                elif linea[c-2]==">" and linea[c-1]=="=":
+                                    pass
+                                elif linea[c-2]=="<" and linea[c-1]=="=":
+                                    pass
+                                elif linea[c-2]=="<" and linea[c-1]!="=":
+                                    pass
+                                elif linea[c-2]==">" and linea[c-1]!="=":
+                                    pass
+                                #es una asignacion
+                                elif linea[c-4]!=">" and linea[c-3]!="!" and linea[c-2]!="<" and linea[c-1]=="=":
+                                    pass
+                                pass
+
+
+                            elif linea[c-1]==" " and linea[c]!="=" and linea[c]!="!" and linea[c]!="<" and linea[c]!=">" and linea[c]!=" ":
+                                if  linea[c-3]=="=" and linea[c-2]=="=":
+                                    pass
+                                elif linea[c-3]=="!" and linea[c-2]=="=":
+                                    pass
+                                elif linea[c-3]==">" and linea[c-2]=="=":
+                                    pass
+                                elif linea[c-3]=="<" and linea[c-2]=="=":
+                                    pass
+                                elif linea[c-3]=="<" and linea[c-2]!="=":
+                                    pass
+                                elif linea[c-3]==">" and linea[c-2]!="=":
+                                    pass
+                                pass
+
+                        #para lo anterior y bucle while
+                        if c>=5 and c<=9:
+                            if linea[c-1]=="=" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="!" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]==">" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="<" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="<" and linea[c]!="=":
+                                pass
+                            elif linea[c-1]==">" and linea[c]!="=":
+                                pass
+                            #usa in
+                            elif linea[c-3]==" " and linea[c-2]=="i" and linea[c-1]=="n" and linea[c]==" ":
+                                pass
+                            #es una asignacion
+                            elif linea[c-1]!=">" and linea[c-1]!="!" and linea[c-1]!="<" and linea[c]=="=":
+                                pass
+                            pass
+                        #para bucle for
+                        elif c>=9:
+                            if linea[c-1]=="=" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="!" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]==">" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="<" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="<" and linea[c]!="=":
+                                pass
+                            elif linea[c-1]==">" and linea[c]!="=":
+                                pass
+                            #usa in
+                            elif linea[c-3]==" " and linea[c-2]=="i" and linea[c-1]=="n" and linea[c]==" ":
+                                pass
+                            #es una asignacion
+                            elif linea[c-1]!=">" and linea[c-1]!="!" and linea[c-1]!="<" and linea[c]=="=":
+                                pass
+                            pass
+                            
+                        #para bucle while y for
+                        elif c>=11 and c<13:
+                            if linea[c-1]=="=" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="!" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]==">" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="<" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="<" and linea[c]!="=":
+                                pass
+                            elif linea[c-1]==">" and linea[c]!="=":
+                                pass
+                        
+                            #usa in
+                            elif linea[c-3]==" " and linea[c-2]=="i" and linea[c-1]=="n" and linea[c]==" ":
+                                if "for " in linea[:c-3]:
+                                    pass
+                                else:
+                                    pass
+                                pass
+                            #es una asignacion
+                            elif linea[c-1]!=">" and linea[c-1]!="!" and linea[c-1]!="<" and linea[c]=="=":
+                                if "while " in linea[:c-3]:
+                                    pass
+                                else:
+                                    pass
+                            
+                        #para el bucle while con in
+                        elif c>=13:
+                            if linea[c-1]=="=" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="!" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]==">" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="<" and linea[c]=="=":
+                                pass
+                            elif linea[c-1]=="<" and linea[c]!="=":
+                                pass
+                            elif linea[c-1]==">" and linea[c]!="=":
+                                pass
+                            #usa in
+                            elif linea[c-3]==" " and linea[c-2]=="i" and linea[c-1]=="n" and linea[c]==" ":
+                                
+                                if "for " in linea[:c-3]:
+                                    pass
+                                else:
+                                    pass
+                                pass
+                            #es una asignacion
+                            elif linea[c-1]!=">" and linea[c-1]!="!" and linea[c-1]!="<" and linea[c]=="=":
+                                
+                                if "while " in linea[:c-3]:
+                                    pass
+
+                                else:
+                                    pass
+                            else:
+
+                                if linea[c]==";":
+                                    if nivel==0:
+                                        codigo.append(linea[mark:c])
+                                        mark=c
+                                        lineas+=1
+                                    else:
+                                        tab=" "*condicion
+                                        codigo.append(tab+linea[mark:c])
+                                        lineas+=1
+
+
+
+                                elif linea[c]=="]":
+                                    pass
+                                elif linea[c]=="}":
+                                    pass
+                                elif linea[c]=="]]":
+                                    pass
+                                elif linea[c]=="}}":
+                                    pass
+
+                        else:
+                            if linea[c]==";":
+                                pass
+                            elif linea[c]=="]":
+                                pass
+                            elif linea[c]=="}":
+                                pass
+                            elif linea[c]=="]]":
+                                pass
+                            elif linea[c]=="}}":
+                                pass
+
+
+                else:
+                    #para una pregunta boolean
+                    if c>0 and c<=3:
+                        if  linea[c]!="=" and linea[c]!="!" and linea[c]!="<" and linea[c]!=">" and linea[c]!=" ":
+
+                            if  linea[c-2]=="=" and linea[c-1]=="=":
+                                        
+                                    if len(linea)<=4:
+                                        exec("__r="+linea[mark:c+1])
+
+
+                            elif linea[c-2]=="!" and linea[c-1]=="=":
+                                if len(linea)<=4:
+                                        exec("__r="+linea[mark:c+1])
+                            elif linea[c-2]==">" and linea[c-1]=="=":
+                                if len(linea)<=4:
+                                        exec("__r="+linea[mark:c+1])
+                            elif linea[c-2]=="<" and linea[c-1]=="=":
+                                if len(linea)<=4:
+                                        exec("__r="+linea[mark:c+1])
+                            elif linea[c-2]=="<" and linea[c-1]!="=":
+                                if len(linea)<=4:
+                                        exec("__r="+linea[mark:c+1])
+                            elif linea[c-2]==">" and linea[c-1]!="=":
+                                if len(linea)<=4:
+                                        exec("__r="+linea[mark:c+1])
+                            #es una asignacion
+                            elif linea[c-4]!=">" and linea[c-3]!="!" and linea[c-2]!="<" and linea[c-1]=="=":
+                                if len(linea)<=4:
+                                        exec("__r="+linea[mark:c+1])
+                            pass
+                        pass
+
+                    #------------------------------
+                    if c>=3 and c<=7:
+                        if  linea[c-1]!=" " and linea[c]!="=" and linea[c]!="!" and linea[c]!="<" and linea[c]!=">" and linea[c]!=" ":
+                            if  linea[c-2]=="=" and linea[c-1]=="=":
+                                exec("__r="+linea[mark:c+1])
+                            elif linea[c-2]=="!" and linea[c-1]=="=":
+                                exec("__r="+linea[mark:c+1])
+                            elif linea[c-2]==">" and linea[c-1]=="=":
+                                exec("__r="+linea[mark:c+1])
+                            elif linea[c-2]=="<" and linea[c-1]=="=":
+                                exec("__r="+linea[mark:c+1])
+                            elif linea[c-2]=="<" and linea[c-1]!="=":
+                                exec("__r="+linea[mark:c+1])
+                            elif linea[c-2]==">" and linea[c-1]!="=":
+                                exec("__r="+linea[mark:c+1])
+                            #es una asignacion
+                            elif linea[c-4]!=">" and linea[c-3]!="!" and linea[c-2]!="<" and linea[c-1]=="=":
+                                exec("__r="+linea[mark:c+1])
+                            pass
+
+
+                    #para lo anterior y bucle while
+                    if c>7 and c<=10:
+
+                        if linea[c-1]=="=" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]=="!" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]==">" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]=="<" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]=="<" and linea[c]!="=":
+                            pass
+                        elif linea[c-1]==">" and linea[c]!="=":
+                            pass
+                        #usa in
+                        elif " in " in linea[mark:c-2] and linea[c-2]==" " and linea[c]!=" ":
+                            nivel+=1
+                            
+                            if condicion==[]:
+                                codigo+="if "+linea[mark:c-2]+":\n"
+                                mark=c
+                            else:
+                                if condicion[-1]=="if":
+                                    pass
+                                elif condicion[-1]=="elif":
+                                    pass
+
+                            mark=c
+                            condicion.append("for")
+
+
+                        #es una asignacion
+                        elif linea[c-1]!=">" and linea[c-1]!="!" and linea[c-1]!="<" and linea[c]=="=":
+                            pass
+                        else:
+                            if nivel>0:
+                                tab=" "*nivel
+                                if linea[c]==":":
+                                    
+                                    codigo+=tab+linea[mark-1:c]+"("
+                                    c+=1
+                                    mark=c
+
+                                    funciones+=1
+                                if linea[c]==";":
+                                    if funciones>0:
+                                        codigo+=tab+linea[mark:c]+")"
+                                    else:
+                                        codigo+="\n"
+                                else:
+                                    pass
+                        
+                    #para bucle for
+                    elif c>10 and c<=13:
+                        if linea[c-1]=="=" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]=="!" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]==">" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]=="<" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]=="<" and linea[c]!="=":
+                            pass
+                        elif linea[c-1]==">" and linea[c]!="=":
+                            pass
+                        #usa in
+                        elif linea[c-3]==" " and linea[c-2]=="i" and linea[c-1]=="n" and linea[c]==" ":
+                            pass
+                        #es una asignacion
+                        elif linea[c-1]!=">" and linea[c-1]!="!" and linea[c-1]!="<" and linea[c]=="=":
+                            pass
+                        else:
+                            if nivel>0:
+                                pass
+                            
+                        
+                    #para bucle while y for
+                    elif c>13:
+                        if linea[c-1]=="=" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]=="!" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]==">" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]=="<" and linea[c]=="=":
+                            pass
+                        elif linea[c-1]=="<" and linea[c]!="=":
+                            pass
+                        elif linea[c-1]==">" and linea[c]!="=":
+                            pass
+                    
+                        #usa in
+                        elif linea[c-3]==" " and linea[c-2]=="i" and linea[c-1]=="n" and linea[c]==" ":
+                            if "for " in linea[:c-3]:
+                                pass
+                            else:
+                                pass
+                            pass
+                        #es una asignacion
+                        elif linea[c-1]!=">" and linea[c-1]!="!" and linea[c-1]!="<" and linea[c]=="=":
+                            if "while " in linea[:c-3]:
+                                pass
+                            else:
+                                pass
+                        else:
+                            if nivel>0:
+                                pass
+
+                        
+                    #para el bucle while con in
+                    
+                c+=1
+            if funciones>0:
+                codigo+=linea[mark:c]+")"
+        try:
+            print "-----------"
+            print codigo
+            print "-----------"
+            exec(codigo)
+            return __r
+        except Exception,e:
+            print e

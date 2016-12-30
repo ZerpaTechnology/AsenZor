@@ -6,7 +6,13 @@
 	{{incluir("header")}}	
 	
 	<section>
-		{{}}
+	{{variable=[1,2,3,4,5,6]}}
+	{{for elem in variable:}}
+		<h1>{{print elem}}</h1>
+	{{pass}}
+
+
+
 	</section>
 
 	{{incluir("footer")}}	

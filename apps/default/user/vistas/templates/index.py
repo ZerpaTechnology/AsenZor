@@ -18,8 +18,14 @@ print """<header>
 </header>"""
 
 
-print '			<section>		'
-
+print '			<section>	'
+variable=[1,2,3,4,5,6]
+print '	'
+for elem in variable:
+  print '		<h1>'
+  print elem
+  print '</h1>	'
+  pass
 print '	</section>	'
 print """<footer class="text-center bg-ubuntu_jet white pad-t1 pad-b1">
 	zerpatechnlogy@2016
@@ -27,5 +33,4 @@ print """<footer class="text-center bg-ubuntu_jet white pad-t1 pad-b1">
 
 
 print '	</body></html>'
-
 
