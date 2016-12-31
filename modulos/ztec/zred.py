@@ -36,6 +36,13 @@ def serverSock(host,port,welcome="Server corriendo.."):
     
     print welcome
 
+def setCookie(cookie):
+    print "<script type='text/javascript'>"
+    print "document.cookie='"+cookie+"'"
+    print "</script>"
+def getCookie():
+    import os
+    return os.environ["HTTP_COOKIE"]
 
    
 def clienteSock(host,port,msj="",welcome="Ingrese un mensaje o salir para terminar"):

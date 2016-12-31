@@ -2,23 +2,5 @@
 	zerpatechnlogy@2016
 </footer>
 <script type="text/javascript">
-	$(document).ready(function() {
-		alert("listo");
-		$.ajax({url:'post.py',
-				data:{id:123},
-				type:'GET',
-				dataType:'json',
-				success:function(json){
-					$("<section/>").text(json.title).appendTo("body");
-				},
-				error:function(xhr,status){
-					alert("Disculpe, existio un problema");
-				},
-				complete:function(xhr,status){
-					alert("Peticion realizada");
-				}
 
-				});
-
-	})
 </script>

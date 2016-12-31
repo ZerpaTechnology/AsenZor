@@ -7,7 +7,8 @@ try:
 	import os
 	import time
 	import sys
-	import httplib, urllib
+	import httplib, urllib, urllib2, cookielib
+
 	import shutil
 	sys.path.append("../config")
 	import config
@@ -87,7 +88,6 @@ try:
 		exec(codigo)
 
 	def administrar(rest={}):
-		
 		
 		modulos={}
 
