@@ -1,4 +1,4 @@
-<header class="bg-ubuntu_jet row">
+print """<header class="bg-ubuntu_jet row">
 	<div class="col-md-12">
 	<ul><li>
 	<h1 class="analecta"><span style="color:rgb(0,102,255)">Asen</span><span style="color:#ff3300">Zor</span></h1></li>
@@ -15,3 +15,4 @@
 	
 
 </header>
+"""

@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Inicio</title>
-	<link rel="stylesheet" type="text/css" href="{{print config.base_url}}static/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="{{print config.base_url}}static/css/ff.css">
-</head>
-<body>
-<div>
-	<nav>
-		<h1 class="analecta"><span>Asen</span>Zor<span></span></h1>
-	</nav>
+{{incluir("head")}}
+<body class="AsenZor-admin ff">
+<div class="container-fluid">	
+{{incluir("header")}}
+		
+<section class="row">
+<div class="col-md-12 bg-ubuntu_orange">
+<h1>Necesitas Loguearte para continuar</h1>
+<label>Usuario</label>
+	<input type="text" name="nick">
+<label>Contraseña</label>
+	<input type="password" name="password">
+	<input type="submit" name="entar" value="Entrar">
 </div>
-<div class="width-100p bg-ubuntu_orange height-5">
-	{{print "hola"}}
+	
+</section>
+	
+{{incluir("footer")}}			
 </div>
 
 </body>

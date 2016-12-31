@@ -22,17 +22,47 @@ try:
 	
 	config.custom_url=newRoot
 	#print newRoot
+	
 
 	parametros_url=newRoot[-1].split("&")
 	
 	
-	print newRoot[-1]
+	
 	parametros_rest={}
 	
-	for elem in parametros_url:
-		a=elem.split("=")
-		parametros_rest[a[0]]=a[1]
-	
+	if newRoot[-1]=="":
+		if newRoot[-2]=="admin":
+			parametros_rest["admin"]=True
+			parametros_rest["vista"]="index"
+			parametros_rest["app"]="default"
+
+	else:
+		if newRoot[-1]=="admin":
+			parametros_rest["admin"]=True
+			parametros_rest["vista"]="index"
+			parametros_rest["app"]="default"
+
+		else:
+			if newRoot[-2]=="admin":
+				parametros_rest["admin"]=True			
+			if "&" in newRoot[-1]:
+				for elem in parametros_url:
+					a=elem.split("=")
+					parametros_rest[a[0]]=a[1]
+			else:
+				if "vista=" not in newRoot[-1]:
+			  		parametros_rest["vista"]="index"
+			  	else:
+			  		parametros_rest["vista"]=newRoot[-1].split("=")[1]
+
+			  	if "app=" not in newRoot[-1]:
+			  		parametros_rest["app"]="default"
+			  	else:
+			  		parametros_rest["app"]=newRoot[-1].split("=")[1]
+
+			  	
+
+
 	notfound=False
 
 	if notfound==False:

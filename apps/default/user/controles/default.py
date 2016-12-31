@@ -11,6 +11,7 @@ def cnt(p,m):
 	sys.path.append(p["base_root"]+"../admin/"+roots.models_folder)
 	import modelos.main_model as main_model
 	import ztec.zu as zu
+	import ztec.zred as zred 
 	from ztec.zred import clienteSock
 	import time
 
@@ -62,17 +63,26 @@ def cnt(p,m):
 					print "No llenastes los campos: ",l
 
 			if p["action"]=="crearLibro":
-					main_model.crearLibro("defaysult",["Jesús Zerpa"])
+					main_model.crearLibro("AsenZor - Guia del desarrollador",["Jesús Zerpa"])
 
 			if p["action"]=="guardarTema":
-					main_model.guardarTema()
+					introduccion="""
+					 """
+					main_model.guardarTema("AsenZor - default","AsenZor - Guia del desarrollador","introducción")
 
 			print "</div>"
+	print p
+	if "form" in p:
+
+		print '<META HTTP-EQUIV="REFRESH" CONTENT="0;URL=' +config.base_url+'">'
 	if "vista" in p:
 		#carga la vista
 		data=p
 		try:
-			m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url,data=data)
+			if "admin" in p and zred.normalizar(p["admin"])==True:
+				m["servir"](p["vista"],p["base_root"]+"../admin/"+roots.vistas_folder,p["base_root"]+"../admin/"+roots.templates_url,data=data)
+			else:
+				m["servir"](p["vista"],p["base_root"]+roots.vistas_folder,p["base_root"]+roots.templates_url,data=data)
 		except Exception as e:
 			print "Ha occurido un error en el motor de plantillas<br>"
 			print e

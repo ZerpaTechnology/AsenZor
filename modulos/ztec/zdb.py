@@ -115,7 +115,9 @@ def DB(dbfile=None,debug=False):
 					razones=[]
 					temp=[]
 					c=0
+					
 					for elem in campos:
+						
 						if self.campos[self.seleccion][c][4]==True:	
 							if self.tablas[self.seleccion]!={}:
 								if tuple(self.obtenerFilasValores(campos[0],self.seleccion)) == campos:
@@ -265,12 +267,27 @@ def DB(dbfile=None,debug=False):
 			    
 			    db.modificar() 
 			    """
+
 			    def modificarCampo(id,columna,campoNuevo):
 
 					self.consola("modificarFila\n de: "+str(self.tablas[self.seleccion][id][obtenerCampo(columna)].valor)+" a: "+str(campoNuevo)+"\n",self)
 					self.tablas[self.seleccion][id][obtenerCampo(columna)].valor=campoNuevo
 
-				
+			    def delFila(i,tabla=self.seleccion):
+					c=0
+					ids=0
+
+					for elem in self.registro:
+						if "db('"+tabla+"').insertar(" in elem:
+							print "se ha eliminado ", self.registro[c]
+							if ids==i:
+								del self.registro[c]
+							ids+=1
+						elif "tabla="+tabla in elem[elem.find("').relacionar(") :] and "id="+str(i) in elem[elem.find("').relacionar(") :]:
+							print "se ha eliminado ", self.registro[c]
+							del self.registro[c]
+						c+=1
+
 				#Estado: Pendiente
 				#Version:v0.01
 			    def modificarFila(id,*campos):
@@ -501,6 +518,7 @@ def DB(dbfile=None,debug=False):
 			    self.obtenerFilasValores=obtenerFilasValores
 			    self.obtenerColumna=obtenerColumna
 			    self.obtener=obtener
+			    self.delFila=delFila
 			    self.t=None
 
 			    return self
@@ -510,6 +528,7 @@ def DB(dbfile=None,debug=False):
         db.clavePrimaria={}
         db.seleccion=None
         db.dbfile=dbfile
+        db.log=[]
 
         
     		
@@ -518,7 +537,7 @@ def DB(dbfile=None,debug=False):
         else:
 			x=dbcargar(dbfile,debug)
 			if x==None:
-				db.consola("Ocurrio un error al cargar la base de datos\n",db)
+				db.log.append("Ocurrio un error al cargar la base de datos\n")
 			else:
 				db=x
         return db

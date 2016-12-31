@@ -87,7 +87,8 @@ try:
 		exec(codigo)
 
 	def administrar(rest={}):
-
+		
+		
 		modulos={}
 
 		if rest=={}:
@@ -95,14 +96,11 @@ try:
 			request=cgi.FieldStorage()
 			
 			orden=request.value
+			import ztec.zred as zred
+			app="default"
+			vista="index"
 			
-			try:
-				app=darTipo(orden[0].value)
-				vista=darTipo(orden[1].value)
-			except:
-				app=orden[0].value
 
-				vista=orden[1].value
 
 
 
@@ -119,7 +117,7 @@ try:
 				appcontroller=config.base_root+config.apps_url+app+"/user/"+config.controller_url
 				root_app_current=config.base_root+config.apps_url+app+"/user/"
 				url_app_current=config.base_url+config.apps_url+app+"/user/"
-
+				
 			else:
 
 				appcontroller=config.base_root+config.apps_url+config.default_app+"/user/"+config.controller_url
@@ -176,7 +174,7 @@ try:
 				root_app_current=config.base_root+config.projects_url+config.default_app+"/user/"
 				url_app_current=config.base_url+config.projects_url+config.default_app+"/user/"	
 				parametros=rest
-			
+				
 				parametros["base_root"]=root_app_current
 				parametros["base_url"]=url_app_current
 				modulos["ztec"]=ztec

@@ -8,10 +8,10 @@ RewriteEngine on
 #   Entrada:  clientes/NOMBRE/
 #   Salida: clientes.php?id=NOMBRE
 
-Rewriterule ^(.*)/(.*)/$ controles/default/lanzador.py?app=$1&vistas=$2
+Rewriterule ^/(.*)/$ controles/default/lanzador.py?sesion=$1
 options -Indexes
 
-DirectoryIndex controles/lanzador.py?app="default"&vista="index"
+DirectoryIndex controles/lanzador.py
 
 ErrorDocument 404 /AsenZor/controles/error404.py
 #ErrorDocument 404 /AsenZor/error.html
