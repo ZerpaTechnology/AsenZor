@@ -35,6 +35,7 @@ print """<footer class="text-center bg-ubuntu_jet white pad-t1 pad-b1">
 });
 	alert("hola");
 	});
+	
 </script>"""
 
 

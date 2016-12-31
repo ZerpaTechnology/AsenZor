@@ -14,10 +14,13 @@ def cnt(p,m):
 	import ztec.zred as zred 
 	from ztec.zred import clienteSock
 	import time
-
-
 	for elem in settings.config.libs_python:
 		exec("import "+elem)
+
+	p["AsenZor:Detalles"]={"Versión":0.1,"Autor original":"Jesús Abraham Zerpa Maldonado",
+						   "Email":"jesus26abraham1996@gmail.com","Website":"https://zerpatechnology.com.ve",
+						   "Actualizaciones":"AsenZor esta en su versión mas reciente"}
+	p["AsenZor:chat-box"]={"comentarios":1}
 	#============================================================
 	#Cuerpo del controlador
 	#------------------------------------------------------------
@@ -71,7 +74,7 @@ def cnt(p,m):
 					main_model.guardarTema("AsenZor - default","AsenZor - Guia del desarrollador","introducción")
 
 			print "</div>"
-	print p
+	
 	if "form" in p:
 
 		print '<META HTTP-EQUIV="REFRESH" CONTENT="0;URL=' +config.base_url+'">'

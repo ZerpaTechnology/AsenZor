@@ -46,6 +46,12 @@ try:
 		exec("valor="+valor)
 		return valor
 	def servir(vista,ruta_html,ruta_python,data={}):
+		self=servir
+		self.ruta_html=ruta_html
+		self.ruta_python=ruta_python
+		self.data=data
+		self.config=config
+
 		sys.path.append(ruta_html+"../")
 		import settings.roots as roots
 		import ztec.zu as zu
@@ -55,37 +61,58 @@ try:
 		f.close()
 		lineas=html.split("\n")
 		c=0
-		while c<len(lineas):
-			if "incluir(" in lineas[c]:
-				ini=lineas[c].find("incluir(")+len("incluir(")
-				widget=lineas[c][ini:lineas[c].find(")",ini)]
+		data["config"]=config
+		data["sys"]=sys
+		data["ruta_html"]=ruta_html
+		data["generar"]=generar
+		data["__import__"]=__import__
+		data["__builtins__"]=__builtins__
+		
+		class incluir:
+			"""docstring for ClassName"""
+			def __init__(self, data,*widgets):
 				
-				if "," in widget:
-					widgets=[]
-					w=widget.split(",")
-					for elem in w:
-						widgets.append(elem[1:-1])
-				else:
-					widgets=[widget[1:-1]]
-				widget=""
+				import sys
+				import config
+				import settings.roots as roots
+				import __builtin__
+				import copy
 
+
+				widget=""
+				
+				incluir=copy.copy(self).__init__
+				str=data["__builtins__"]["str"]
+				int=data["__builtins__"]["int"]
+				float=data["__builtins__"]["float"]
+				list=data["__builtins__"]["list"]
+				tuple=data["__builtins__"]["tuple"]
+				dir=data["__builtins__"]["dir"]
+				open=data["__builtins__"]["open"]
+				Exception=data["__builtins__"]["Exception"]
+				for elem in dir(__builtin__):
+					try:
+						exec("import __builtin__."+elem+" as "+elem)
+					except Exception as e:
+						pass
+					
+				ruta_html=data["ruta_html"]
+				generar=data["generar"]
+				
 				for w in widgets:
 					generar(ruta_html+roots.widgets_folder+w+".html",ruta_html+roots.widgets_folder+w+".py","")
 					f=open(ruta_html+roots.widgets_folder+w+".py","r")
 					widget+=f.read()+"\n"
 					f.close()
 				
+				exec(widget)
+				
 
-				lineas[c]= zu.tabular(widget,zu.getTab(lineas[c]))
-
-			c+=1
-		codigo=""
-		for linea in lineas:
-			codigo+=linea+"\n"		
-		f=open(ruta_python+vista+".py","w")
-		f.write(codigo)
-		f.close()
-		exec(codigo)
+		try:
+			exec(html)
+		except Exception as e:
+			print e
+		
 
 	def administrar(rest={}):
 		
@@ -198,7 +225,7 @@ try:
 				if "ramificar" in rest:
 					shutil.copytree(config.base_root+config.apps_url+rest["ramificar"],config.base_root+config.projects_url)
 					print "La aplicación ",rest["ramificar"]," paso sea a ramificado."
-				print appcontroller
+				
 				#Establece coneccion con el controlador de la aplicación
 				cnt_file=open(appcontroller,"r")
 				cnt=cnt_file.read()

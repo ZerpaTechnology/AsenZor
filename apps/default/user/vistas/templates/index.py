@@ -1,23 +1,8 @@
 # -*- coding: utf-8 -*-
 print '<!DOCTYPE html><html>'
-print '<head>	<meta charset="utf-8">	<link rel="stylesheet" type="text/css" href="'
-print config.base_url
-print 'static/css/ff.css">	<title>Usuario</title></head>'
-
-
-
+incluir(data,"head")
 print '<body>	'
-print """<header>
-<h1>Bienvenido al administrador de AsenZor</h1>
-<p>
-	Por favor loguete para continuar
-</p>
-<div class="width-100p height-5 bg-ubuntu_orange">
-
-</div>
-</header>"""
-
-
+incluir(data,"header")
 print '			<section>	'
 variable=[1,2,3,4,5,6]
 print '	'
@@ -27,13 +12,5 @@ for elem in variable:
   print '</h1>	'
   pass
 print '	</section>	'
-print """<footer class="text-center bg-ubuntu_jet white pad-t1 pad-b1">
-	zerpatechnlogy@2016
-</footer>
-<script type="text/javascript">
-
-</script>"""
-
-
+incluir(data,"footer")
 print '	</body></html>'
-

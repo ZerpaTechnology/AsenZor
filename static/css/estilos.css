@@ -44,7 +44,7 @@ float: right;
 
 .cpanel{
 	background-color:#e6e6ff;
-	height: 1500px;
+	height: 1650px;
 	margin: 5px;
 	border: solid;
 	border-width: 1px;
@@ -123,12 +123,8 @@ ul{
 }
 .commit-content{
 	width: 350px;
-	display: table-cell;
+}
 
-}
-.commit-content > ul li{
-	list-style: none;
-}
 .margin-left{
 	margin-left: 20px;
 }
@@ -136,40 +132,6 @@ ul{
 	width: 100%;
 	height: 500px;
 	background-color: rgb(250,250,255);
-	text-align: center;
 	
 }
-.commit{
-	background-color: rgb(50,50,50);
-	width: 100%;
-	height: 100px;
-	display: table-row;
 
-	
-
-}
-.commit-image{
-	display: table-cell;
-}
-.commit-image img{
-	width: 80px;
-	height: auto;
-}
-
-.commit-name{
-	background-color: #9999ff;
-	color: white;
-	font-weight: bold;
-	width: 100px;
-}
-.commit-date{
-	background-color: rgb(255,110,0);
-	width: 170px;
-	color: white;
-	font-weight: bold;
-	border-radius: 0 12px 0 0;
-}
-.commit-message{
-	background-color: white;
-	resize: both;
-}

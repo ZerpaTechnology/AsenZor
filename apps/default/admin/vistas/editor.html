@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
-{{incluir("head")}}
+{{incluir(data,"head")}}
 <body class="AsenZor-admin ff">
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			{{incluir("header")}}
+			{{incluir(data,"header")}}
 		</div>
 		</div class="container">
 		<div class="row">
@@ -24,11 +24,11 @@
 			<h3 class="marg-l2"><a href="{{print config.base_url+'vista='+elem+'-edit&admin=True'}}">{{print elem}}</a></h3>
 			{{pass}}
 			</div>
-			{{incluir("dashboard-right")}}
+			{{incluir(data,"dashboard-right")}}
 		</div>
 		</div>
 	</div>
 </div>
-{{incluir("footer")}}
+{{incluir(data,"footer")}}
 </body>
 </html>
