@@ -107,7 +107,7 @@ def DB(dbfile=None,debug=False):
 			    		db.insertar('miNombre','miApellido',12345678)
 			    """
 			    def insertar(*campos,**args):
-					
+					campos=list(campos)
 					valido=True
 					if "sob" not in args:
 						args["sob"]=False
@@ -118,7 +118,7 @@ def DB(dbfile=None,debug=False):
 					
 					for elem in campos:
 						
-						if self.campos[self.seleccion][c][4]==True:	
+						if self.campos[self.seleccion][c][4]==True:	#unicaFila
 							if self.tablas[self.seleccion]!={}:
 								if tuple(self.obtenerFilasValores(campos[0],self.seleccion)) == campos:
 										valido=False
@@ -135,13 +135,13 @@ def DB(dbfile=None,debug=False):
 
 						for elem in campos:
 							
-							if self.campos[self.seleccion][c][3]==True:
+							if self.campos[self.seleccion][c][3]==True:#vacio
 
 								if elem==None:
 									lcampos.append(obj(elem,dbtype(elem)))
 								else:
 
-									if self.campos[self.seleccion][c][2]==True:
+									if self.campos[self.seleccion][c][2]==True:#unico
 
 										if args["sob"]==True:
 
@@ -157,15 +157,36 @@ def DB(dbfile=None,debug=False):
 
 														razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
 													else:
-															
-														lcampos.append(obj(elem,dbtype(elem)))
+														if self.campos[self.seleccion][c][1]==db.file:
+															if self.load==False:
+																f=open(elem.replace("file://",""),"rb")
+																b=f.read()
+																f.close()
+																campos[c]=b
+																lcampos.append(obj("file://"+b,dbtype(elem)))
+															else:
+																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
+														else:
+															lcampos.append(obj(elem,dbtype(elem)))
 												else:
 													if elem in bloqueados:
 
 														valido=False
 														razones.append(str(elem)+" se repite y es un campo unico")
 													else:
-														lcampos.append(obj(elem,dbtype(elem)))
+
+														if self.campos[self.seleccion][c][1]==db.file:
+
+															if self.load==False:
+																f=open(elem.replace("file://",""),"rb")
+																b=f.read()
+																f.close()
+																campos[c]=b
+																lcampos.append(obj("file://"+b,dbtype(elem)))
+															else:
+																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
+														else:
+															lcampos.append(obj(elem,dbtype(elem)))
 														
 										else:
 
@@ -179,7 +200,18 @@ def DB(dbfile=None,debug=False):
 													valido=False
 													razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
 												else:
-													lcampos.append(obj(elem,dbtype(elem)))
+
+													if self.campos[self.seleccion][c][1]==db.file:
+															if self.load==False:
+																f=open(elem.replace("file://",""),"rb")
+																b=f.read()
+																f.close()
+																campos[c]=b
+																lcampos.append(obj("file://"+b,dbtype(elem)))
+															else:
+																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
+													else:
+															lcampos.append(obj(elem,dbtype(elem)))
 
 									else:
 
@@ -189,15 +221,30 @@ def DB(dbfile=None,debug=False):
 												#print elem," ",self.campos[self.seleccion][c][0]," ",c,"<br>"
 												razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
 										else:
-												
-												lcampos.append(obj(elem,dbtype(elem)))
+											
+											if self.campos[self.seleccion][c][1]==db.file:
+
+															if self.load==False:
+																print "bbbbbbbbbbbbb"
+																f=open(elem.replace("file://",""),"rb")
+																b=f.read()
+																f.close()
+																campos[c]=b
+
+																lcampos.append(obj("file://"+b,dbtype(elem)))
+
+															else:
+
+																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
+											else:
+															lcampos.append(obj(elem,dbtype(elem)))
 
 
 
 								
 							else:
 
-								if self.campos[self.seleccion][c][2]==True:
+								if self.campos[self.seleccion][c][2]==True:#unico
 
 									if args["sob"]==True:
 											bloqueados=[]
@@ -229,7 +276,18 @@ def DB(dbfile=None,debug=False):
 												valido=False
 												razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
 											else:
-												lcampos.append(obj(elem,dbtype(elem)))
+
+												if self.campos[self.seleccion][c][1]==db.file:
+															if self.load==False:
+																f=open(elem.replace("file://",""),"rb")
+																b=f.read()
+																f.close()
+																campos[c]=b
+																lcampos.append(obj("file://"+b,dbtype(elem)))
+															else:
+																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
+												else:
+															lcampos.append(obj(elem,dbtype(elem)))
 
 								else:
 
@@ -237,7 +295,18 @@ def DB(dbfile=None,debug=False):
 											valido=False
 											razones.append(str(elem)+" tiene que ser "+str(self.campos[self.seleccion][c][1])[1:-1]+" y es "+str(self.dbtype(elem))[1:-1])
 									else:
-											lcampos.append(obj(elem,dbtype(elem)))
+
+										if self.campos[self.seleccion][c][1]==db.file:
+															if self.load==False:
+																f=open(elem.replace("file://",""),"rb")
+																b=f.read()
+																f.close()
+																campos[c]=b
+																lcampos.append(obj("file://"+b,dbtype(elem)))
+															else:
+																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
+										else:
+															lcampos.append(obj(elem,dbtype(elem)))
 				                                
 							c+=1
 					
@@ -247,10 +316,10 @@ def DB(dbfile=None,debug=False):
 
 						try:
 							if tabla!=None:
-								self.registro.append("db('"+tabla+"').insertar"+str(campos))
+								self.registro.append("db('"+tabla+"').insertar("+str(campos)[1:-1]+")")
 								self.consola("La inserción de datos fue realizada con exito en la tabla \n \x1b[1;31m "+self.seleccion+"\n Datos insertados:\n"+str(campos)+" \x1b[0m\n",self)
 						except:
-								self.registro.append("db.insertar"+str(campos))
+								self.registro.append("db.insertar("+str(campos)[1:-1]+")")
 								self.consola("La inserción de datos fue realizada con exito en la tabla \x1b[1;31m"+self.seleccion+"\x1b[0m \n Datos insertados:\n"+str(campos)+"\n",self)
 							
 					else:
@@ -310,6 +379,7 @@ def DB(dbfile=None,debug=False):
 			    #Estado: Pendiente
 			    #Versión: V0.01
 			    def grabar(dbfile=self.dbfile):
+					self.registro.insert(3,"db.load=True")
 					f=open(dbfile,"w")
 					c=""
 
@@ -501,6 +571,7 @@ def DB(dbfile=None,debug=False):
 			    self.datetime="<type 'datetime'>"
 			    self.url="<type 'url'>"
 			    self.file="<type 'file'>"
+			    self.bin="<type 'binary'>"
 			    self.dbtype=dbtype
 			    self.modificarFila=modificarFila
 			    self.modificarCampo=modificarCampo
@@ -520,6 +591,7 @@ def DB(dbfile=None,debug=False):
 			    self.obtener=obtener
 			    self.delFila=delFila
 			    self.t=None
+			    
 
 			    return self
 			    
@@ -529,6 +601,7 @@ def DB(dbfile=None,debug=False):
         db.seleccion=None
         db.dbfile=dbfile
         db.log=[]
+        db.load=False
 
         
     		

@@ -1,6 +1,9 @@
 #Esto es el equibalente a los achivos .sql que se cargan en la base de datos
 #  En los modelos no se crea la estructura de la base de datos solo se crean metodos de insercion de datos
 db=DB(debug=True)
+db("confirmacion").campo("email",db.email)
+db("confirmacion").campo("codigo",db.str)
+
 #===================================================================
 #TABLA USUARIOS
 db("usuarios").campo("nombres",db.str)

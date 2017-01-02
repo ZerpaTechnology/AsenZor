@@ -41,13 +41,25 @@ def cnt(p,m):
 		else:
 			print "<div class='width-100p height-auto bg-ubuntu_jet white pad-t05 pad-b05 text-center'>"
 			if p["action"]=="sing_up":
-				l=["correo","password","nombres","apellidos"]
-				for elem in l:
+				
+				l=[]
+				l2=["correo","password","nombres","apellidos"]
+				for elem in l2:
+					print elem
 					if elem not in p:
 						print "No llenastes el campo ",elem
+						l.append(elem)
+					
+
 				if l==[]:
 					img=p["base_url"]+"../../static/imgs/icono_perfil.jpg"
-					main_model.registrarUsuario(p["nombres"],p["apellidos"],p["correo"],p["password"],img,img)
+					#main_model.registrarUsuario(p["nombres"],p["apellidos"],p["correo"],p["password"],img,img)
+					
+					#zred.sendEmail("zerpatechnolgy@gmail.com",p["correo"],"pendiente","Gracias por registrarte en AsenZor porfavor introduce el siguiente codigo para confirmar tu registro: "+codConfirmacion)
+					codConfirmacion=zu.randomString(4,noalp=False)
+					zred.clienteSock("localhost",9999,'python zred.sendEmail(zerpatechnolgy@gmail.com,'+p["correo"]+', password,<p>Gracias por registrarte en AsenZor por favor introduce el siguiente código para confirmar tu registro: '+codConfirmacion+'</p> , Asenzor - Codigo de confirmacion)')
+					zred.clienteSock("localhost",9999,'')
+
 					if "log" in p and p["log"]=="show":
 						print "Se ha enviado un mensaje de confirmación al correo ",p["correo"],"<br>"
 						for elem in main_model.db.log:

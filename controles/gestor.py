@@ -115,7 +115,6 @@ try:
 		
 
 	def administrar(rest={}):
-		
 		modulos={}
 
 		if rest=={}:

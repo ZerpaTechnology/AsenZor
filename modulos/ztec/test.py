@@ -1,8 +1,10 @@
-import sys
-sys.path.append("../")
-import ztec.zdb as zdb
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import zdb
+db=zdb.DB("prueba_db",debug=True)
+db.tablas
+img=db("imagenes").obtener(0,"binario")
+f=open("miranda.jpg","w");
+f.write(img)
+f.close()
 
-db=zdb.DB("prueba.db",debug=True)
-
-db("tabla1").delFila(2)
-db.grabar("prueba.db")

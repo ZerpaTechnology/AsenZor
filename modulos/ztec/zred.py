@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#autor:Jesús Zerpa 
 import SocketServer
 import threading
 import time
@@ -8,27 +11,28 @@ class MiTcpHandler(SocketServer.BaseRequestHandler):
     
     #sobrescribo la funcion handle
     def handle(self):
-        data= ""
-        while data != ".salir":
+        
+        while self.data[0] != ".salir":
             #intento recibir informacion
             try:
-                data= self.request.recv(1024)
-                if data!="":
-                    print data
+                self.data.append(self.request.recv(1024))
+                del self.data[0]
                 time.sleep(0.1) #espero 0.1 segundos antes de leer neuvamente
             #si hubo un error lo digo y termino el handle
             except:
                 print "El cliente D/C o hubo un error"
-                data=".salir"
+                self.data[0]=".salir"
 
 #no se assusten Creo una clase llamada ThreadServer
 class ThreadServer (SocketServer.ThreadingMixIn, SocketServer.ForkingTCPServer):
     pass
 
-def serverSock(host,port,welcome="Server corriendo.."):
+def serverSock(host,port,welcome="Server corriendo..",data=[""]):
     #host & port
     #creo el server
+    MiTcpHandler.data=data
     server = ThreadServer((host,port),MiTcpHandler)
+
     #creo un thread del server
     server_thread = threading.Thread(target=server.serve_forever)
     #empiezo el thread
@@ -72,23 +76,75 @@ def sendEmail(rem,dest,password,mensaje,asunto="", remAlias="",destAlias="",debu
      
     # Enviar correo Gmail con Python
     # www.pythondiario.com
-     
-    import smtplib
-    fromaddr = rem
-    toaddrs  = rem
-    msg = mensaje
-     
-     
-    # Datos
-    username = rem
+    try:
+        import smtplib
+
+        from email.mime.multipart import MIMEMultipart
+        from email.mime.text import MIMEText
+
+        # me == my email address
+        # you == recipient's email address
+
+        # Create message container - the correct MIME type is multipart/alternative.
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = asunto
+        msg['From'] = rem
+        msg['To'] = dest
+
+        # Create the body of the message (a plain-text and an HTML version).
+        text = "Hi!\nHow are you?\nHere is the link you wanted:\nhttp://www.python.org"
+        '''
+        html = """\
+        <html>
+          <head></head>
+          <body>
+            <p>Hi!<br>
+               How are you?<br>
+               Here is the <a href="http://www.python.org">link</a> you wanted.
+            </p>
+          </body>
+        </html>
+        """
+        '''
+        html = """\
+        <html>
+          <head>
+          <meta charset="utf-8">
+          </head>
+          <body>
+            """+mensaje+"""
+            </p>
+          </body>
+        </html>
+        """
+
+        # Record the MIME types of both parts - text/plain and text/html.
+        part1 = MIMEText(text, 'plain')
+        part2 = MIMEText(html, 'html')
+
+        # Attach parts into message container.
+        # According to RFC 2046, the last part of a multipart message, in this case
+        # the HTML message, is best and preferred.
+        msg.attach(part1)
+        msg.attach(part2)
+        # Send the message via local SMTP server.
+        mail = smtplib.SMTP('smtp.gmail.com', 587)
+
+        mail.ehlo()
+
+        mail.starttls()
+
+        mail.login(rem, password)
+        mail.sendmail(rem, dest, msg.as_string())
+        mail.quit()
+
+    except Exception as e:
+        print "<?php mail('"+dest+"','"+asunto+"','"+"','"+mensaje+"','"+rem+")?>"
+        if debug==True:
+            print e," esto puede ser culpa del servidor"
+            print "Se intento hacer el envio por PHP"
+
     
-     
-    # Enviando el correo
-    server = smtplib.SMTP('smtp.gmail.com:587')
-    server.starttls()
-    server.login(username,password)
-    server.sendmail(fromaddr, toaddrs, msg)
-    server.quit()
 
 def normalizar(v):
     try:
