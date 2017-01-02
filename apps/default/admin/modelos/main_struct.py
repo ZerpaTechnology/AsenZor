@@ -1,18 +1,21 @@
 #Esto es el equibalente a los achivos .sql que se cargan en la base de datos
 #  En los modelos no se crea la estructura de la base de datos solo se crean metodos de insercion de datos
 db=DB(debug=True)
-db("confirmacion").campo("email",db.email)
-db("confirmacion").campo("codigo",db.str)
-
+db("confirmacion").campo("nombres",db.str,vacio=False)
+db("confirmacion").campo("appelidos",db.str,vacio=False)
+db("confirmacion").campo("correo",db.email,unico=True,vacio=False)
+db("confirmacion").campo("password",db.str,vacio=False)
+db("confirmacion").campo("codigo",db.str,vacio=False)
 #===================================================================
 #TABLA USUARIOS
-db("usuarios").campo("nombres",db.str)
-db("usuarios").campo("appelidos",db.str)
-db("usuarios").campo("correo",db.email,unico=True)
-db("usuarios").campo("password",db.str)
+db("usuarios").campo("nombres",db.str,vacio=False)
+db("usuarios").campo("appelidos",db.str,vacio=False)
+db("usuarios").campo("correo",db.email,unico=True,vacio=False)
+db("usuarios").campo("password",db.str,vacio=False)
 db("usuarios").campo("foto",db.url)
 db("usuarios").campo("imgs",db.list)
-db("usuarios").campo("token",db.str)
+db("usuarios").campo("token",db.str,vacio=False)
+db("usuarios").campo("login",db.bool,vacio=False)
 #===================================================================
 #TABLA MENSAJES - CHAT
 db("msj_chat").campo("emisor",db.object)

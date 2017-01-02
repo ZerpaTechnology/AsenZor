@@ -40,6 +40,9 @@ def cnt(p,m):
 				print "Debes pasar el parametro 'script' con el nombre del script de php a cargar"
 		else:
 			print "<div class='width-100p height-auto bg-ubuntu_jet white pad-t05 pad-b05 text-center'>"
+			if p["action"]=="confirmarUser":
+				main_model.registrarUsuario(p["cod"])
+
 			if p["action"]=="sing_up":
 				
 				l=[]
@@ -56,9 +59,14 @@ def cnt(p,m):
 					#main_model.registrarUsuario(p["nombres"],p["apellidos"],p["correo"],p["password"],img,img)
 					
 					#zred.sendEmail("zerpatechnolgy@gmail.com",p["correo"],"pendiente","Gracias por registrarte en AsenZor porfavor introduce el siguiente codigo para confirmar tu registro: "+codConfirmacion)
+					#---------------------------------------------
 					codConfirmacion=zu.randomString(4,noalp=False)
-					zred.clienteSock("localhost",9999,'python zred.sendEmail(zerpatechnolgy@gmail.com,'+p["correo"]+', password,<p>Gracias por registrarte en AsenZor por favor introduce el siguiente código para confirmar tu registro: '+codConfirmacion+'</p> , Asenzor - Codigo de confirmacion)')
+					
+					main_model.confirmarUsuario(p["nombres"],p["apellidos"],p["correo"],p["password"],codConfirmacion)
+					zred.clienteSock("localhost",9999,'python zred.sendEmail(jesus26abraham1996@gmail.com,'+p["correo"]+',password,<p>Gracias por registrarte en AsenZor por favor introduce el siguiente código para confirmar tu registro: '+codConfirmacion+'</p> , Asenzor - Codigo de confirmacion)')
 					zred.clienteSock("localhost",9999,'')
+
+					#---------------------------------------------
 
 					if "log" in p and p["log"]=="show":
 						print "Se ha enviado un mensaje de confirmación al correo ",p["correo"],"<br>"
@@ -79,7 +87,15 @@ def cnt(p,m):
 
 			if p["action"]=="crearLibro":
 					main_model.crearLibro("AsenZor - Guia del desarrollador",["Jesús Zerpa"])
+			if p["action"]=="sing_in":
+				main_model.login(p["user"],p["password"])
+			if p["action"]=="closeSession":
+				main_model.closeSession(p["token"])
+				print "Ha cerrado session"
 
+			if p["action"]=="consultarLogin":
+				print main_model.consultarLogin(p["token"])
+				print "consulta realizada"
 			if p["action"]=="guardarTema":
 					introduccion="""
 					 """

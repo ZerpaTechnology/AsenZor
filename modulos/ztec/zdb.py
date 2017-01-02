@@ -162,7 +162,7 @@ def DB(dbfile=None,debug=False):
 																f=open(elem.replace("file://",""),"rb")
 																b=f.read()
 																f.close()
-																campos[c]=b
+																campos[c]="file://"+b
 																lcampos.append(obj("file://"+b,dbtype(elem)))
 															else:
 																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
@@ -181,7 +181,7 @@ def DB(dbfile=None,debug=False):
 																f=open(elem.replace("file://",""),"rb")
 																b=f.read()
 																f.close()
-																campos[c]=b
+																campos[c]="file://"+b
 																lcampos.append(obj("file://"+b,dbtype(elem)))
 															else:
 																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
@@ -206,7 +206,7 @@ def DB(dbfile=None,debug=False):
 																f=open(elem.replace("file://",""),"rb")
 																b=f.read()
 																f.close()
-																campos[c]=b
+																campos[c]="file://"+b
 																lcampos.append(obj("file://"+b,dbtype(elem)))
 															else:
 																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
@@ -225,11 +225,10 @@ def DB(dbfile=None,debug=False):
 											if self.campos[self.seleccion][c][1]==db.file:
 
 															if self.load==False:
-																print "bbbbbbbbbbbbb"
 																f=open(elem.replace("file://",""),"rb")
 																b=f.read()
 																f.close()
-																campos[c]=b
+																campos[c]="file://"+b
 
 																lcampos.append(obj("file://"+b,dbtype(elem)))
 
@@ -282,7 +281,7 @@ def DB(dbfile=None,debug=False):
 																f=open(elem.replace("file://",""),"rb")
 																b=f.read()
 																f.close()
-																campos[c]=b
+																campos[c]="file://"+b
 																lcampos.append(obj("file://"+b,dbtype(elem)))
 															else:
 																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
@@ -301,7 +300,7 @@ def DB(dbfile=None,debug=False):
 																f=open(elem.replace("file://",""),"rb")
 																b=f.read()
 																f.close()
-																campos[c]=b
+																campos[c]="file://"+b
 																lcampos.append(obj("file://"+b,dbtype(elem)))
 															else:
 																lcampos.append(obj(elem.replace("file://",""),dbtype(elem)))
@@ -337,10 +336,32 @@ def DB(dbfile=None,debug=False):
 			    db.modificar() 
 			    """
 
-			    def modificarCampo(id,columna,campoNuevo):
+			    def modificarCampo(i,columna,campoNuevo,tabla=self.seleccion):#columna es el nombre del campo
+					col=obtenerCampo(columna)
+					self.consola("modificarFila\n de: "+str(self.tablas[self.seleccion][i][obtenerCampo(columna)].valor)+" a: "+str(campoNuevo)+"\n",self)
+					
 
-					self.consola("modificarFila\n de: "+str(self.tablas[self.seleccion][id][obtenerCampo(columna)].valor)+" a: "+str(campoNuevo)+"\n",self)
-					self.tablas[self.seleccion][id][obtenerCampo(columna)].valor=campoNuevo
+
+					c=0
+					
+					for elem in self.registro:
+
+						if "db('"+tabla+"').insertar("+str(self.obtenerFilaValores(i,tabla))[1:-1]+")" == elem:
+							#print "se ha modificado ", self.registro[c]
+							fila=self.obtenerFilaValores(i,tabla)
+											
+							fila[col]=campoNuevo
+							print col," - ",columna
+							print "<br>"
+							params=str(fila)[1:-1]
+
+
+							self.registro[c]="db('"+tabla+"').insertar("+params+")"
+							
+
+						c+=1
+					self.tablas[self.seleccion][i][col].valor=campoNuevo
+
 
 			    def delFila(i,tabla=self.seleccion):
 					c=0
@@ -380,6 +401,7 @@ def DB(dbfile=None,debug=False):
 			    #Versión: V0.01
 			    def grabar(dbfile=self.dbfile):
 					self.registro.insert(3,"db.load=True")
+					self.registro.append("db.load=False")
 					f=open(dbfile,"w")
 					c=""
 
@@ -416,11 +438,13 @@ def DB(dbfile=None,debug=False):
 					l=[]
 					
 					for elem in self.mostrarTablas()[t]:
-
 						if campo in self.mostrarTablas()[t][elem]:
+							
 							l.append(elem)
+
 					if self.t!=None:
 						self.consola("obtenerFila\n"+str(elem)+"\n",self)
+
 					return l
 			    
 			    def obtenerFilas(campo,t=self.seleccion):
@@ -446,6 +470,12 @@ def DB(dbfile=None,debug=False):
 			    def obtener(i,campo,t=self.seleccion):
 			    	
 			    	return self.tablas[t][i][obtenerCampo(campo,t)].valor
+
+			    def obtenerFilaValores(i,t=self.seleccion):
+			    	l=[]
+			    	for elem in self.tablas[t][i]:
+			    		l.append(elem.valor)
+			    	return l
 
 
 				#Estado: Finalizado
@@ -587,6 +617,7 @@ def DB(dbfile=None,debug=False):
 			    self.obtenerFilas=obtenerFilas
 			    self.obtenerFilasId=obtenerFilasId
 			    self.obtenerFilasValores=obtenerFilasValores
+			    self.obtenerFilaValores=obtenerFilaValores
 			    self.obtenerColumna=obtenerColumna
 			    self.obtener=obtener
 			    self.delFila=delFila
@@ -602,6 +633,7 @@ def DB(dbfile=None,debug=False):
         db.dbfile=dbfile
         db.log=[]
         db.load=False
+        db.modificacion=False
 
         
     		
@@ -628,6 +660,7 @@ def dbcargar(dbfile=None,debug=False):
 						db.debug=debug
 						db.consola("--------------------------------------------\nLa base de datos fue cargada con exito\n",db)
 						db.t=None
+						db.registro.append("db.load=True")
 
 						return db
 					except Exception,e:
