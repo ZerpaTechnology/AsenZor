@@ -55,9 +55,9 @@ db('libros').campo('referencias',db.list,False,True,True)
 db('libros').campo('Editorial',db.str,False,True,True)
 db('libros').campo('fecha de publicación',db.datetime,False,True,True)
 db('libros').campo('web',db.url,False,True,True)
-db('usuarios').insertar('jesus', 'zerpa', 'jesus26abraham1996@gmail.com', '1234', None, None, 'bT3j-I<i', False)
-db('tokens').insertar('jesus26abraham1996@gmail.com', 'bT3j-I<i', '2017-01-02 13:21:28.238951', '2017-01-30 13:21:28.239063')
-db('tokens').relacionar(0,'usuario',tabla= 'usuarios',id= 0,campo= 'correo',)
-db('usuarios').relacionar(0,'token',tabla= 'tokens',id= 0,campo= 'valor',)
+db('usuarios').insertar('jesus', 'zerpa', 'jesus26abraham1996@gmail.com', '1234', None, None, 's.GMFCo~', False)
+db('tokens').insertar('jesus26abraham1996@gmail.com', 's.GMFCo~', '2017-01-02 13:21:28.238951', '2017-01-30 13:21:28.239063')
+db('tokens').relacionar(0,'usuario',id= 0,tabla= 'usuarios',campo= 'correo',)
+db('usuarios').relacionar(0,'token',id= 0,tabla= 'tokens',campo= 'valor',)
 db.load=True
 db.load=False

@@ -17,7 +17,7 @@ root_db=p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py"
 import time
 tiempo=time.time()
 if os.path.exists(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py"):
-	db=DB(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py",debug=True)
+	db=DB(p["base_root"]+"../admin/"+roots.models_folder+name_db+"_db.py")
 	
 
 else:

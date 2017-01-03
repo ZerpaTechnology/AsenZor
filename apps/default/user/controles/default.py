@@ -21,86 +21,32 @@ def cnt(p,m):
 						   "Email":"jesus26abraham1996@gmail.com","Website":"https://zerpatechnology.com.ve",
 						   "Actualizaciones":"AsenZor esta en su versión mas reciente"}
 	p["AsenZor:chat-box"]={"comentarios":1}
+
 	#============================================================
 	#Cuerpo del controlador
 	#------------------------------------------------------------
 	#Sección de parametrisaje
-	
-
+	if "embeber" in p:
+		if p["embeber"]=="php":
+	 			if "script" in p:
+					if os.path.exists(p["base_root"]+"../admin/"+roots.libs_folder+p["script"]):
+						functions.ajax(p["base_root"]+"../admin/"+roots.models_folder+roots.ajax_file,{})
+						functions.phpload(p["base_url"]+"../admin/"+roots.libs_folder,p["script"],True)
+					else:
+						print "El script no existe"
+				else:
+					print "Debes pasar el parametro 'script' con el nombre del script de php a cargar"
 		
 	if "action" in p:
-		if p["action"]=="phpload":
-			if "script" in p:
-				if os.path.exists(p["base_root"]+"../admin/"+roots.libs_folder+p["script"]):
-					functions.ajax(p["base_root"]+"../admin/"+roots.models_folder+roots.ajax_file,{})
-					functions.phpload(p["base_url"]+"../admin/"+roots.libs_folder,p["script"],True)
-				else:
-					print "El script no existe"
-			else:
-				print "Debes pasar el parametro 'script' con el nombre del script de php a cargar"
-		else:
+			#------------------------------------------------------------
+			#Particiones (sub)
+			for elem in ["session","documentation"]:
+				sub=open(p["base_root"]+roots.controles_folder+roots.sub_folder+elem+".py","r")
+				script=sub.read()
+				sub.close()
+				exec(script)
+
 			print "<div class='width-100p height-auto bg-ubuntu_jet white pad-t05 pad-b05 text-center'>"
-			if p["action"]=="confirmarUser":
-				main_model.registrarUsuario(p["cod"])
-
-			if p["action"]=="sing_up":
-				
-				l=[]
-				l2=["correo","password","nombres","apellidos"]
-				for elem in l2:
-					print elem
-					if elem not in p:
-						print "No llenastes el campo ",elem
-						l.append(elem)
-					
-
-				if l==[]:
-					img=p["base_url"]+"../../static/imgs/icono_perfil.jpg"
-					#main_model.registrarUsuario(p["nombres"],p["apellidos"],p["correo"],p["password"],img,img)
-					
-					#zred.sendEmail("zerpatechnolgy@gmail.com",p["correo"],"pendiente","Gracias por registrarte en AsenZor porfavor introduce el siguiente codigo para confirmar tu registro: "+codConfirmacion)
-					#---------------------------------------------
-					codConfirmacion=zu.randomString(4,noalp=False)
-					
-					main_model.confirmarUsuario(p["nombres"],p["apellidos"],p["correo"],p["password"],codConfirmacion)
-					zred.clienteSock("localhost",9999,'python zred.sendEmail(jesus26abraham1996@gmail.com,'+p["correo"]+',password,<p>Gracias por registrarte en AsenZor por favor introduce el siguiente código para confirmar tu registro: '+codConfirmacion+'</p> , Asenzor - Codigo de confirmacion)')
-					zred.clienteSock("localhost",9999,'')
-
-					#---------------------------------------------
-
-					if "log" in p and p["log"]=="show":
-						print "Se ha enviado un mensaje de confirmación al correo ",p["correo"],"<br>"
-						for elem in main_model.db.log:
-							print elem.replace("\n","<br>").replace("\x1b[1;31m","<span class='blue'>").replace("\x1b[0m","</span>")
-						
-
-						if settings.config.consola==True:
-							try:
-								for elem in main_model.db.log:
-									clienteSock(settings.config.host,settings.config.consola_port,elem,"")
-							except Exception as e:
-								print e
-					
-					
-				else:
-					print "No llenastes los campos: ",l
-
-			if p["action"]=="crearLibro":
-					main_model.crearLibro("AsenZor - Guia del desarrollador",["Jesús Zerpa"])
-			if p["action"]=="sing_in":
-				main_model.login(p["user"],p["password"])
-				print "te logueas"
-			if p["action"]=="closeSession":
-				main_model.closeSession(p["token"])
-				print "Ha cerrado session"
-
-			if p["action"]=="consultarLogin":
-				print main_model.consultarLogin(p["token"])
-				print "consulta realizada"
-			if p["action"]=="guardarTema":
-					introduccion="""
-					 """
-					main_model.guardarTema("AsenZor - default","AsenZor - Guia del desarrollador","introducción")
 
 			print "</div>"
 	

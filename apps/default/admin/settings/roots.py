@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 libs_folder="libs/"
 models_folder="modelos/"
+controles_folder="controles/"
+sub_folder="sub/"
 vistas_folder="vistas/"
 templates_folder="templates/"
 templates_url=vistas_folder+templates_folder
