@@ -208,7 +208,7 @@ def sumarDateTime(datetime,H=None,M=None,S=None,d=None,m=None,y=None,viciesto=Fa
 def randomString(lon=8,alp=True,noalp=True,num=True):
 	v_num="0123456789"
 	v_alp="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	v_noalp=",.;:-!$%&()=?¿|@#{[]}~><"
+	v_noalp=",.;:-!$%()=?¿|@#{[]}~><"
 	if alp==True and noalp==True and num==True:
 		v=v_num+v_alp+v_noalp
 	elif alp==True and noalp==False and num==True:

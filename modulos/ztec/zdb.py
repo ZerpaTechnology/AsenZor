@@ -30,7 +30,9 @@ def DB(dbfile=None,debug=False):
 					self.tablas[tabla]={}
 					self.clavePrimaria[tabla]=0
 					self.log=[]
+					self.relaciones={}
 			    self.seleccion=tabla
+
 
 			    self.idseleccion=None
 			    #para direfebciar cuando se usa db("tabla")
@@ -338,29 +340,86 @@ def DB(dbfile=None,debug=False):
 
 			    def modificarCampo(i,columna,campoNuevo,tabla=self.seleccion):#columna es el nombre del campo
 					col=obtenerCampo(columna)
-					self.consola("modificarFila\n de: "+str(self.tablas[self.seleccion][i][obtenerCampo(columna)].valor)+" a: "+str(campoNuevo)+"\n",self)
-					
+					self.consola("modificarFila\n de: "+str(self.tablas[self.seleccion][i][self.obtenerCampo(columna)].valor)+" a: "+str(campoNuevo)+"\n",self)
+					old=self.obtenerFilaValores(i,tabla)[col]
 
 
 					c=0
-					
+					self.modificaciones={}
+					ri1=0
+					ri2=0
 					for elem in self.registro:
-
-						if "db('"+tabla+"').insertar("+str(self.obtenerFilaValores(i,tabla))[1:-1]+")" == elem:
-							#print "se ha modificado ", self.registro[c]
-							fila=self.obtenerFilaValores(i,tabla)
+	
+						if tabla in self.relaciones:
+								i1,campo1,tabla2,i2,campo2=self.relaciones[tabla]
+								i2,campo2,tabla1,i1,campo1=self.relaciones[tabla2]
+								
+								if columna==campo1:
+									if "db('"+tabla2+"').insertar(" in elem:
+										if ri2==i2:
 											
-							fila[col]=campoNuevo
-							print col," - ",columna
-							print "<br>"
-							params=str(fila)[1:-1]
+											fila=self.obtenerFilaValores(i2,tabla2)
+											
+											col2=self.obtenerCampo(campo2,tabla2)
+											fila[col2]=campoNuevo
+				
+											self.modificaciones[c]="db('"+tabla2+"').insertar("+str(fila)[1:-1]+")"
+										ri2+=1
+									if "db('"+tabla1+"').insertar(" in elem:
+										if ri1==i1 and ri1==i:
+											
+											fila=self.obtenerFilaValores(i1,tabla1)
+											
+											col2=self.obtenerCampo(campo1,tabla1)
+											
+											fila[col2]=campoNuevo
+											
+
+											self.modificaciones[c]="db('"+tabla1+"').insertar("+str(fila)[1:-1]+")"
+										ri1+=1
+								else:
+									if "db('"+tabla+"').insertar("+str(self.obtenerFilaValores(i,tabla))[1:-1]+")" == elem:
+
+										#print "se ha modificado ", self.registro[c]
+										fila=self.obtenerFilaValores(i,tabla)
+										fila[col]=campoNuevo
+										params=str(fila)[1:-1]
+
+										self.modificaciones[c]="db('"+tabla+"').insertar("+params+")"
 
 
-							self.registro[c]="db('"+tabla+"').insertar("+params+")"
+								"""
+								if "db('"+tabla2+"').insertar("+str(fila)[1:-1]+")" == elem:
+									
+									
+									self.modificaciones[c]="db('"+tabla2+"').insertar("+str(fila)[1:-1]+")"
+								"""
+						else:
+							if "db('"+tabla+"').insertar("+str(self.obtenerFilaValores(i,tabla))[1:-1]+")" == elem:
+
+								#print "se ha modificado ", self.registro[c]
+								fila=self.obtenerFilaValores(i,tabla)
+								fila[col]=campoNuevo
+								params=str(fila)[1:-1]
+
+								self.modificaciones[c]="db('"+tabla+"').insertar("+params+")"
+
+
+
+
+
+									
+
+
+
 							
 
 						c+=1
+					print self.modificaciones
+					for elem in self.modificaciones:
+						self.registro[elem]=self.modificaciones[elem]
 					self.tablas[self.seleccion][i][col].valor=campoNuevo
+
 
 
 			    def delFila(i,tabla=self.seleccion):
@@ -538,6 +597,7 @@ def DB(dbfile=None,debug=False):
 							if self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo==self.object:	
 									
 									self.consola("Ya existe una relación para este campo\n",self)
+
 							else:
 								self.tablas[args["tabla"]][args["id"]][self.obtenerCampo(args["campo"],args["tabla"])].tipo=self.object
 								
@@ -554,12 +614,14 @@ def DB(dbfile=None,debug=False):
 											#nuevo
 											#self.campos[self.seleccion][self.obtenerCampos(args["tabla"]).index(args["campo"])][1]=self.object
 											self.consola("La relación fue efectuada con exito\n",self)
+											self.relaciones[self.seleccion]=[i,campo1,args["tabla"],args["id"],args["campo"]]
 												
 								except:
 										self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
 										#nuevo
 										#self.campos[self.seleccion][self.obtenerCampos(args["tabla"]).index(args["campo"])][1]=self.object
 										self.consola("La relación fue efectuada con exito\n",self)
+										self.relaciones[self.seleccion]=[i,campo1,args["tabla"],args["id"],args["campo"]]
 
 
 					else:
@@ -577,8 +639,11 @@ def DB(dbfile=None,debug=False):
 									if tabla!=None:
 										self.registro.append("db('"+tabla+"').relacionar("+str(i)+",'"+campo1+"',"+c+")")	
 										self.consola("La relación fue efectuada con exito\n")
+										self.relaciones[self.seleccion]=[i,campo1,args["tabla"],args["id"],args["campo"]]
 							except:
 									self.registro.append("db.relacionar("+str(i)+",'"+campo1+"',"+c+")")
+									self.relaciones[self.seleccion]=[i,campo1,args["tabla"],args["id"],args["campo"]]
+
 									self.consola("La relación fue efectuada con exito\n",self)
 					return self
                 

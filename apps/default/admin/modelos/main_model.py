@@ -64,8 +64,11 @@ def guardarTema(app,libro,tema,text,db=db):
 def login(usuario,password,db=db):
 	if db("usuarios").obtenerFilasValores(usuario)[-1]==False:
 		filas=db("usuarios").obtenerFilasValores(usuario)
+
 		if filas[3]==password:
+
 			db("usuarios").modificarCampo(db("usuarios").obtenerFilasId(usuario)[0],"login",True)
+			
 			db.grabar(root_db)
 			return True
 		else:
@@ -78,7 +81,7 @@ def login(usuario,password,db=db):
 
 def closeSession(token,db=db):
 	filas=db("usuarios").obtenerFilasValores(token)
-
+	
 	if filas[6]==token:
 		db("usuarios").modificarCampo(db("usuarios").obtenerFilasId(token)[0],"login",False)
 
@@ -86,7 +89,7 @@ def closeSession(token,db=db):
 		
 		while newToken in db.obtenerColumna("valor","tokens"):
 			newToken=zu.randomString()
-		db("usuarios").modificarCampo(db("usuarios").obtenerFilasId(token)[0],"token",newToken)
+		db("tokens").modificarCampo(db("tokens").obtenerFilasId(token)[0],"valor",newToken)
 		db.grabar(root_db)
 		return True
 	else:

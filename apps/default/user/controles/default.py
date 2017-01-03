@@ -89,6 +89,7 @@ def cnt(p,m):
 					main_model.crearLibro("AsenZor - Guia del desarrollador",["Jesús Zerpa"])
 			if p["action"]=="sing_in":
 				main_model.login(p["user"],p["password"])
+				print "te logueas"
 			if p["action"]=="closeSession":
 				main_model.closeSession(p["token"])
 				print "Ha cerrado session"
