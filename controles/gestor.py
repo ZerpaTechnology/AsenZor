@@ -125,6 +125,9 @@ try:
 			import ztec.zred as zred
 			app="default"
 			vista="index"
+		else:
+			app=rest["app"]
+			vista=rest["vista"]
 			
 
 
@@ -139,24 +142,13 @@ try:
 				config.mod_debug=True
 
 		if config.mod_debug==False:
-			if rest=={}:
-				appcontroller=config.base_root+config.apps_url+app+"/user/"+config.controller_url
-				root_app_current=config.base_root+config.apps_url+app+"/user/"
-				url_app_current=config.base_url+config.apps_url+app+"/user/"
-				
-			else:
-
-				appcontroller=config.base_root+config.apps_url+config.default_app+"/user/"+config.controller_url
-				root_app_current=config.base_root+config.apps_url+config.default_app+"/user/"
-				url_app_current=config.base_url+config.apps_url+config.default_app+"/user/"
+			appcontroller=config.base_root+config.apps_url+app+"/user/"+config.controller_url
+			root_app_current=config.base_root+config.apps_url+app+"/user/"
+			url_app_current=config.base_url+config.apps_url+app+"/user/"
 			#print '<meta http-equiv="refresh" content="0;url='+appcontroller+""+ '" /> '
-			if rest=={}:
-				parametros={'app': app,'vista':vista,"base_root":root_app_current,"base_url":url_app_current}
-			else:
-				parametros=rest
-			
-				parametros["base_root"]=root_app_current
-				parametros["base_url"]=url_app_current
+			parametros=rest
+			parametros["base_root"]=root_app_current
+			parametros["base_url"]=url_app_current
 			
 			modulos["ztec"]=ztec
 			#Establece coneccion con el controlador de la aplicación
@@ -195,10 +187,10 @@ try:
 					print "La aplicación ",rest["ramificar"]," paso sea a ramificado."
 
 			else:
-				app=rest["app"]
+				
 				appcontroller=config.base_root+config.projects_url+app+"/user/"+config.controller_url
-				root_app_current=config.base_root+config.projects_url+config.default_app+"/user/"
-				url_app_current=config.base_url+config.projects_url+config.default_app+"/user/"	
+				root_app_current=config.base_root+config.projects_url+app+"/user/"
+				url_app_current=config.base_url+config.projects_url+app+"/user/"	
 				parametros=rest
 				
 				parametros["base_root"]=root_app_current

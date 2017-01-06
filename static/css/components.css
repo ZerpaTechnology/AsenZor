@@ -1,0 +1,150 @@
+/*RESOLUCIONES*/
+/* PALETA FLAT*/
+/*---------------------*/
+.ff .titulo1 {
+  color: white;
+  margin-left: 5%;
+  font-weight: bold; }
+.ff .titulo2 {
+  font-weight: bold;
+  font-weight: 16px; }
+.ff > .btn {
+  border-radius: 12px;
+  background-color: #0080bb; }
+  .ff > .btn:hover {
+    border: solid;
+    border-color: #ae59b9; }
+.ff > .btn-1 {
+  border-radius: 12px;
+  background-color: #0080bb; }
+  .ff > .btn-1:hover {
+    border: solid;
+    border-color: #ae59b9; }
+.ff > .btn-2 {
+  border-radius: 12px;
+  background-color: #0080bb; }
+  .ff > .btn-2:hover {
+    border: solid;
+    border-color: #ae59b9; }
+.ff > .btn-4 {
+  border-radius: 12px;
+  background-color: #0080bb; }
+  .ff > .btn-4:hover {
+    border: solid;
+    border-color: #ae59b9; }
+.ff > .btn-5 {
+  border-radius: 12px;
+  background-color: #0080bb; }
+  .ff > .btn-5:hover {
+    border: solid;
+    border-color: #ae59b9; }
+.ff > .btn-6 {
+  border-radius: 12px;
+  background-color: #0080bb; }
+  .ff > .btn-6:hover {
+    border: solid;
+    border-color: #ae59b9; }
+.ff > .slider {
+  background-color: #8fa7a7; }
+  @media (min-width: 320px) and (max-width: 360px) {
+    .ff > .slider {
+      height: 205px; }
+      .ff > .slider:before {
+        content: 320px; } }
+  @media (min-width: 361px) and (max-width: 768px) {
+    .ff > .slider {
+      height: 550px; }
+      .ff > .slider:before {
+        content: 360px; } }
+  @media (min-width: 769px) and (max-width: 800px) {
+    .ff > .slider {
+      height: 550px; }
+      .ff > .slider:before {
+        content: 768px; } }
+  @media (min-width: 801px) and (max-width: 980px) {
+    .ff > .slider {
+      height: 700px; }
+      .ff > .slider:before {
+        content: 980px; } }
+  @media (min-width: 981px) and (max-width: 1280px) {
+    .ff > .slider {
+      height: 900px; }
+      .ff > .slider:before {
+        content: 1280px; } }
+  @media (min-width: 1281px) and (max-width: 1920px) {
+    .ff > .slider {
+      height: 1400px; }
+      .ff > .slider:before {
+        content: 1920px; } }
+  .ff > .slider > .screen {
+    background-image: url("../imgs/bg1.jpg");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center; }
+    .ff > .slider > .screen > .controls a:nth-child(1) {
+      float: left;
+      margin-top: 45%; }
+    .ff > .slider > .screen > .controls a:nth-child(2) {
+      float: right;
+      margin-top: 45%; }
+.ff > .hero {
+  background-color: black;
+  background-image: url("../imgs/bg1.jpg");
+  background-size: 150% auto;
+  background-repeat: no-repeat;
+  background-position: center; }
+  @media (min-width: 320px) and (max-width: 360px) {
+    .ff > .hero {
+      height: 205px; }
+      .ff > .hero:before {
+        content: 320px; } }
+  @media (min-width: 361px) and (max-width: 768px) {
+    .ff > .hero {
+      height: 550px; }
+      .ff > .hero:before {
+        content: 360px; } }
+  @media (min-width: 769px) and (max-width: 800px) {
+    .ff > .hero {
+      height: 550px; }
+      .ff > .hero:before {
+        content: 768px; } }
+  @media (min-width: 801px) and (max-width: 980px) {
+    .ff > .hero {
+      height: 700px; }
+      .ff > .hero:before {
+        content: 980px; } }
+  @media (min-width: 981px) and (max-width: 1280px) {
+    .ff > .hero {
+      height: 900px; }
+      .ff > .hero:before {
+        content: 1280px; } }
+  @media (min-width: 1281px) and (max-width: 1920px) {
+    .ff > .hero {
+      height: 1400px; }
+      .ff > .hero:before {
+        content: 1920px; } }
+  .ff > .hero > .controls a:nth-child(1) {
+    float: left;
+    margin-top: 35%; }
+  .ff > .hero > .controls a:nth-child(2) {
+    float: right;
+    margin-top: 35%; }
+.ff header {
+  background-color: #1e3c50; }
+  .ff header > div:nth-child(1) {
+    font-family: "ubuntu";
+    color: #8fa7a7; }
+  .ff header > div:nth-child(2) {
+    text-align: center; }
+    .ff header > div:nth-child(2) a {
+      text-decoration: none;
+      display: block;
+      background-color: #a142b3;
+      height: 80px;
+      text-align: center; }
+      .ff header > div:nth-child(2) a div {
+        margin-top: 15%; }
+      .ff header > div:nth-child(2) a:hover {
+        background-color: #ae59b9; }
+
+/*# sourceMappingURL=components.css.map */

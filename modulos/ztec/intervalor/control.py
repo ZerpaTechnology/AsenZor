@@ -53,51 +53,84 @@ def convertir(t):
 						lelif=len("elif ")
 						lpass=len("return ")
 						lreturn=len("pass ")
-						l.append(iden+codpython)
-
+						
 						if tab=="":
 
 							if codpython[0:lfor]=="for ":
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[0:lwhile]=="while ":
+							elif codpython[0:lwhile]=="while ":
+								
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[0:lif]=="if ":
+							elif codpython[0:lif]=="if ":
+								
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[0:lelse]=="else: ":
-								iden+="  "
-							if codpython[0:ltry]=="try:":
-								iden+="  "
-							if codpython[0:lexcept]=="except ":
-								iden+="  "
-							if codpython[0:lelif]=="elif ":
-								iden+="  "
-							if codpython[0:lpass]=="pass\n":
+							elif "else:" in codpython[0:lelse]:
 								iden=iden[:-2]
-							if codpython[0:lreturn]=="return ":
+								l.append(iden+codpython)
+								iden+="  "
+							elif "try:" in codpython[0:ltry]:
+								
+								l.append(iden+codpython)
+								iden+="  "
+							elif "except" in codpython[0:lexcept]:
 								iden=iden[:-2]
+								l.append(iden+codpython)
+								iden+="  "
+							elif codpython[0:lelif]=="elif ":
+								iden=iden[:-2]
+								l.append(iden+codpython)
+								iden+="  "
+							elif codpython[0:lpass]=="pass\n":
+								l.append(iden+codpython)
+								iden=iden[:-2]
+							elif codpython[0:lreturn]=="return ":
+								l.append(iden+codpython)
+								iden=iden[:-2]
+							else:
+								l.append(iden+codpython)
 						else:
 
 							liden=len(iden)
 							
 							if codpython[liden:liden+lfor]=="for ":
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[liden:liden+lwhile]=="while ":
+							elif codpython[liden:liden+lwhile]=="while ":
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[liden:liden+lif]=="if ":
+							elif codpython[liden:liden+lif]=="if ":
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[liden:liden+lelse]=="else: ":
+
+							elif "else:" in codpython[liden-2:liden+lelse]:
+								
+								iden=iden[:-2]
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[liden:liden+ltry]=="try:":
+							elif "try:" in codpython[liden:liden+ltry]:
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[liden:liden+lexcept]=="except ":
+							elif "except" in codpython[liden-2:liden+lexcept]:
+								iden=iden[:-2]
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[liden:liden+lelif]=="elif ":
+							elif codpython[liden-2:liden+lelif]=="elif ":
+								iden=iden[:-2]
+								l.append(iden+codpython)
 								iden+="  "
-							if codpython[:lpass]=="pass\n":
+							elif codpython[:lpass]=="pass\n":
+								l.append(iden+codpython)
 								iden=iden[:-2]
 							
-							if codpython[liden:lreturn]=="return ":
-								iden=iden[:-2]					
+							elif codpython[liden:lreturn]=="return ":
+								l.append(iden+codpython)
+								iden=iden[:-2]	
+							else:
+								l.append(iden+codpython)
+						
 
 						
 		else:
