@@ -1,0 +1,399 @@
+/*RESOLUCIONES*/	
+$width-1:320px;
+$width-2:360px;
+$width-3:768px;
+$width-4:800px;
+$width-5:980px;
+$width-6:1280px;
+$width-7:1920px;
+$width-i1:480px;
+$width-i2:640px;
+$width-i3:1024px;
+$width-i4:1280px;
+$width-i5:600px;
+$width-i6:900px;
+
+
+/* PALETA FLAT*/
+//cianes
+$turquoise:#00bd9b;
+$green-sea:#00a186;
+//amarillos
+$sun-flower:#ffc500;
+$orange:#ff9d00;
+//verdes
+$emerald:#00cd6a;
+$nephritis:#00b05c;
+//narajnas
+$carrot:#ff800a;
+$pumpkin:#f15300;
+//azules
+$peter-river:#0099de;
+$belize-hole:#0080bb;
+//rojos
+$alizarin:#ff4b3a;
+$pomegrante:#e03626;
+//morados
+$amethyst:#ae59b9;
+$wisteria:#a142b3;
+//blancos
+$cloud:#ebf0f1;
+$silver:#bdc4c8;
+//negros
+$wet-asphalt:#23485f;
+$midnight-blue:#1e3c50;
+//grises
+$concret:#8fa7a7;
+$asbestos:#798d8e;
+/*---------------------*/
+
+header{
+	background-color:$midnight-blue;
+	>div{
+		 &:nth-child(1){ 
+		 	font-family: "ubuntu";
+		 	color:$concret;
+		 }
+		 &:nth-child(2){
+		 	
+		 	text-align: center;
+		 	a{
+		 		text-decoration: none;
+		 		display: block;
+		 		background-color:$wisteria;
+		 		@extend .height-8;
+		 		text-align: center;
+		 		div{
+		 			margin-top:15%;
+		 		}
+		 		&:hover{
+		 			background-color:$amethyst;
+		 		}
+		 		
+		 	}
+		 }
+	}
+
+}
+.height-auto{
+	height:auto;
+}
+
+.height-1{
+	height:10px;
+}
+.height-2{
+	height:20px;
+}
+.height-3{
+	height:30px;
+}
+.height-4{
+	height:40px;
+}
+.height-5{
+	height:50px;
+}
+.height-6{
+	height:60px;
+}
+.height-7{
+	height:70px;
+}
+.height-8{
+	height:80px;
+}
+.height-9{
+	height:90px;
+}
+.height-10{
+	height:100px;
+}
+.height-20{
+	height:200px;
+}
+.height-30{
+	height:300px;
+}
+.height-40{
+	height:400px;
+}
+.height-50{
+	height:500px;
+}
+.height-60{
+	height:600px;
+}
+.height-70{
+	height:700px;
+}
+.height-80{
+	height:800px;
+}
+.height-90{
+	height:900px;
+}
+
+@function rest($v1, $v2) {
+  @return $v1 - $v2;
+}
+
+@mixin heights($n){
+	height:$n*10px;
+	
+
+}
+
+@mixin resp-h($ancho,$screen:true){
+	&:before{
+		content: $ancho;
+	}
+	@if $screen == true{
+		@if $ancho < $width-1 {
+			height:$width-i1;
+			
+
+		}
+		@else if $ancho >= $width-1 and $ancho < $width-2{
+			height:$width-i2;
+
+		}
+		@else if $ancho >= $width-2 and $ancho < $width-3{
+			height:$width-i3;
+		}
+		@else if $ancho >= $width-3 and $ancho < $width-4{
+			height:$width-i4;
+		}
+
+		@else if $ancho >= $width-5 and $ancho < $width-6{
+			@include heights(50)
+		}
+		@else if $ancho >= $width-6 and $ancho < $width-7{
+			height:$width-i5;
+		}
+	}
+	@else{
+		@if $ancho <= $width-1{
+			@include heights(20);//listo
+		}
+		@else if $ancho > $width-1 and $ancho < $width-2{
+			@include heights(20);
+		}
+		@else if $ancho == $width-2{
+			@include heights(50);//LISTO3
+		}
+		@else if $ancho > $width-2 and $ancho < $width-3{
+			@include heights(60);
+		}
+		@else if $ancho == $width-3{
+			@include heights(55);//LISTO4
+		}
+		@else if $ancho > $width-3 and $ancho < $width-4{
+			@include heights(60);
+		}
+		@else if $ancho == $width-4{
+			@include heights(20);//LISTO
+		}
+		@else if $ancho > $width-4 and $ancho < $width-5{
+			@include heights(60);
+		}
+		@else if $ancho == $width-5{
+			@include heights(70);
+		}
+		@else if $ancho > $width-5 and $ancho < $width-6{
+			@include heights(70);
+		}
+		@else if $ancho == $width-6{
+			@include heights(90);
+		}
+		@else if $ancho > $width-6 and $ancho < $width-7{
+			@include heights(140);
+		}
+		@else if $ancho == $width-7{
+			@include heights(140);//LISTO2
+		}
+		@else if $ancho > $width-7 {
+			@include heights(70);
+		}
+	}
+}
+
+@mixin resp-h($ancho,$screen:true){
+	&:before{
+		content: $ancho;
+	}
+	@if $screen == true{
+		@if $ancho < $width-1 {
+			height:$width-i1;
+			
+
+		}
+		@else if $ancho >= $width-1 and $ancho < $width-2{
+			height:$width-i2;
+
+		}
+		@else if $ancho >= $width-2 and $ancho < $width-3{
+			height:$width-i3;
+		}
+		@else if $ancho >= $width-3 and $ancho < $width-4{
+			height:$width-i4;
+		}
+
+		@else if $ancho >= $width-5 and $ancho < $width-6{
+			@include heights(50)
+		}
+		@else if $ancho >= $width-6 and $ancho < $width-7{
+			height:$width-i5;
+		}
+	}
+	@else{
+		@if $ancho <= $width-1{
+			@include heights(20.5);//listo
+		}
+		@else if $ancho > $width-1 and $ancho < $width-2{
+			@include heights(20);
+		}
+		@else if $ancho == $width-2{
+			@include heights(55);//LISTO3
+		}
+		@else if $ancho > $width-2 and $ancho < $width-3{
+			@include heights(60);
+		}
+		@else if $ancho == $width-3{
+			@include heights(55);//LISTO4
+		}
+		@else if $ancho > $width-3 and $ancho < $width-4{
+			@include heights(60);
+		}
+		@else if $ancho == $width-4{
+			@include heights(20);//LISTO
+		}
+		@else if $ancho > $width-4 and $ancho < $width-5{
+			@include heights(60);
+		}
+		@else if $ancho == $width-5{
+			@include heights(70);
+		}
+		@else if $ancho > $width-5 and $ancho < $width-6{
+			@include heights(70);
+		}
+		@else if $ancho == $width-6{
+			@include heights(90);
+		}
+		@else if $ancho > $width-6 and $ancho < $width-7{
+			@include heights(140);
+		}
+		@else if $ancho == $width-7{
+			@include heights(140);//LISTO2
+		}
+		@else if $ancho > $width-7 {
+			@include heights(70);
+		}
+	}
+}
+
+
+//sass no soporta @extend globales
+//v0.1 lista
+ztec-hero{
+	background-color:black;
+	@media (min-width:$width-1) and (max-width:$width-2){
+		
+		@include resp-h($width-1,false);
+	}
+	@media (min-width:$width-2 + 1px) and (max-width:$width-3){
+		
+		@include resp-h($width-2,false);
+	}
+	@media (min-width:$width-3 +1px) and (max-width:$width-4){
+	
+		@include resp-h($width-3,false);
+	}
+	@media (min-width:$width-4 + 1px) and (max-width:$width-5){
+		@include resp-h($width-5,false);	
+	}
+	@media (min-width:$width-5 + 1px) and (max-width:$width-6){
+		@include resp-h($width-6,false);	
+	}
+	@media (min-width:$width-6 + 1px) and (max-width:$width-7){
+		@include resp-h($width-7,false);	
+	}
+
+	background-image:url("../imgs/bg1.jpg");
+	background-size: 150% auto;
+	background-repeat: no-repeat;
+	background-position:center;
+	>controls{
+		a{
+			&:nth-child(1){
+				float: left;
+				margin-top:35%; 
+			}
+			&:nth-child(2){
+				float: right;
+				margin-top: 35%;
+			}
+		}
+	}
+}
+//v0.1 lista
+ztec-slider{
+	@media (min-width:$width-1) and (max-width:$width-2){
+		
+		@include resp-h($width-1,false);
+	}
+	@media (min-width:$width-2 + 1px) and (max-width:$width-3){
+		
+		@include resp-h($width-2,false);
+	}
+	@media (min-width:$width-3 +1px) and (max-width:$width-4){
+	
+		@include resp-h($width-3,false);
+	}
+	@media (min-width:$width-4 + 1px) and (max-width:$width-5){
+		@include resp-h($width-5,false);	
+	}
+	@media (min-width:$width-5 + 1px) and (max-width:$width-6){
+		@include resp-h($width-6,false);	
+	}
+	@media (min-width:$width-6 + 1px) and (max-width:$width-7){
+		@include resp-h($width-7,false);	
+	}
+	background-color:$concret;
+	>screen{
+		background-image:url("../imgs/bg1.jpg");
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		background-position:center;
+		>controls{
+			a{
+				&:nth-child(1){
+					float: left;
+					margin-top:45%; 
+				}
+				&:nth-child(2){
+					float: right;
+					margin-top: 45%;
+				}
+			}
+		}
+	}
+	
+}
+
+dialog{
+
+}
+//indeca detalles dentro se usa sumary
+details{
+
+}
+
+//indica licencia
+sumary{
+
+}
+menu{
+	display:inline-block;
+
+}

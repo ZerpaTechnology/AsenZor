@@ -10,6 +10,9 @@
 .text-right {
   text-align: right !important; }
 
+.text-justify {
+  text-align: justify !important; }
+
 .wsp-normal {
   white-space: normal !important; }
 

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 print """<header class="bg-ubuntu_jet row">
 	<div class="col-md-12">
 	<ul><li>
@@ -12,6 +14,7 @@ print """<header class="bg-ubuntu_jet row">
 		</ul>
 	</nav>	
 	</div>
+	a
 	
 
 </header>

@@ -19,7 +19,7 @@ try:
 	if "app=" not in newRoot[-1]:
 			  		parametros_rest["app"]="default"
 			  	
-
+	
 	gestor.administrar(parametros_rest)
 
 except Exception, ex:

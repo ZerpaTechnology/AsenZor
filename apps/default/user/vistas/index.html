@@ -1,20 +1,309 @@
 <!DOCTYPE html>
 <html>
 {{incluir(data,"head")}}
+<body class="sin-marg ff">
+	<header class="fixed width-100p animated bounce">
+	<div class="container-fluid pad-l2">
+	<div class="row bg-blue bar">
 
-<body>
-	{{incluir(data,"header")}}	
-	
-	<section>
-	{{variable=[1,2,3,4,5,6]}}
-	{{for elem in variable:}}
-		<h1>{{print elem}}</h1>
-	{{pass}}
+		<div class="col-md-3 bg-gray">
+			<h1>zerpaTechnology</h1>
+		</div>
+		<div class="col-md-8">
+			<nav class="box hidden-xs">
+				<div class="row marg-l0 pad-2-a">
+					<a href="" class="col-md-2 bg-purple decoration-none">
+						<div class="box  text-center white marg-t2">Inico</div>
+					</a>
+					<a href="" class="col-md-2 bg-purple decoration-none">
+						<div class="box text-center white marg-t2">Productos</div>
+					</a>
+					<a href="" class="col-md-2 bg-purple decoration-none">
+						<div class="box text-center white marg-t2">Acerca de Nosotros</div>
+					</a>
+					
+					<a href="" class="col-md-2 bg-purple decoration-none">
+						<div class="box text-center white marg-t2">Contacto</div>
+					</a>
+					<a href="" class="col-md-2 bg-orange decoration-none">
+						<div class="box text-center white marg-t2">Entrar</div>
+					</a>
+					<a href="" class="col-md-2 bg-orange decoration-none">
+						<div class="box text-center white marg-t2">Registrarme</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		</nav>
+		</div>
+	</header>
+<div class="container-fluid bg-gray pad-t10 pad-l08 pad-r08">
+	<section class="row font-ubuntu">
+		<div class="col-xs-12">
+			<div class="box bg-orange">
 
+					<hero class="row height-50 height-10-xs bg-black animated zoomIn img-1">
+					</hero>
+					<inicio id="inicio" class="row bg-purple white font-s20 text-center">
+						<div class="col-xs-12 pad-t2">
+							<p>Facilita tu trabajo con nuestro software</p>	
+						</div>
+						
+					</inicio>
+					<h2 class="marg-l2">Nuestros productos</h2>
+					<productos id="productos" class="row bg-turquoise text-center">
+						<div class="col-sm-4 col-md-4 hauto-xs-div">
+							<div class="width-90p height-70 bg-ubuntu_negativered marg-1 white">
+								<img src="apps/default/user/static/imgs/FlashFront-icon.svg" class="shauto-15 marg-1">
+								<h2 class="text-center"><b>FlashFront</b></h2>
+								<p class="text-justify pad-1">
+									Libreria de CSS para el maquetado rapido de sitios web
+								</p>
+								<div class="ff height-10">
+								<a href="" class="btn bg-pink decoration-none white d-inline-block">
+									Descarga directa
+								</a>
+								<a href="https://github.com/ZerpaTechnology/FlashFront" class="btn bg-bluelight decoration-none white d-inline-block">
+									Ver en github
+								</a>	
+								<a href="https://github.com/ZerpaTechnology/FlashFront" class="btn bg-ubuntu_yellow decoration-none white d-inline-block">
+									Ver Guia de uso
+								</a>	
+								</div>
+								
+							</div>
+						</div>
+						<div class="col-sm-4 col-md-4 hauto-xs-div">
+							<div class="width-90p height-70 bg-ubuntu_green marg-1 white">
+								<img src="apps/default/user/static/imgs/logo.svg" class="shauto-15 marg-1">
+								<h2 class="text-center"><b>AsenZor</b></h2>
+								<p class="text-justify pad-1">
+									Framework diseñado para usar Python bajo el servidor Apache de XAMPP,no te compliques la vida buscando que te expliquen esas cosas que no te dicen de como crear sitios web con python a la hora se configurar tu hosting. Nuestro motor de plantillas es compareble a frameworks como django, web2py, flask y demas.
+								</p>
+								<p>
+									Ideal para trabajos en equipo con programadores de PHP
+								</p>
+								<div class="ff height-10">
+								<a href="" class="btn bg-pink decoration-none white d-inline-block">
+									Descarga directa
+								</a>
+								<a href="https://github.com/ZerpaTechnology/AsenZor" class="btn bg-bluelight decoration-none white d-inline-block">
+									Ver en github
+								</a>	
+								<a href="https://github.com/ZerpaTechnology/FlashFront" class="btn bg-ubuntu_yellow decoration-none white d-inline-block">
+									Ver Guia de uso
+								</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4 col-md-4 hauto-xs-div">
+						<div class="width-90p height-70 bg-ubuntu_negativered marg-1 white">
+							<img src="apps/default/user/static/imgs/logo2.svg" class="shauto-15 marg-1">
+								<h2 class="text-center"><b>PythonZ</b></h2>
+								<p class="text-justify pad-1">
+									¿Alguna vez has intentado hacer una lambda en python tal como la harias en JS?
+									Entonces sabras que esta no pueden ser mas de una linea, pero para PythonZ esto no es problema.Crea funciones anonimas como si de JS se tratara con el codigo limpio que brinda python y ademas si eres aun mas creativo, personaliza las sentencias especiales con el idioma que elijas tan facil como en lugar de <span class="blue">while</span> por ejemplo colocar <span class="blue">mientras</span>, ó <span class="blue">for</span> a <span class="blue">por</span> y más.
 
+								</p>
+								<div class="ff height-10">
+								<a href="" class="btn bg-pink decoration-none white d-inline-block">
+									Descarga directa
+								</a>
+								<a href="https://github.com/ZerpaTechnology/pythonZ" class="btn bg-bluelight decoration-none white d-inline-block">
+									Ver en github
+								</a>
+								<a href="https://github.com/ZerpaTechnology/FlashFront" class="btn bg-ubuntu_yellow decoration-none white d-inline-block">
+									Ver Guia de uso
+								</a>	
+								</div>
+							</div>
+						</div>
+					</productos>
+					<h2 class="marg-l2">Acerca de nosotros</h2>
+					<nosotros id="nosotros" class="row  bg-blue height-70-ddiv">
+						<div class="col-sm-4 col-md-4 hauto-xs-div hauto-sm-div hauto-md-div hauto-lg-div">
+							<div class="width-90p bg-black marg-1 white">
+							<img src="apps/default/user/static/imgs/img-quienes-somos.jpg" class="width-100p">
+								<h2 class="text-center"><b>¿Quienes Somos?</b></h2>
+								<p class="text-justify pad-1">
+									Somos una nueva empresa tecnologica en la cual
+									podras encontrar software novedoso, con los estandares
+									mas actuales del mercado del marketing, si heres una 
+									empresa de servicios y buscas algun framework que te 
+									facilite mas el trabajo, nosotros somos tu opcion indicada.
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-4 col-md-4 hauto-xs-div">
+							<div class="width-90p  bg-black marg-1 white">
+								<img src="apps/default/user/static/imgs/img-mision.png" class="width-100p">
+								<h2 class="text-center"><b>Misión</b></h2>
+								<p class="text-justify pad-1">
+								
+									Brindar software de calidad, enfocados en la ideologia del copyleft damos nuestro aporte a la comunidad de codigo abierto a modo dar a nuestros clientes tecnologia de punta. 
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-4 col-md-4 hauto-xs-div">
+						<div class="width-90p bg-black marg-1 white">
+								<img src="apps/default/user/static/imgs/img-vision.png" class="width-100p">
+								<h2 class="text-center"><b>visión</b></h2>
+								<p class="text-justify pad-1">
+									Ser un punto de referencia en la industria. tal como lo son hoy en dia empresas como Google, Canonical, Apple, Oracle, Microsoft y muchas otras compañias que dia dia estan revolucionando la tecnologia. 
+								</p>
+							</div>
+						</div>
+					</nosotros>
 
+					<h2 class="marg-l2">Curriculum</h2>
+					<equipo id="equipo" class="row bg-ubuntu_ash">
+					<div class="col-sm-12 col-md-2 d-inline-block pad-l2 pad-r1 pad-t2">
+						<div class="box">
+							<div class="row">
+								<div class="col-sm-4 col-md-12 col-lg-12">
+								<img src="apps/default/user/static/imgs/foto.png" class="shauto-20">		
+								</div>
+								<div class="col-sm-8 col-md-12 col-lg-12">
+								<hr>
+								<p class="font-s15 pad-l05 white">Edad:</p>
+								<p class="font-s13 pad-l1">20 años</p>	
+								<p class="font-s15 pad-l05 white">Telefono:</p>
+								<p class="font-s13 pad-l1">0426-1415102</p>
+								<p class="font-s15 pad-l05 white">Correo Electronico:</p>
+								<p class="font-s13 pad-l1">jesus26abraham1996@gmail.com</p>	
+								<hr>
+								<div class="text-center ff marg-t2">
+								<a href="" class="btn pad-1 white decoration-none">
+									Mi portafolio
+								</a>	
+								</div>		
+							</div>
+						
+						</div>
+					</div>
+					
+					
+					
+					
+					</div>
+					
+					<div class="col-md-4 pad-1">
+						<h3>Jesús Abraham Zerpa Maldonado</h3>
+						<p class="text-justify">
+							Soy un joven emprendedor Venezolano, me desempeño en el arte de la programación, desde muy pequeño me ha apasionado la tecnología y es gracias a ese entusiasmo cada día implemento las cosas nuevas que aprendo en mis códigos a fin de crear mi propia tecnología de punta. 
+						</p>
+						<hr>
+						<h4 class="white">Profeción:</h4>
+						<h5>Programación (Full stack developer)</h5>
+						<hr>
+						<h4 class="white">Director ejecutivo y fundador de:</h4>
+						<img src="apps/default/user/static/imgs/CIDGUN.png" class="shauto-10">
+						<h5>CIDGUN (Centro de Innovación y Desarrollo Gran UNEXPO)</h5>
+						<img src="apps/default/user/static/imgs/21667293.png" class="shauto-10">
+						<h5>ZerpaTechnology (start up)</h5>
+						<hr>
+						<h3 class="white">Experiencia laboral</h3>
+						<div class="size-6-a-img">
+							<a href=""><img src="apps/default/user/static/imgs/icono-twitter_400x400.jpg"></a>
+							<a href=""><img src="apps/default/user/static/imgs/logo_white.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/ISMCenter.png"></a>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-5 pad-05 bg-ubuntu_jet">
+						<h3 class="white">Grado academico</h3>
+						<h5 class="white">Estudiante universitario de Ing. Mecatrónica (Actualmente)</h5>
+						<a href="" class=" text-center d-inline-block b-s1 pad-05">
+							<img src="apps/default/user/static/imgs/leon.jpg" class="shauto-5 marg-auto">
+							<h5>PRE-ESCOLAR/PRIMARIA</h5>
+						</a>
+						<a href="" class=" text-center d-inline-block b-s1 pad-05">
+							<img src="apps/default/user/static/imgs/asis.jpg" class="shauto-5 marg-auto">
+							<h5>PRIMARIA</h5>
+						</a>
+						<a href="" class=" text-center d-inline-block b-s1 pad-05">
+							<img src="apps/default/user/static/imgs/colegio.jpg" class="shauto-5 marg-auto">
+							<h5>PRIMARIA/BACHILLERATO</h5>
+						</a>
+						<a href="" class="text-center d-inline-block b-s1 pad-05">
+							<img src="apps/default/user/static/imgs/images.png" class="shauto-5 marg-auto">
+							<h5>UNIVERSIDAD</h5>
+						</a>
+						<hr>
+
+						<h3 class="white">Herramientas Dominadas</h3>
+						<div class="size-5-a-img size-5-a b-a-s inline-block-a pad-0-a">
+							<a href=""><img src="apps/default/user/static/imgs/ventajas-wordpress.jpg"></a>
+							<a href=""><img src="apps/default/user/static/imgs/laravel.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/opengraph-icon-200x200.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/logo-php-adbac78231.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/mysql-logo900.jpg"></a>
+							<a href=""><img src="apps/default/user/static/imgs/Tux.svg.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/HTML5_Logo_512.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/CSS3Logo.jpg"></a>
+							<a href=""><img src="apps/default/user/static/imgs/javascript_logo.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/django_serious-pony-331x300.jpg"></a>
+							<a href=""><img src="apps/default/user/static/imgs/windows_logo.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/logo_db.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/java-oracle.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/Logo sublime 3.png"></a>
+							<a href=""><img src="apps/default/user/static/imgs/git4.jpg"></a>
+							<a href=""><img src="apps/default/user/static/imgs/e21d5545f8a23cc201b51908c0f5b54b.jpg"></a>
+							<a href=""><img src="apps/default/user/static/imgs/bootstrap.png"></a>
+							<a href="" class="bg-purple white alg-top"><div class="text-center pad-t05">Ver mas</div></a>
+						</div>
+						<hr>
+						<h4 class="white">Cursos realizados</h4>
+						<div>
+							<a href="">
+								<img class="bg-black shauto-5" src="apps/default/user/static/imgs/logo-cf-small-8d88fa671cd7086fabf538a90671265519f91eaaccc611308c3e5000ed4fc2ab.png">
+							</a>
+							<a href="">
+								<img class="bg-black shauto-5" src="apps/default/user/static/imgs/logo.jpg">
+							</a>
+							<a href="">
+								<img class="bg-black shauto-5" src="apps/default/user/static/imgs/logo.png">
+							</a>
+							<a href="">
+								<img class="bg-black shauto-5" src="apps/default/user/static/imgs/Cursos-En-Margarita-De-Asistente-De-Laboratorio-20160524235630.png">
+							</a>
+						</div>
+					</div>
+										
+					</equipo>
+					<h2 class="marg-l2">Contacto</h2>
+					<contacto class="row bg-blue">
+					<div class="col-sm-12 col-md-12 col-lg-12 pad-1">
+						<form class=" marg-l20p-xs text-center ff">
+						<input type="text" name="" placeholder="Escribe tu nombre" class="width-50 width-20-xs height-3 text-center">
+						<br>
+						<input type="text" name="" placeholder="Escribe tu direccion de Email" class="width-50 width-20-xs height-3 text-center" >
+						<br>
+						<textarea placeholder="Mensaje" class="width-50 width-20-xs height-10 text-center font-s15">
+						</textarea>	
+						<br>
+						<input type="submit" name="Enviar" class="btn white">
+						</form>
+					</div>
+						
+					</contacto>
+			
+			
+			</div>
+		<div>
 	</section>
+	{{#incluir(data,"widget-marco")}}
 
-	{{incluir(data,"footer")}}	
+
+	
+	<footer class="row">
+		<div class="col-xs-12 text-center pad-t5 bg-concret height-10">
+			ZerpaTechnology@2016
+		</div>
+	</footer>
+
+
+
+</div>
+
 </body>
 </html>

@@ -1,0 +1,14 @@
+<!--Este widget requiere "widgetPag", "widgetPagFila" -->
+<div class="text-center">
+	{{c=0}}
+	{{col=len(data["widgetsPag"]/data["widgetsPagFila"])}}
+	{{while c<len(data["widgetsPag"]) and c<data["widgetsPagFila"]:}}
+		{{print data["widgetsPag"][c]}}
+		{{c+=1}}
+	{{pass}}
+	{{c=0}}
+	{{while c<col:}}
+		<div class="d-inline-block">{{print c}}</div>
+		{{c+=1}}
+	{{pass}}
+</div>

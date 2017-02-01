@@ -1,0 +1,1 @@
+print '''<div><style>  .thumb {    height: 150px;    border: 1px solid #000;    margin: 10px 5px 0 0;  }</style><output id="''',data['output'],'''"></output></div>''',

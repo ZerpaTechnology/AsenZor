@@ -1,0 +1,18 @@
+
+<div class="text-center width-40 height-50 bg-ubuntu_jet white d-inline-block marg-1">
+	<form class="width-40 height-50">
+	<label>Titulo de la noticia</label><br>
+	<input type="text" name="titulo" class="d-inline-block width-95p"><br>
+	{{incluir(data,"previewImg-marco")}}
+	{{incluir(data,"previewImg-boton")}}
+	
+	<label>Texto de la noticia</label><br>
+	<textarea name="noticia" class="d-inine-block width-95p height-20"></textarea><br>
+
+	<input type="submit" name="" value="Guardar" class="pad-1 bg-ubuntu_blue white marg-t1 d-inline-block"><br>
+	
+	<a onclick="{{print data['funCerrar']}}()" class="pad-1 marg-t1 bg-ubuntu_red white d-inline-block width-10" >Cancelar</a>
+	<input type="text" name="action" value="crearNoticia" class="hidden">
+
+	</form>
+</div>

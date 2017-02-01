@@ -16,9 +16,11 @@ def invertString(cad):
 	for elem in cad:
 		c=elem+c
 	return c
-def DateTime(H=0,M=0,S=0,d=0,w=0,mS=0,fechaHora=None,plus="+"):
+def DateTime(H=0,M=0,S=0,d=0,w=0,mS=0,fechaHora=None,plus="+",formato='%d/%m/%y %H:%M:%S',num=None,obj=False,ignorar=[]):
 	from datetime import datetime, date, time, timedelta
 	import calendar
+	for elem in ignorar:
+		formato=formato.replace(elem,"")
 	if fechaHora!=None:
 		ahora=fechaHora
 	else:
@@ -29,7 +31,23 @@ def DateTime(H=0,M=0,S=0,d=0,w=0,mS=0,fechaHora=None,plus="+"):
 		ahora-=timedelta(hours=H,minutes=M,seconds=S,days=d,weeks=w,microseconds=mS)
 	else:
 		print "Solo esta permitido sumar o restar."
-	return ahora
+	if num=="dia":
+		return ahora.day
+	elif num=="mes":
+		return ahora.month
+	elif num=="año":
+		return ahora.year
+	elif num=="hora":
+		return ahora.hours
+	elif num=="minuto":
+		return ahora.minute
+	elif num=="segundo":
+		return ahora.second
+	else:
+		if obj==False:
+			return formato.replace("%d",str(ahora.day)).replace("%m",str(ahora.month)).replace("%y",str(ahora.year)).replace("%H",str(ahora.hour)).replace("%M",str(ahora.minute)).replace("%S",str(ahora.second))
+		else:
+			return ahora
 
 
 
@@ -327,6 +345,9 @@ def getTab(linea):
 	while c <len(linea):
 		if linea[c]=="\t" or linea[c]=="\r" or linea[c]==" ":
 			cadena+=linea[c] 
+		else:
+			return cadena
+
 		c+=1
 	return cadena
 

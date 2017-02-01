@@ -1,0 +1,13 @@
+<!--Parametros requeridos: input , output , detalle -->
+<div>
+<style>
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
+<input type="file" id="{{print data['input']}}" name="{{print data['input']}}[]" multiple />
+<output id="{{print data['output']}}"></output>
+{{importar(data,"previewImg")}}
+</div>

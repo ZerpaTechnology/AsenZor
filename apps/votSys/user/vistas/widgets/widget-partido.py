@@ -1,0 +1,3 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+print '''<div class="text-center d-inline-block">	<a href="'''+str(config.base_url+'app='+data['app']+'&vista=verPartidoDetalle')+'''" class="bg-ubuntu_orange white d-block decoration-none">Ver Propuesta</a>	<img src="'''+str(data['base_url']+'static/imgs/marker/partido-default.png')+'''">	<span class="d-block">Nombre del Partido</span>	<h5>Votos: <span>10</span></h5></div>'''

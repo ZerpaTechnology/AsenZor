@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{{incluir(data,"head")}}
+{{data["detalle"]=False}}
+{{data["output"]="marco"}}
+{{data["input"]="upload"}}
+
+<body class="container-fluid sin-marg pad-r08 pad-l08 ff">
+{{incluir(data,"header")}}
+{{incluir(data,"hero")}}
+{{incluir(data,"barra-buscador")}}
+
+<section class="row">
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+<div class="pad-2">
+<h1>Registrarse</h1>
+<p>Gracias por decidirte a usar nuestro sistema de votación</p>
+</div>
+
+</div>
+
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+{{print data["zform"]}}
+</div>
+</section>
+{{incluir(data,"footer")}}
+</body>
+</html>

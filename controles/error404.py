@@ -19,14 +19,14 @@ try:
 	# =desarrollo (config.mod_debug == True & este modo solo se usa para el admin)
 	# =N (config.mod_debug == True & se administran versiones "N" es un numero)
 	#--------------------------------------------------
-	
+
 	config.custom_url=newRoot
 	#print newRoot
 	
-
 	parametros_url=newRoot[-1].split("&")
-	
-	
+	#print newRoot
+
+
 	
 	parametros_rest={}
 	
@@ -49,7 +49,9 @@ try:
 				for elem in parametros_url:
 					a=elem.split("=")
 					parametros_rest[a[0]]=a[1]
+
 			else:
+
 				if "vista=" not in newRoot[-1]:
 			  		parametros_rest["vista"]="index"
 			  	else:
@@ -58,9 +60,9 @@ try:
 			  	if "app=" not in newRoot[-1]:
 			  		parametros_rest["app"]="default"
 			  	else:
+			  		
 			  		parametros_rest["app"]=newRoot[-1].split("=")[1]
 
-			  	
 
 
 	notfound=False
@@ -75,7 +77,8 @@ try:
 
 			
 except Exception, ex:
-	print "<h1>Hay un error: </h1>"
-	print "<p>"+str(Exception)[1:-1]+"</p>"
-	print "<p>"+str(ex)+"</p>"
+	print "<h1>La query enviada tiene un error, por favor utilice parametros validos</h1>"
+	if config.mod_debug==False:
+		print "<p>"+str(Exception)[1:-1]+"</p>"
+		print "<p>"+str(ex)+"</p>"
 

@@ -2,7 +2,7 @@
 proyectos=["default","ej"]#lista de proyectos en el framework
 proyectos_disp=["ej","default"]#lista de proyectos habilitados
 host="https://localhost/"
-fmk_dir="AsenZor"
+fmk_dir="zerpatec"
 fmk_url=fmk_dir+"/"
 base_url=host+fmk_url
 apps=["default"]

@@ -1,0 +1,3 @@
+print '<div class="bg-ubuntu_porcelain b-solid b-white b-r8 d-inline-block width-35  marg-1 pad-1"><a href=""><img src="'
+print data['base_url']+'static/imgs/prisma.png'
+print '" class="shauto-10"><h5>Nombre del proyecto</h5><p>Actividad realizada 2016</p></a><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodoconsequat. Duis aute irure dolor in reprehenderit in voluptate velit essecillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat nonproident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></div>'

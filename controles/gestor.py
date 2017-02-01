@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+#ultima:5/1/2017
 try:
 	#------------------------------------------------
 	#HEAD
@@ -29,7 +30,7 @@ try:
 
 	lista=lista[:-2]+"}"
 	f=open(config.base_root+"config/config.json","w")
-	lista=lista.encode("base64")
+	#lista=lista.encode("base64")
 	f.write(lista)
 	f.close()
 		
@@ -40,6 +41,10 @@ try:
 	def generar(ruta_html,ruta_python,cabecera):
 		import ztec.intervalor.control
 		ztec.intervalor.control.generar(ruta_html,ruta_python,cabecera)
+	
+	def generar2(ruta_html,ruta_python,cabecera):
+		import ztec.intervalor.control
+		ztec.intervalor.control.generar2(ruta_html,ruta_python,cabecera)
 	
 
 	def darTipo(valor):
@@ -55,7 +60,8 @@ try:
 		sys.path.append(ruta_html+"../")
 		import settings.roots as roots
 		import ztec.zu as zu
-		generar(ruta_html+vista+".html",ruta_python+vista+".py","# -*- coding: utf-8 -*-\n")
+		from ztec.zred import HEAD,TITLE,BASE,LINK,META,STYLE,SCRIPT,NOSCRIPT,BODY,SECTION,NAV,ARTICLE,ASIDE,H1,H2,H3,H4,H5,H6,HEADER,FOOTER,ADDRESS,MAIN,P,HR,PRE,BLOCKQUOTE,OL,UL,LI,DL,DT,DD,FIGURE,FIGCAPTION,DIV,A,EM,STRONG,SMALL,S,CITE,Q,DFN,ABBR,DATA,TIME,CODE,VAR,SAMP,KBD,SUB,SUP,I,B,U,MARK,RUBY,RT,RP,BDI,BDO,SPAN,BR,WBR,INS,DEL,IMG,IFRAME,EMBED,OBJECT,PARAM,VIDEO,AUDIO,MAP,AREA,MATH,TABLE,CAPTION,COLGROUP,COL,TR,TD,FORM,FIELDSET,LEGEND,LABEL,INPUT,BUTTON,SELECT,DATALIST,OPTION,TEXTAREA,KEYGEN,OUTPUT,PROGRESS,METER,DETALIST,COMMAND,MENU,SUMMARY
+		generar2(ruta_html+vista+".html",ruta_python+vista+".py","#!/usr/bin/python\n# -*- coding: utf-8 -*-\n")
 		f=open(ruta_python+vista+".py","r")
 		html=f.read()
 		f.close()
@@ -65,9 +71,60 @@ try:
 		data["sys"]=sys
 		data["ruta_html"]=ruta_html
 		data["generar"]=generar
+		data["generar2"]=generar2
 		data["__import__"]=__import__
 		data["__builtins__"]=__builtins__
-		
+
+
+		class importar:
+				"""docstring for ClassName"""
+				def __init__(self, data,*widgets):
+					
+					import sys
+					import config
+					import settings.roots as roots
+					import __builtin__
+					import copy
+					
+
+					widget=""
+					
+					importar=copy.copy(self).__init__
+					str=data["__builtins__"]["str"]
+					int=data["__builtins__"]["int"]
+					float=data["__builtins__"]["float"]
+					list=data["__builtins__"]["list"]
+					tuple=data["__builtins__"]["tuple"]
+					dir=data["__builtins__"]["dir"]
+					open=data["__builtins__"]["open"]
+					Exception=data["__builtins__"]["Exception"]
+					for elem in dir(__builtin__):
+						try:
+							exec("import __builtin__."+elem+" as "+elem)
+						except Exception as e:
+							pass
+						
+					ruta_html=data["ruta_html"]
+					generar2=data["generar2"]
+					
+					for w in widgets:
+						
+						generar2(data["base_root"]+roots.widgets_js+w+".js",data["base_root"]+roots.widgets_js+w+".py","#!/usr/bin/python\n# -*- coding: utf-8 -*-\n")
+						f=open(data["base_root"]+roots.widgets_js+w+".py","r")
+						widget+=f.read()+"\n"
+						f.close()
+
+					
+					try:
+									
+							exec(widget)
+
+					except Exception, e:
+							print "Problemas al incluir el script(s): ",widgets,"<br>"
+							print e
+
+			
+		data["importar"]=importar
 		class incluir:
 			"""docstring for ClassName"""
 			def __init__(self, data,*widgets):
@@ -77,11 +134,13 @@ try:
 				import settings.roots as roots
 				import __builtin__
 				import copy
+				
 
 
 				widget=""
 				
 				incluir=copy.copy(self).__init__
+				importar=data["importar"]
 				str=data["__builtins__"]["str"]
 				int=data["__builtins__"]["int"]
 				float=data["__builtins__"]["float"]
@@ -90,6 +149,8 @@ try:
 				dir=data["__builtins__"]["dir"]
 				open=data["__builtins__"]["open"]
 				Exception=data["__builtins__"]["Exception"]
+
+
 				for elem in dir(__builtin__):
 					try:
 						exec("import __builtin__."+elem+" as "+elem)
@@ -97,26 +158,46 @@ try:
 						pass
 					
 				ruta_html=data["ruta_html"]
-				generar=data["generar"]
-				
-				for w in widgets:
-					generar(ruta_html+roots.widgets_folder+w+".html",ruta_html+roots.widgets_folder+w+".py","")
-					f=open(ruta_html+roots.widgets_folder+w+".py","r")
-					widget+=f.read()+"\n"
-					f.close()
-				
-				exec(widget)
-				
+				generar2=data["generar2"]
+				if "embebido" in data:
+					for w in widgets:
+						if data["embebido"]=="php":
+							generar2(ruta_html+roots.widgets_folder+w+".html.php",ruta_html+roots.widgets_folder+w+".php","")
+						elif data["embebido"]=="rb":
+							generar2(ruta_html+roots.widgets_folder+w+".html.erb",ruta_html+roots.widgets_folder+w+".rb","")
+						f=open(ruta_html+roots.widgets_folder+w+".py","r")
+						widget+=f.read()+"\n"
+						f.close()
+				else:
+
+
+					for w in widgets:
+						
+						generar2(ruta_html+roots.widgets_folder+w+".html",ruta_html+roots.widgets_folder+w+".py","#!/usr/bin/python\n# -*- coding: utf-8 -*-\n")
+						f=open(ruta_html+roots.widgets_folder+w+".py","r")
+						
+						widget+=f.read()+"\n"
+						f.close()
+						try:
+
+							exec(widget)
+						except Exception as e:
+							print "Problemas al incluir el widget(s): ",widgets,"<br>"
+							print str(e),"<br>"
+
+	
+		
+
+					
 
 		try:
 			exec(html)
 		except Exception as e:
 			print e
-		
 
 	def administrar(rest={}):
 		modulos={}
-
+		
 		if rest=={}:
 			archivo_act=sys.argv[0].split("/")[-1]
 			request=cgi.FieldStorage()
@@ -127,10 +208,15 @@ try:
 			vista="index"
 		else:
 			app=rest["app"]
-			vista=rest["vista"]
+			if "vista" in rest:
+				vista=rest["vista"]
+			else:
+				vista="index"
 			
-
-
+		if "admin" not in rest or ("admin" in rest and rest["admin"]!="True"):
+			usuario="user"
+		else:
+			usuario="admin" 
 
 
 
@@ -143,8 +229,8 @@ try:
 
 		if config.mod_debug==False:
 			appcontroller=config.base_root+config.apps_url+app+"/user/"+config.controller_url
-			root_app_current=config.base_root+config.apps_url+app+"/user/"
-			url_app_current=config.base_url+config.apps_url+app+"/user/"
+			root_app_current=config.base_root+config.apps_url+app+"/"+usuario+"/"
+			url_app_current=config.base_url+config.apps_url+app+"/"+usuario+"/"
 			#print '<meta http-equiv="refresh" content="0;url='+appcontroller+""+ '" /> '
 			parametros=rest
 			parametros["base_root"]=root_app_current
@@ -152,6 +238,7 @@ try:
 			
 			modulos["ztec"]=ztec
 			#Establece coneccion con el controlador de la aplicación
+			
 			cnt_file=open(appcontroller,"r")
 			cnt=cnt_file.read()
 			cnt_file.close()
@@ -189,8 +276,8 @@ try:
 			else:
 				
 				appcontroller=config.base_root+config.projects_url+app+"/user/"+config.controller_url
-				root_app_current=config.base_root+config.projects_url+app+"/user/"
-				url_app_current=config.base_url+config.projects_url+app+"/user/"	
+				root_app_current=config.base_root+config.projects_url+app+"/"+usuario+"/"
+				url_app_current=config.base_url+config.projects_url+app+"/"+usuario+"/"	
 				parametros=rest
 				
 				parametros["base_root"]=root_app_current

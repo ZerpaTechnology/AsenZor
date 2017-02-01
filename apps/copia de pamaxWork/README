@@ -1,0 +1,4 @@
+Este sección esta compuesto por dos aplicaciones
+	admin: Es la aplicación de administracion del framework
+	default: Es la aplicación que se muestra por defecto al usuario final que accede al sitio
+	#nota se pueden crear mas aplicaciones, pero las que esten en esta area tienen que ser una version estable 

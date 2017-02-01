@@ -1,0 +1,21 @@
+<!-- Este widget requiere "input" "outuput" "action"-->
+<div class="width-25">
+<form action="post.py">
+
+{{if "action" in data:}}
+	<input type="text" name="noticia-title" placeholder="Escribe el nombre de la noticia">
+	<textarea>{{print data["noticia-descripcion"]}}</textarea>
+	<input type="text" class="hidden" name="noticia" value="{{print data['noticia_id']}}" >	
+{{else:}}
+	<input type="text" name="noticia-title" placeholder="Escribe el nombre de la noticia" value="{{print data['noticia-title']}}">
+	<textarea></textarea>
+{{pass}}
+{{incluir(data,"previewImg")}}
+<input type="submit" name="" value="Publicar" class="btn">
+<input type="text" class="hidden" name="action" value="{{print data['action']}}" >		
+
+</form>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
+</div>
+

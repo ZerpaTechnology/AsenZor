@@ -1,0 +1,26 @@
+{{import calendar}}
+{{calendario=calendar.moth(data["año"],data["mes"]).split("\n")}}
+{{mes=calendario[0]}}
+{{semanas=calendario[1].split(" ")}}
+{{semana1=[]}}
+{{c=0}}
+{{semana1=calendario[2]}}
+{{semana2=calendario[3]}}
+{{semana3=calendario[4]}}
+{{semana4=calendario[5]}}
+{{semana5=calendario[6]}}
+<div>
+	<table>
+
+			<tr>
+				<td>{{print data["Domingo"]}}</td>
+				<td>{{print data["Lunes"]}}</td>
+				<td>{{print data["Martes"]}}</td>
+				<td>{{print data["Miercoles"]}}</td>
+				<td>{{print data["Jueves"]}}</td>
+				<td>{{print data["Viernes"]}}</td>
+				<td>{{print data["Sabado"]}}</td>
+			</tr>
+		
+	</table>
+</div>

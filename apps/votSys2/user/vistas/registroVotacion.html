@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+{{incluir(data,"head")}}
+{{data["detalle"]=False}}
+{{data["input"]="btn1"}}
+{{data["output"]="marco"}}
+<body class="container-fluid sin-marg pad-r08 pad-l08 ff">
+{{incluir(data,"header")}}
+{{incluir(data,"hero")}}
+{{incluir(data,"barra-buscador")}}
+<section class="row">
+<div class="col-md-3">
+<h1>Crea tu votación</h1>
+{{incluir(data,"previewImg-marco")}}
+<h5> Nombre de la votación</h5>	
+</div>
+<div class="col-md-9 bg-ubuntu_ash pad-2">
+<form class="ff text-center" id="registroVotacion">
+<div>
+	<label>Nombre de la Votacion: </label>
+	<input type="text" name="" placeholder="Escribe tu nombre">
+	
+</div>
+
+<div>
+	<h5>Foto de identificación: </h5>
+	{{incluir(data,"previewImg-boton")}}
+	
+	
+</div>
+<input type="submit" name="" value="Registrarme" class="btn white">
+</form>	
+</div>
+
+</section>
+{{incluir(data,"footer")}}
+</body>
+</html>

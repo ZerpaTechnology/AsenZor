@@ -1,0 +1,63 @@
+// ED GRID
+// Desde este archivo podrá modificar los componentes y valores
+// por defecto de ed-grid
+//fuentes
+
+@font-face{
+	font-family:Kano;
+	src:url(../fonts/Kano.otf);
+}
+
+$kano:Kano;
+// flex-container y flex-item
+$container: ed-container;
+$item: ed-item;
+
+//colores
+$azul_claro:#2D87C3;
+$azul_oscuro:#1979BD;
+$negro:#444444;
+$azul_flat:#34495E;
+$rojo_flat:#E74C3C;
+$letra:#ACBBC2;
+
+// Ancho máximo de cada container
+$max-width: 1200px;
+
+// Separación entre items
+$padding: 15px;
+
+// Tamaños. Puede editar los nombres y las
+// medidas, añadir más o quitar.
+// todo: crear funcion para convertir px a em y usarla aqui
+$breakpoints: (
+  base   : 320px,
+  movil  : 480px,
+  tablet : 768px,
+  web    : 1024px,
+  hd     : 1400px
+);
+
+$fractions: 3 6 8;
+
+// Por favor desactive los que no vaya a usar para mejorar el rendimiento
+
+@import "componentes/base";        // Estilos básicos para RWD
+@import "componentes/core";        // Núcleo de ED GRID, grupos y cajas
+@import "componentes/mixins";      // Mixins ED GRID
+@import "componentes/desarrollo";  // Modo desarrollo
+@import "componentes/visibilidad"; // Controlar la visibilidad
+@import "componentes/utilidades";  // Utilidades adicionales
+@import "componentes/video";       // Videos responsive
+@import "componentes/ed-menu";     // Ed menu
+@import "componentes/flexbox";     // Flexbox
+@import "componentes/offset";      // Offset
+@import "componentes/modulos";      // Botones, sociales
+@import "componentes/header";
+@import "componentes/menu_lateral";
+@import "componentes/inicio";
+@import "componentes/login";
+@import "componentes/departamento";
+@import "componentes/cronometro";
+@import "componentes/modal";
+@import "componentes/project-pendientes";

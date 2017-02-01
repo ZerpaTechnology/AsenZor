@@ -1,0 +1,3 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+print '''<div class="bg-ubuntu_jet d-inline-block text-center"><img src="'''+str(data['base_url']+'static/imgs/marker/institucion-default.png')+'''"><h3 class="white">Tiempo restante: </h3><span class="ubuntu_green">1:00</span><h3 class="white">Marcador:</h3><div>	<h4 class="white">Partido</h4>	<img src="'''+str(data['base_url']+'static/imgs/marker/partido-default.png')+'''" class="shauto-5"><span class="white"> Votos: 0</span>	<h4 class="white">Partido</h4>	<img src="'''+str(data['base_url']+'static/imgs/marker/partido-default.png')+'''" class="shauto-5"><span class="white"> Votos: 0</span></div></div>'''

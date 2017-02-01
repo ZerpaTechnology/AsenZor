@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+{{incluir(data,"head")}}
+{{data["detalle"]=False}}
+{{data["output"]="marco"}}
+{{data["input"]="btn"}}
+
+<body class="container-fluid sin-marg pad-r08 pad-l08 ff">
+{{incluir(data,"header")}}
+{{incluir(data,"hero")}}
+{{incluir(data,"barra-buscador")}}
+
+<section class="row">
+<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+<div class="pad-2">
+<h1>Actualizar perfil</h1>
+<span>Foto Actual</span>
+<br>
+<img src="{{print data['base_url']+'static/imgs/marker/partido-default.png'}}" class="shauto-20">
+<br>
+<br>
+<span>Foto a cambiar</span>
+{{incluir(data,"previewImg-marco")}}
+
+</div>
+
+</div>
+<form class="col-xs-12 col-sm-6 col-md-6 col-lg-6" name="" id="perfil" >
+<div class="height-25 bg-ubuntu_ash pad-2" >
+<label>Nombres: </label>
+<input type="text" name="" placeholder="Nombre">
+<br>
+<label>Apellidos: </label>
+<input type="text" name="" placeholder="Nombre">
+<br>
+<label>Foto de perfil: </label>
+{{incluir(data,"previewImg-boton")}}
+<br>
+<label>Expediente: </label>
+<input type="text" name="" placeholder="Nombre">
+<br>
+<input type="submit" name="" value="Actualizar">
+</div>
+</form>
+</section>
+{{incluir(data,"footer")}}
+</body>
+</html>
